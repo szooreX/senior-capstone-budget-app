@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/goalsFragment">
+
+    <fragment
+        android:id="@+id/goalsFragment"
+        android:name="com.example.senior_capstone_budget_app.OptionsFragment"
+        tools:layout="@layout/fragment_goals">
+
+        <action
+            android:id="@+id/action_HomeFragment_to_SecondFragment"
+            app:destination="@id/accountsFragment" />
+        <action
+            android:id="@+id/action_optionsFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_optionsFragment_to_pieChartFragment"
+            app:destination="@id/pieChartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountsFragment"
+        android:name="com.example.senior_capstone_budget_app.AccountsFragment"
+        tools:layout="@layout/fragment_accounts">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_HomeFragment"
+            app:destination="@id/goalsFragment" />
+        <action
+            android:id="@+id/action_secondFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_secondFragment_to_optionsFragment"
+            app:destination="@id/goalsFragment" />
+        <action
+            android:id="@+id/action_secondFragment_to_pieChartFragment"
+            app:destination="@id/pieChartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.senior_capstone_budget_app.DashboardFragment"
+        android:label="DashboardFragment" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_optionsFragment"
+            app:destination="@id/goalsFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_secondFragment"
+            app:destination="@id/accountsFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_pieChartFragment"
+            app:destination="@id/pieChartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pieChartFragment"
+        android:name="com.example.senior_capstone_budget_app.PieChartFragment"
+        android:label="PieChartFragment" >
+        <action
+            android:id="@+id/action_pieChartFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_pieChartFragment_to_optionsFragment"
+            app:destination="@id/goalsFragment" />
+        <action
+            android:id="@+id/action_pieChartFragment_to_secondFragment"
+            app:destination="@id/accountsFragment" />
+        <action
+            android:id="@+id/action_pieChartFragment_to_secondFragment2"
+            app:destination="@id/accountsFragment" />
+    </fragment>
+</navigation>

@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">arvio</string>
+    <string name="app_name">ARVIO</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
 
-    <string name="app_title">arvio</string>
+    <string name="app_title">ARVIO</string>
     <!-- Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.senior_capstone_budget_app
 
-import android.app.Activity
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
@@ -55,24 +53,19 @@ class OptionsFragment : Fragment() {
         //put functional code here for function calls, etc.
         getGoalItems()
 
-
-//        view.findViewById<Button>(R.id.button_first).setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-//        }
-
         goalItemAdapter.setOnItemClickListener { item, _ ->
-            when ((item as GoalAdapter).itemID) {
-                0 -> {
-                    item1Action()
-                }
-                1 -> {
-                    item2Action()
-                }
-            }
+
+            goalItemAction(item)
+//            when ((item as GoalAdapter).itemID) {
+//                0 -> {
+//                    item1Action()
+//                }
+//                1 -> {
+//                    item2Action()
+//                }
+//            }
         }
     }
-
-
 
     private fun getGoalItems() {
         val image1: Drawable? =
@@ -123,19 +116,11 @@ class OptionsFragment : Fragment() {
         displayItems = goalItems
     }
 
-    private fun item1Action() {
-
-        (activity as Activity).findNavController(R.id.nav_host_fragment)
-            .navigate(R.id.action_HomeFragment_to_SecondFragment)
+    private fun goalItemAction(item: com.xwray.groupie.Item<com.xwray.groupie.GroupieViewHolder>) {
+        //handle goal click action
 
     }
 
-    private fun item2Action() {
-
-//        (activity as Activity).findNavController(R.id.nav_host_fragment)
-//            .navigate(R.id.action_homeFragment_to_distributorLocatorFragment)
-
-    }
 }
 
 class GoalAdapter(private val item: GoalItem) : Item() {

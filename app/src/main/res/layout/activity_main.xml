@@ -10,33 +10,29 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="#FF1F3C88"
         android:theme="@style/Theme.PivotPortfolios.AppBarOverlay">
 
-        <TextView
-            android:id="@+id/textView"
+        <ImageView
+            android:id="@+id/appHeader"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/andika"
-            android:gravity="center"
-            android:text="@string/app_title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="#333333"
-            android:textSize="35sp"
-            android:typeface="normal" />
+            android:layout_height="88dp"
+            android:background="#FF1F3C88"
+            app:srcCompat="@drawable/ic_centered_transparent_logo" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:tabIndicatorColor="#00BCD4"
-            app:tabTextColor="#292929">
+            android:background="#1A3375"
+            app:tabIndicatorColor="#000000"
+            app:tabTextColor="#FFFFFF">
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/dashboardTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="My Dash" />
+                android:text="DASHBOARD" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/accountsTab"
@@ -48,12 +44,14 @@
                 android:id="@+id/goalsTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Goals" />
+                android:text="My Goals" />
         </com.google.android.material.tabs.TabLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/nav_host_fragment" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/nav_host_fragment" />
 
     <TableLayout
         android:layout_width="match_parent"
@@ -70,43 +68,46 @@
                 android:id="@+id/imageView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
-                app:srcCompat="@drawable/storage_icon" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="4dp"
-                app:srcCompat="@drawable/notes_icon" />
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="8dp"
+                app:srcCompat="@drawable/ic_news__newspaper__media__paper__press__article" />
 
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
-                app:srcCompat="@drawable/ic_stocks_icon" />
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="8dp"
+                app:srcCompat="@drawable/ic_chart__infographic__insight__analytics__presentation__line__fragment" />
 
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
-                app:srcCompat="@drawable/lightbulb_icon" />
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="8dp"
+                app:srcCompat="@drawable/ic_money__bill__cash__pay" />
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
-                app:srcCompat="@drawable/calendar_icon" />
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="8dp"
+                app:srcCompat="@drawable/ic_send__money__bill__payment__envelope" />
 
             <ImageView
                 android:id="@+id/imageView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
-                app:srcCompat="@drawable/options_icon" />
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="8dp"
+                app:srcCompat="@drawable/ic_settings__setup__set__gear__mechanic" />
         </TableRow>
 
     </TableLayout>

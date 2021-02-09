@@ -1,4 +1,4 @@
-package com.example.senior_capstone_budget_app
+package com.example.senior_capstone_budget_app.ui.tabs
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.senior_capstone_budget_app.R
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
@@ -69,15 +70,20 @@ class OptionsFragment : Fragment() {
 
     private fun getGoalItems() {
         val image1: Drawable? =
-            context?.let { ResourcesCompat.getDrawable(it.resources, R.drawable.ic_button_background, null) }
+            context?.let { ResourcesCompat.getDrawable(it.resources,
+                R.drawable.ic_button_background, null) }
         val image2: Drawable? =
-            context?.let { ResourcesCompat.getDrawable(it.resources, R.drawable.ic_button_background, null) }
+            context?.let { ResourcesCompat.getDrawable(it.resources,
+                R.drawable.ic_button_background, null) }
         val image3: Drawable? =
-            context?.let { ResourcesCompat.getDrawable(it.resources, R.drawable.ic_button_background, null) }
+            context?.let { ResourcesCompat.getDrawable(it.resources,
+                R.drawable.ic_button_background, null) }
         val image4: Drawable? =
-            context?.let { ResourcesCompat.getDrawable(it.resources, R.drawable.ic_button_background, null) }
+            context?.let { ResourcesCompat.getDrawable(it.resources,
+                R.drawable.ic_button_background, null) }
         val image5: Drawable? =
-            context?.let { ResourcesCompat.getDrawable(it.resources, R.drawable.ic_button_background, null) }
+            context?.let { ResourcesCompat.getDrawable(it.resources,
+                R.drawable.ic_button_background, null) }
         //create home menu items
         val goalItems = ArrayList<GoalItem>()
         val item1 = GoalItem(

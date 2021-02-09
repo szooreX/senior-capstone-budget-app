@@ -1,4 +1,4 @@
-package com.example.senior_capstone_budget_app
+package com.example.senior_capstone_budget_app.ui.tabs
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

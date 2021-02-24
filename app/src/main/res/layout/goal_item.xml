@@ -3,37 +3,77 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="wrap_content"
+    android:paddingLeft="20dp"
+    android:paddingTop="10dp"
+    android:paddingRight="20dp">
 
-    <ImageView
-        android:id="@+id/goalImageView"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:cropToPadding="true"
-        android:padding="1dp"
-        android:scaleType="fitXY"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/ic_button_background" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/goalTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:background="#00101010"
-        android:fontFamily="sans-serif"
-        android:padding="14dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textColor="#040404"
-        android:textSize="18sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Goal" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#990038AA"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/goalName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:background="#00101010"
+                android:fontFamily="@font/anaheim"
+                android:gravity="center|center_horizontal|center_vertical"
+                android:padding="3dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="normal|bold"
+                tools:text="Goal" />
+
+
+            <TextView
+                android:id="@+id/percentComplete"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:background="#00101010"
+                android:fontFamily="@font/anaheim"
+                android:padding="3dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="#FFEAEAEA"
+                android:textSize="12sp"
+                android:textStyle="normal|bold"
+                tools:text="00% Complete" />
+
+            <TextView
+                android:id="@+id/daysLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:background="#00101010"
+                android:fontFamily="@font/anaheim"
+                android:padding="3dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="#FFEAEAEA"
+                android:textSize="12sp"
+                android:textStyle="normal|bold"
+                tools:text="___ Days Left" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

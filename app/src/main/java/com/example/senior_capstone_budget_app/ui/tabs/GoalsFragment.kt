@@ -1,5 +1,6 @@
 package com.example.senior_capstone_budget_app.ui.tabs
 
+
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -72,43 +73,28 @@ class OptionsFragment : Fragment() {
         val image1: Drawable? =
             context?.let { ResourcesCompat.getDrawable(it.resources,
                 R.drawable.ic_button_background, null) }
-        val image2: Drawable? =
-            context?.let { ResourcesCompat.getDrawable(it.resources,
-                R.drawable.ic_button_background, null) }
-        val image3: Drawable? =
-            context?.let { ResourcesCompat.getDrawable(it.resources,
-                R.drawable.ic_button_background, null) }
-        val image4: Drawable? =
-            context?.let { ResourcesCompat.getDrawable(it.resources,
-                R.drawable.ic_button_background, null) }
-        val image5: Drawable? =
-            context?.let { ResourcesCompat.getDrawable(it.resources,
-                R.drawable.ic_button_background, null) }
+
         //create home menu items
         val goalItems = ArrayList<GoalItem>()
         val item1 = GoalItem(
-            "Save 500 dollars by March 30th, 2021",
-            0, image1
+            "Save 500 dollars",
+            0
         )
         val item2 = GoalItem(
             "Buy a House",
-            1,
-            image2
+            1
         )
         val item3 = GoalItem(
             "Pay off debt",
-            2,
-            image3
+            2
         )
         val item4 = GoalItem(
             "Get a new Credit Card",
-            3,
-            image4
+            3
         )
         val item5 = GoalItem(
             "Earn 50,000/yr from my personal business",
-            4,
-            image5
+            4
         )
 
         //add home menu items to an array list
@@ -133,8 +119,8 @@ class GoalAdapter(private val item: GoalItem) : Item() {
     val itemID = item.id
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         //this this a function to add item properties to the recycler view, in this case I just want the image
-        viewHolder.itemView.goalImageView.setImageDrawable(item.image)
-        viewHolder.itemView.goalTitle.text = item.title
+        //viewHolder.itemView.goalImageView.setImageDrawable(item.image)
+        viewHolder.itemView.goalName.text = item.title
     }
 
     override fun getLayout(): Int {
@@ -144,4 +130,4 @@ class GoalAdapter(private val item: GoalItem) : Item() {
 }
 
 
-data class GoalItem(var title: String, var id: Int, var image: Drawable?)
+data class GoalItem(var title: String, var id: Int)

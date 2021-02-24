@@ -17,11 +17,12 @@
     <color name="color_white">#ededf2</color>
     <color name="color_two">#E3E0E0</color>
 
-    <color name="Housing">#FFA726</color>
-    <color name="Miscellaneous">#60BB3A</color>
-    <color name="Utilities">#EF2350</color>
-    <color name="Personal">#29B6F6</color>
-    <color name="Groceries">#FFBB86FC</color>
-    <color name="Medical">#FF03DAC5</color>
+    <color name="Medical">#18AF2C</color>
+    <color name="Personal">#4D8558</color>
+    <color name="Miscellaneous">#063E3B</color>
+    <color name="Housing">#122B54</color>
+    <color name="Groceries">#446192</color>
+    <color name="Utilities">#6AAAFA</color>
+    <color name="Savings">#ACC4E2</color>
 
 </resources>

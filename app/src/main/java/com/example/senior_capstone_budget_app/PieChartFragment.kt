@@ -50,47 +50,55 @@ class PieChartFragment : Fragment() {
 
     private fun createPieChart(pieChart: PieChart?) {
         // Set the percentage of language used
-        personalPercentage.text = Integer.toString(40)
-        miscellaneousPercentage.text = Integer.toString(30)
-        housingPercentage.text = Integer.toString(5)
-        groceriesPercentage.text = Integer.toString(25)
+        personalPercentage.text = Integer.toString(23)
+        miscellaneousPercentage.text = Integer.toString(15)
+        housingPercentage.text = Integer.toString(40)
+        groceriesPercentage.text = Integer.toString(12)
         utilitiesPercentage.text = Integer.toString(60)
-        medicalPercentage.text = Integer.toString(18)
+        medicalPercentage.text = Integer.toString(3)
+        savingsPercentage.text = Integer.toString(7)
+
 
         pieChart?.addPieSlice(
             PieModel(
+                "Medical", medicalPercentage.text.toString().toInt().toFloat(),
+                Color.parseColor("#18AF2C")
+            )
+        )
+        pieChart?.addPieSlice(
+            PieModel(
                 "Personal", personalPercentage.text.toString().toInt().toFloat(),
-                Color.parseColor("#29B6F6")
+                Color.parseColor("#4D8558")
             )
         )
         pieChart?.addPieSlice(
             PieModel(
                 "Miscellaneous", miscellaneousPercentage.text.toString().toInt().toFloat(),
-                Color.parseColor("#60BB3A")
+                Color.parseColor("#063E3B")
             )
         )
         pieChart?.addPieSlice(
             PieModel(
                 "Housing", housingPercentage.text.toString().toInt().toFloat(),
-                Color.parseColor("#FFA726")
+                Color.parseColor("#122B54")
             )
         )
         pieChart?.addPieSlice(
             PieModel(
                 "Groceries", groceriesPercentage.text.toString().toInt().toFloat(),
-                Color.parseColor("#FFBB86FC")
+                Color.parseColor("#446192")
             )
         )
         pieChart?.addPieSlice(
             PieModel(
                 "Utilities", utilitiesPercentage.text.toString().toInt().toFloat(),
-                Color.parseColor("#EF2350")
+                Color.parseColor("#6AAAFA")
             )
         )
         pieChart?.addPieSlice(
             PieModel(
-                "Medical", medicalPercentage.text.toString().toInt().toFloat(),
-                Color.parseColor("#FF03DAC5")
+                "Savings", savingsPercentage.text.toString().toInt().toFloat(),
+                Color.parseColor("#ACC4E2")
             )
         )
 

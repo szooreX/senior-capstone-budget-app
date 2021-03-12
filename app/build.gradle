@@ -42,6 +42,7 @@ android {
 }
 
 dependencies {
+    implementation files('..\\.idea\\libraries\\org.json.jar')
     repositories {
         mavenCentral()
     }

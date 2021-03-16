@@ -7,17 +7,20 @@ public class Tasks {
     private Tracker track;
     private int category;
     private Date reminder;
+    private boolean completed;
 
     public Tasks(int taskId) {
         TaskId = taskId;
+        completed = false;
     }
 
-    public Tasks(int taskId, String title, Tracker track, int category, Date reminder) {
+    public Tasks(int taskId, String title, Tracker track, int category, Date reminder, boolean completed) {
         TaskId = taskId;
         this.title = title;
         this.track = track;
         this.category = category;
         this.reminder = reminder;
+        this.completed = completed;
     }
 
     /**
@@ -48,6 +51,7 @@ public class Tasks {
     public Tracker getTrack() {return track;}
     public int getCategory() {return category;}
     public Date getReminder() {return reminder;}
+    public boolean isCompleted() {return completed;}
 
     //====================================Setters====================================//
     public void setTaskId(int taskId) {TaskId = taskId;}
@@ -55,4 +59,5 @@ public class Tasks {
     public void setTrack(Tracker track) {this.track = track;}
     public void setCategory(int category) {this.category = category;}
     public void setReminder(Date reminder) {this.reminder = reminder;}
+    public void setCompleted(boolean completed) {this.completed = completed;}
 }

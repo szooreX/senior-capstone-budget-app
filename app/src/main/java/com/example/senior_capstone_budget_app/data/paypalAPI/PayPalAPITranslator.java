@@ -16,7 +16,7 @@ public class PayPalAPITranslator extends PayPalTransactionAPI implements Transac
     }
 
     @Override
-    public ArrayList<String> getTransactionType() {
+    public ArrayList<String> getAccountBalance() {
         return null;
     }
 }

@@ -7,6 +7,6 @@ package com.example.senior_capstone_budget_app.data.paypalAPI;
  *
  * @author Katelynn Urgitus
  */
-public class BasePayPalAPIClass {
+public class BaseTransactionAPIClass {
     protected final static TransactionAPIInterface payPalAPI = new PayPalAPITranslator();
 }

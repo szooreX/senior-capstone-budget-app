@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DashboardActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppBarOverlay">
+
+        <ImageView
+            android:id="@+id/appHeader5"
+            android:layout_width="match_parent"
+            android:layout_height="79dp"
+            android:background="#2334A5"
+            app:srcCompat="@drawable/ic_centered_transparent_logo" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ECECEC"
+            app:tabIndicatorColor="#000000"
+            app:tabTextColor="#020202">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/dashboardTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DASHBOARD" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/accountsTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Accounts" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/goalsTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Goals" />
+        </com.google.android.material.tabs.TabLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/content_dashboard" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

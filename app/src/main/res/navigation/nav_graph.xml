@@ -7,30 +7,21 @@
 
     <fragment
         android:id="@+id/goalsFragment"
-        android:name="com.example.senior_capstone_budget_app.ui.tabs.OptionsFragment"
+        android:name="com.example.senior_capstone_budget_app.OptionsFragment"
         tools:layout="@layout/fragment_goals">
 
-        <action
-            android:id="@+id/action_HomeFragment_to_SecondFragment"
-            app:destination="@id/accountsFragment" />
-        <action
-            android:id="@+id/action_optionsFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
         <action
             android:id="@+id/action_optionsFragment_to_pieChartFragment"
             app:destination="@id/pieChartFragment" />
     </fragment>
     <fragment
         android:id="@+id/accountsFragment"
-        android:name="com.example.senior_capstone_budget_app.ui.tabs.AccountsFragment"
+        android:name="com.example.senior_capstone_budget_app.AccountsFragment"
         tools:layout="@layout/fragment_accounts">
 
         <action
             android:id="@+id/action_SecondFragment_to_HomeFragment"
             app:destination="@id/goalsFragment" />
-        <action
-            android:id="@+id/action_secondFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
         <action
             android:id="@+id/action_secondFragment_to_optionsFragment"
             app:destination="@id/goalsFragment" />
@@ -39,34 +30,32 @@
             app:destination="@id/pieChartFragment" />
     </fragment>
     <fragment
-        android:id="@+id/dashboardFragment"
-        android:name="com.example.senior_capstone_budget_app.ui.tabs.DashboardFragment"
-        android:label="DashboardFragment" >
-        <action
-            android:id="@+id/action_dashboardFragment_to_optionsFragment"
-            app:destination="@id/goalsFragment" />
-        <action
-            android:id="@+id/action_dashboardFragment_to_secondFragment"
-            app:destination="@id/accountsFragment" />
-        <action
-            android:id="@+id/action_dashboardFragment_to_pieChartFragment"
-            app:destination="@id/pieChartFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/pieChartFragment"
         android:name="com.example.senior_capstone_budget_app.PieChartFragment"
-        android:label="PieChartFragment" >
-        <action
-            android:id="@+id/action_pieChartFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+        android:label="PieChartFragment">
         <action
             android:id="@+id/action_pieChartFragment_to_optionsFragment"
             app:destination="@id/goalsFragment" />
         <action
-            android:id="@+id/action_pieChartFragment_to_secondFragment"
-            app:destination="@id/accountsFragment" />
-        <action
-            android:id="@+id/action_pieChartFragment_to_secondFragment2"
-            app:destination="@id/accountsFragment" />
+            android:id="@+id/action_pieChartFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.senior_capstone_budget_app.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_dashboardActivity"
+            app:destination="@id/dashboardActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/dashboardActivity"
+        android:name="com.example.senior_capstone_budget_app.DashboardActivity"
+        android:label="activity_dashboard"
+        tools:layout="@layout/activity_dashboard" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.senior_capstone_budget_app.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

@@ -31,5 +31,9 @@
             app:title="@string/attachment_title" />
 
     </PreferenceCategory>
+    <Preference
+        app:title="Logout"
+        app:key="logoutBtn"
+        />
 
 </PreferenceScreen>

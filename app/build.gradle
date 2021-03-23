@@ -46,6 +46,7 @@ android {
 dependencies {
 
     implementation files('./libs/org.json.jar')
+    implementation 'androidx.preference:preference:1.1.1'
     repositories {
         mavenCentral()
     }

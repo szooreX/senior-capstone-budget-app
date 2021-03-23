@@ -23,11 +23,6 @@ class DashboardActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment)
         navController.navigate(R.id.pieChartFragment)
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -40,6 +35,8 @@ class DashboardActivity : AppCompatActivity() {
             }
 
         })
+
+        settingsBtn.setOnClickListener { navController.navigate(R.id.settingsFragment) }
 
     }
 

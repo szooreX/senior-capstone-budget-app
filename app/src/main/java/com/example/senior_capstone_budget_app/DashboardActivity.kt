@@ -9,6 +9,7 @@ import androidx.navigation.findNavController
 import com.example.senior_capstone_budget_app.R
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import kotlinx.android.synthetic.main.fragment_pie_chart.*
 
 class DashboardActivity : AppCompatActivity() {
 

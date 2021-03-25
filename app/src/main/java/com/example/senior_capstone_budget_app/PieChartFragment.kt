@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_pie_chart.*
 import org.eazegraph.lib.charts.PieChart
 import org.eazegraph.lib.models.PieModel
@@ -103,6 +104,8 @@ class PieChartFragment : Fragment() {
 
         // To animate the pie chart
         pieChart?.startAnimation();
+
+        viewTransactions.setOnClickListener { findNavController().navigate(R.id.transactionsFragment) }
     }
 
     companion object {

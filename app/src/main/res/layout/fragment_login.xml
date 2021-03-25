@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="93dp"
             android:background="#E6E8ED"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/anaheim"
             android:gravity="center"
             android:lineSpacingExtra="18sp"
             android:text="Log In to your ARVIO account"
@@ -55,10 +55,11 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="100dp"
             android:layout_marginEnd="24dp"
+            android:autofillHints=""
+            android:fontFamily="@font/abeezee"
             android:hint="@string/prompt_email"
             android:inputType="textEmailAddress"
-            android:selectAllOnFocus="true"
-            android:autofillHints="" />
+            android:selectAllOnFocus="true" />
 
         <EditText
             android:id="@+id/password"
@@ -67,27 +68,51 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
+            android:autofillHints=""
+            android:fontFamily="@font/abeezee"
             android:hint="@string/prompt_password"
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
-            android:selectAllOnFocus="true"
-            android:autofillHints="" />
+            android:selectAllOnFocus="true" />
 
-        <Button
-            android:id="@+id/login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|center_horizontal|center_vertical"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="48dp"
-            android:layout_marginBottom="64dp"
-            android:enabled="false"
-            android:text="@string/action_sign_in"
-            android:textColor="#1C1C1C"
-            android:textColorHighlight="#182A75"
-            android:textColorLink="#182A75" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/login"
+                android:layout_width="171dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="48dp"
+                android:enabled="false"
+                android:fontFamily="@font/abeezee"
+                android:text="Sign In"
+                android:textColor="#1C1C1C"
+                android:textColorHighlight="#182A75"
+                android:textColorLink="#182A75"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/login_google"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="48dp"
+                android:enabled="false"
+                android:fontFamily="@font/abeezee"
+                android:text="Sign In With Google"
+                android:textColor="#182A75"
+                android:textColorHighlight="#182A75"
+                android:textColorLink="#182A75"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <ProgressBar
             android:id="@+id/loading"

@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_pieChartFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_pieChartFragment_to_transactionsFragment"
+            app:destination="@id/transactionsFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -58,4 +61,9 @@
         android:id="@+id/settingsFragment"
         android:name="com.example.senior_capstone_budget_app.SettingsFragment"
         android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/transactionsFragment"
+        android:name="com.example.senior_capstone_budget_app.TransactionsFragment"
+        android:label="fragment_transactions"
+        tools:layout="@layout/fragment_transactions" />
 </navigation>

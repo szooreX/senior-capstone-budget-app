@@ -27,8 +27,8 @@ class AccountsFragment : Fragment() {
             accountItemAdapter.clear()
 
             for (sectionItem: AccountItem in value) {
-                val imageButton = AccountAdapter(sectionItem)
-                accountItemAdapter.add(imageButton)
+                val account = AccountAdapter(sectionItem)
+                accountItemAdapter.add(account)
             }
             field = value
         }

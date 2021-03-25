@@ -39,8 +39,8 @@ class TransactionsFragment : Fragment() {
             transactionItemAdapter.clear()
 
             for (sectionItem: TransactionItem in value) {
-                val imageButton = TransactionAdapter(sectionItem)
-                transactionItemAdapter.add(imageButton)
+                val transaction = TransactionAdapter(sectionItem)
+                transactionItemAdapter.add(transaction)
             }
             field = value
         }

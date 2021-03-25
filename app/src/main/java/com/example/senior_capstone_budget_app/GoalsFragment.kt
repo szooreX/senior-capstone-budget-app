@@ -26,8 +26,8 @@ class OptionsFragment : Fragment() {
             goalItemAdapter.clear()
 
             for (sectionItem: GoalItem in value) {
-                val imageButton = GoalAdapter(sectionItem)
-                goalItemAdapter.add(imageButton)
+                val goal = GoalAdapter(sectionItem)
+                goalItemAdapter.add(goal)
             }
             field = value
         }

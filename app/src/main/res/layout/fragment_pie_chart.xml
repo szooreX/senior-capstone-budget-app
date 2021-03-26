@@ -154,7 +154,7 @@
                         android:fontFamily="@font/anaheim"
                         android:lineSpacingExtra="8sp"
                         android:padding="15dp"
-                        android:text="You've spent $_____ so far this month."
+                        android:text="You've spent 100% of your monthly average so far."
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         android:textColor="#305286"
                         android:textSize="14sp"

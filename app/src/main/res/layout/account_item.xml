@@ -3,79 +3,94 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="20dp"
-    android:paddingTop="10dp"
-    android:paddingRight="20dp">
+    android:layout_height="150dp">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:cardCornerRadius="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#990038AA"
-            android:fadingEdge="none"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="15dp">
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/accountLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_paypal_logo_2"
+                tools:layout_conversion_absoluteHeight="124dp"
+                tools:layout_conversion_absoluteWidth="395dp"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="18dp" />
 
             <TextView
                 android:id="@+id/accountName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#00101010"
+                android:fontFamily="@font/anaheim"
+                android:gravity="center"
+                android:padding="3dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="ACCOUNT NAME" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center|end"
+            android:background="#FFFFFF"
+            android:fadingEdge="none"
+            android:gravity="center|end"
+            android:padding="15dp">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginLeft="4dp"
                 android:background="#00101010"
                 android:fontFamily="@font/anaheim"
-                android:gravity="center|center_horizontal|center_vertical"
                 android:padding="3dp"
+                android:text="$"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="#FFFFFF"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                tools:text="ACCOUNT NAME" />
+                android:textColor="#222222"
+                android:textSize="18sp"
+                android:textStyle="normal|bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginLeft="4dp"
-                    android:background="#00101010"
-                    android:fontFamily="@font/anaheim"
-                    android:padding="3dp"
-                    android:text="$"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textColor="#EAEAEA"
-                    android:textSize="18sp"
-                    android:textStyle="normal|bold" />
-
-                <TextView
-                    android:id="@+id/currentBalance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:background="#00101010"
-                    android:fontFamily="@font/anaheim"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textColor="#EAEAEA"
-                    android:textSize="18sp"
-                    android:textStyle="normal|bold"
-                    tools:text="CURRENT BALANCE" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/currentBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:background="#00101010"
+                android:fontFamily="@font/anaheim"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="#222222"
+                android:textSize="18sp"
+                android:textStyle="normal|bold"
+                tools:text="0000" />
 
         </LinearLayout>
 

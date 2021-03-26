@@ -84,24 +84,16 @@ class OptionsFragment : Fragment() {
             1
         )
         val item3 = GoalItem(
-            "Pay off debt",
+            "Pay off debt - Pay off debt - Pay off debt - Pay off debt - Pay off debt ",
             2
         )
-        val item4 = GoalItem(
-            "Get a new Credit Card",
-            3
-        )
-        val item5 = GoalItem(
-            "Earn 50,000/yr from my personal business",
-            4
-        )
+
 
         //add home menu items to an array list
         goalItems.add(item1)
         goalItems.add(item2)
         goalItems.add(item3)
-        goalItems.add(item4)
-        goalItems.add(item5)
+
 
         //pass array list to displayItems to pass through Adapter
         displayItems = goalItems

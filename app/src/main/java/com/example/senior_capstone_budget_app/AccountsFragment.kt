@@ -75,25 +75,11 @@ class AccountsFragment : Fragment() {
             "ACCOUNT NAME",
             1, 3000.00
         )
-        val item3 = AccountItem(
-            "ACCOUNT NAME",
-            2, 243.80
-        )
-        val item4 = AccountItem(
-            "ACCOUNT NAME",
-            3, 56.98
-        )
-        val item5 = AccountItem(
-            "ACCOUNT NAME",
-            4, 348.65
-        )
+
 
         //add home menu items to an array list
         accountItems.add(item1)
         accountItems.add(item2)
-        accountItems.add(item3)
-        accountItems.add(item4)
-        accountItems.add(item5)
 
         //pass array list to displayItems to pass through Adapter
         displayItems = accountItems

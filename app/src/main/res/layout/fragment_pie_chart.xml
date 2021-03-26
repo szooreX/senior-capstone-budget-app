@@ -89,10 +89,11 @@
 
                 <Button
                     android:id="@+id/viewTransactions"
-                    style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                    style="@style/Widget.AppCompat.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:shadowColor="#151515"
                     android:text="View Transactions" />
 
                 <Button

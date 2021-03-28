@@ -8,574 +8,704 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
+    android:gravity="center"
     android:orientation="vertical"
-    android:padding="20dp"
     tools:context=".MainActivity">
 
-    <!-- Card view for displaying the -->
-    <!-- Pie chart and details of pie chart -->
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="0"
-        android:fontFamily="@font/anaheim"
-        android:lineSpacingExtra="8sp"
-        android:padding="5dp"
-        android:text="$900 Spent"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textColor="#0B1E45"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:typeface="normal" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="0"
-        android:fontFamily="@font/anaheim"
-        android:lineSpacingExtra="8sp"
-        android:text="That's ____% of your budget."
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textColor="#305286"
-        android:textSize="14sp"
-        android:typeface="normal" />
-
-    <org.eazegraph.lib.charts.PieChart
-        android:id="@+id/piechart"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="20dp"
-        android:layout_weight="0"
-        android:padding="10dp">
-
-    </org.eazegraph.lib.charts.PieChart>
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_weight="0"
+        android:isScrollContainer="true">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginLeft="30dp"
-            android:orientation="vertical">
+            android:background="#3CB6B6B6"
+            android:orientation="vertical"
+            android:padding="15dp">
 
-            <!--Text view to use of -->
-            <!-- programming languages text-->
-
-            <!--View to display the line-->
-
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="3dp"
-                android:padding="3dp">
-
-                <!--Text view to display the percentage -->
-                <!-- of programming language used. -->
-                <!-- For now default set to 0-->
-
-                <View
-                    android:id="@+id/view4"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_weight="0"
-                    android:background="@color/Medical" />
-
-                <TextView
-                    android:id="@+id/medicalTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/anaheim"
-                    android:text="Medical"
-                    android:textColor="#27314F"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="3dp"
-                android:padding="3dp">
-
-                <!--Text view to display R -->
-                <View
-                    android:id="@+id/view9"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_weight="0"
-                    android:background="@color/Personal" />
-
-                <TextView
-                    android:id="@+id/personalTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/anaheim"
-                    android:text="Personal"
-                    android:textColor="#27314F"
-                    android:textSize="18sp" />
-
-                <!--Text view to display the -->
-                <!-- percentage of programming language -->
-                <!-- used. For now default set to 0-->
-
-            </LinearLayout>
-
-            <!--View to display the line-->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="3dp"
-                android:padding="3dp">
-
-                <View
-                    android:id="@+id/view8"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_weight="0"
-                    android:background="@color/Miscellaneous" />
-
-                <TextView
-                    android:id="@+id/MiscellaneousTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/anaheim"
-                    android:text="Miscellaneous"
-                    android:textColor="#27314F"
-                    android:textSize="18sp" />
-
-                <!--Text view to display the percentage -->
-                <!-- of programming language used. -->
-                <!-- For now default set to 0-->
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="3dp"
-                android:padding="3dp">
-
-                <View
-                    android:id="@+id/view7"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_weight="0"
-                    android:background="@color/Housing" />
-
-                <TextView
-                    android:id="@+id/housingTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/anaheim"
-                    android:text="Housing"
-                    android:textColor="#27314F"
-                    android:textSize="18sp" />
-
-                <!--Text view to display the percentage -->
-                <!-- of programming language used. -->
-                <!-- For now default set to 0-->
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="3dp"
-                android:padding="3dp">
-
-                <View
-                    android:id="@+id/view6"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_weight="0"
-                    android:background="@color/Groceries" />
-
-                <TextView
-                    android:id="@+id/groceriesTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/anaheim"
-                    android:text="Groceries"
-                    android:textColor="#27314F"
-                    android:textSize="18sp" />
-
-                <!--Text view to display the percentage -->
-                <!-- of programming language used. -->
-                <!-- For now default set to 0-->
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="3dp"
-                android:padding="3dp">
-
-                <View
-                    android:id="@+id/view5"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_weight="0"
-                    android:background="@color/Utilities" />
-
-                <TextView
-                    android:id="@+id/utilitiesTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/anaheim"
-                    android:text="Utilities"
-                    android:textColor="#27314F"
-                    android:textSize="18sp" />
-
-                <!--Text view to display the percentage -->
-                <!-- of programming language used. -->
-                <!-- For now default set to 0-->
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="3dp"
-                android:padding="3dp">
-
-                <!--Text view to display the percentage -->
-                <!-- of programming language used. -->
-                <!-- For now default set to 0-->
-
-                <View
-                    android:id="@+id/view67"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_weight="0"
-                    android:background="@color/Savings" />
-
-                <TextView
-                    android:id="@+id/savingsTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:fontFamily="@font/anaheim"
-                    android:text="Savings"
-                    android:textColor="#27314F"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginRight="30dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="3dp"
-                android:padding="3dp">
-
-                <!--Text view to display R -->
-
-                <!--Text view to display the -->
-                <!-- percentage of programming language -->
-                <!-- used. For now default set to 0-->
-                <TextView
-                    android:id="@+id/personalPercentage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/anaheim"
-                    android:text="0"
-                    android:textAlignment="textEnd"
-                    android:textColor="#27314F"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginRight="0dp"
-                    android:fontFamily="@font/anaheim"
-                    android:text="%"
-                    android:textColor="#27314F"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="25dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="3dp"
+                android:layout_margin="5dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="0"
-                android:orientation="horizontal"
-                android:padding="3dp">
+                android:padding="15dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="4dp"
+                app:cardMaxElevation="4dp">
 
-                <TextView
-                    android:id="@+id/miscellaneousPercentage"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/abeezee"
+                        android:lineSpacingExtra="8sp"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="5dp"
+                        android:text="$900 Spent"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="#0B1E45"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:typeface="normal" />
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/anaheim"
+                        android:lineSpacingExtra="8sp"
+                        android:text="That's ____% of your budget."
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="#305286"
+                        android:textSize="14sp"
+                        android:typeface="normal" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="0"
+                android:gravity="center"
+                android:padding="5dp">
+
+                <Button
+                    android:id="@+id/viewTransactions"
+                    style="@style/Widget.AppCompat.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/anaheim"
-                    android:text="0"
-                    android:textAlignment="textEnd"
-                    android:textColor="#27314F"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:layout_weight="1"
+                    android:shadowColor="#151515"
+                    android:text="View Transactions" />
 
-                <TextView
-                    android:id="@+id/textView4"
+                <Button
+                    android:id="@+id/addTransaction"
+                    style="@android:style/Widget.Material.Light.Button.Borderless.Colored"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginRight="0dp"
+                    android:layout_weight="1"
+                    android:text="+ Add Transaction"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/month_chart_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="10dp"
+                android:scrollbars="none">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
                     android:layout_weight="0"
-                    android:fontFamily="@font/anaheim"
-                    android:text="%"
-                    android:textColor="#27314F"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                    android:background="#FFFFFF"
+                    android:orientation="vertical"
+                    android:paddingTop="15dp">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="25dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="3dp"
-                android:orientation="horizontal"
-                android:padding="3dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:fontFamily="@font/abeezee"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:text="Spending Categories"
+                        android:textColor="#0B1E45"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/housingPercentage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/anaheim"
-                    android:text="0"
-                    android:textAlignment="textEnd"
-                    android:textColor="#27314F"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    <TextView
 
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginRight="0dp"
-                    android:fontFamily="@font/anaheim"
-                    android:text="%"
-                    android:textColor="#27314F"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:fontFamily="@font/anaheim"
+                        android:lineSpacingExtra="8sp"
+                        android:padding="15dp"
+                        android:text="You've spent 100% of your monthly average so far."
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="#305286"
+                        android:textSize="14sp"
+                        android:typeface="normal" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="25dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="3dp"
-                android:orientation="horizontal"
-                android:padding="3dp">
+                    <org.eazegraph.lib.charts.PieChart
+                        android:id="@+id/piechart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="300dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginLeft="30dp"
 
-                <TextView
-                    android:id="@+id/groceriesPercentage"
-                    android:layout_width="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_weight="0"
+                        android:padding="10dp">
 
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/anaheim"
-                    android:text="0"
-                    android:textAlignment="textEnd"
-                    android:textColor="#27314F"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    </org.eazegraph.lib.charts.PieChart>
 
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/anaheim"
-                    android:text="%"
-                    android:textColor="#27314F"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="25dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="3dp"
-                android:orientation="horizontal"
-                android:padding="3dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_weight="0"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:paddingTop="15dp"
+                            android:paddingBottom="15dp">
 
-                <TextView
-                    android:id="@+id/utilitiesPercentage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/anaheim"
-                    android:text="0"
-                    android:textAlignment="textEnd"
-                    android:textColor="#27314F"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="30dp"
+                                android:layout_marginLeft="30dp"
+                                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginRight="0dp"
-                    android:fontFamily="@font/anaheim"
-                    android:text="%"
-                    android:textColor="#27314F"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                                <!--Text view to use of -->
+                                <!-- programming languages text-->
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="25dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="3dp"
-                android:orientation="horizontal"
-                android:padding="3dp">
+                                <!--View to display the line-->
 
-                <TextView
-                    android:id="@+id/medicalPercentage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/anaheim"
-                    android:text="0"
-                    android:textAlignment="textEnd"
-                    android:textColor="#27314F"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginRight="25dp"
+                                    android:layout_marginBottom="3dp"
+                                    android:padding="3dp">
 
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginRight="0dp"
-                    android:fontFamily="@font/anaheim"
-                    android:text="%"
-                    android:textColor="#27314F"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                                    <!--Text view to display the percentage -->
+                                    <!-- of programming language used. -->
+                                    <!-- For now default set to 0-->
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="25dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="3dp"
-                android:orientation="horizontal"
-                android:padding="3dp">
+                                    <View
+                                        android:id="@+id/view4"
+                                        android:layout_width="25dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginEnd="20dp"
+                                        android:layout_marginRight="20dp"
+                                        android:layout_weight="0"
+                                        android:background="@color/Medical" />
 
-                <TextView
-                    android:id="@+id/savingsPercentage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/anaheim"
-                    android:text="0"
-                    android:textAlignment="textEnd"
-                    android:textColor="#27314F"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                                    <TextView
+                                        android:id="@+id/medicalTextView"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="Medical"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginRight="0dp"
-                    android:fontFamily="@font/anaheim"
-                    android:text="%"
-                    android:textColor="#27314F"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginRight="25dp"
+                                    android:layout_marginBottom="3dp"
+                                    android:padding="3dp">
+
+                                    <!--Text view to display R -->
+                                    <View
+                                        android:id="@+id/view9"
+                                        android:layout_width="25dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginEnd="20dp"
+                                        android:layout_marginRight="20dp"
+                                        android:layout_weight="0"
+                                        android:background="@color/Personal" />
+
+                                    <TextView
+                                        android:id="@+id/personalTextView"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="Personal"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp" />
+
+                                    <!--Text view to display the -->
+                                    <!-- percentage of programming language -->
+                                    <!-- used. For now default set to 0-->
+
+                                </LinearLayout>
+
+                                <!--View to display the line-->
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginRight="25dp"
+                                    android:layout_marginBottom="3dp"
+                                    android:padding="3dp">
+
+                                    <View
+                                        android:id="@+id/view8"
+                                        android:layout_width="25dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginEnd="20dp"
+                                        android:layout_marginRight="20dp"
+                                        android:layout_weight="0"
+                                        android:background="@color/Miscellaneous" />
+
+                                    <TextView
+                                        android:id="@+id/MiscellaneousTextView"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="Miscellaneous"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp" />
+
+                                    <!--Text view to display the percentage -->
+                                    <!-- of programming language used. -->
+                                    <!-- For now default set to 0-->
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginRight="25dp"
+                                    android:layout_marginBottom="3dp"
+                                    android:padding="3dp">
+
+                                    <View
+                                        android:id="@+id/view7"
+                                        android:layout_width="25dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginEnd="20dp"
+                                        android:layout_marginRight="20dp"
+                                        android:layout_weight="0"
+                                        android:background="@color/Housing" />
+
+                                    <TextView
+                                        android:id="@+id/housingTextView"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="Housing"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp" />
+
+                                    <!--Text view to display the percentage -->
+                                    <!-- of programming language used. -->
+                                    <!-- For now default set to 0-->
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginRight="25dp"
+                                    android:layout_marginBottom="3dp"
+                                    android:padding="3dp">
+
+                                    <View
+                                        android:id="@+id/view6"
+                                        android:layout_width="25dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginEnd="20dp"
+                                        android:layout_marginRight="20dp"
+                                        android:layout_weight="0"
+                                        android:background="@color/Groceries" />
+
+                                    <TextView
+                                        android:id="@+id/groceriesTextView"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="Groceries"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp" />
+
+                                    <!--Text view to display the percentage -->
+                                    <!-- of programming language used. -->
+                                    <!-- For now default set to 0-->
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginRight="25dp"
+                                    android:layout_marginBottom="3dp"
+                                    android:padding="3dp">
+
+                                    <View
+                                        android:id="@+id/view5"
+                                        android:layout_width="25dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginEnd="20dp"
+                                        android:layout_marginRight="20dp"
+                                        android:layout_weight="0"
+                                        android:background="@color/Utilities" />
+
+                                    <TextView
+                                        android:id="@+id/utilitiesTextView"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="Utilities"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp" />
+
+                                    <!--Text view to display the percentage -->
+                                    <!-- of programming language used. -->
+                                    <!-- For now default set to 0-->
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginRight="25dp"
+                                    android:layout_marginBottom="3dp"
+                                    android:padding="3dp">
+
+                                    <!--Text view to display the percentage -->
+                                    <!-- of programming language used. -->
+                                    <!-- For now default set to 0-->
+
+                                    <View
+                                        android:id="@+id/view67"
+                                        android:layout_width="25dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginEnd="20dp"
+                                        android:layout_marginRight="20dp"
+                                        android:layout_weight="0"
+                                        android:background="@color/Savings" />
+
+                                    <TextView
+                                        android:id="@+id/savingsTextView"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="Savings"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginLeft="4dp"
+                                android:layout_marginEnd="30dp"
+                                android:layout_marginRight="30dp"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginRight="25dp"
+                                    android:layout_marginBottom="3dp"
+                                    android:padding="3dp">
+
+                                    <!--Text view to display R -->
+
+                                    <!--Text view to display the -->
+                                    <!-- percentage of programming language -->
+                                    <!-- used. For now default set to 0-->
+                                    <TextView
+                                        android:id="@+id/personalPercentage"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="0"
+                                        android:textAlignment="textEnd"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/textView3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="0dp"
+                                        android:layout_marginRight="0dp"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="%"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="25dp"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginEnd="25dp"
+                                    android:layout_marginRight="25dp"
+                                    android:layout_marginBottom="3dp"
+                                    android:layout_weight="0"
+                                    android:orientation="horizontal"
+                                    android:padding="3dp">
+
+                                    <TextView
+                                        android:id="@+id/miscellaneousPercentage"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="0"
+                                        android:textAlignment="textEnd"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/textView4"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="0dp"
+                                        android:layout_marginRight="0dp"
+                                        android:layout_weight="0"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="%"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="25dp"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginEnd="25dp"
+                                    android:layout_marginRight="25dp"
+                                    android:layout_marginBottom="3dp"
+                                    android:orientation="horizontal"
+                                    android:padding="3dp">
+
+                                    <TextView
+                                        android:id="@+id/housingPercentage"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="0"
+                                        android:textAlignment="textEnd"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/textView5"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="0dp"
+                                        android:layout_marginRight="0dp"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="%"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="25dp"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginEnd="25dp"
+                                    android:layout_marginRight="25dp"
+                                    android:layout_marginBottom="3dp"
+                                    android:orientation="horizontal"
+                                    android:padding="3dp">
+
+                                    <TextView
+                                        android:id="@+id/groceriesPercentage"
+                                        android:layout_width="wrap_content"
+
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="0"
+                                        android:textAlignment="textEnd"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/textView6"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="%"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="25dp"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginEnd="25dp"
+                                    android:layout_marginRight="25dp"
+                                    android:layout_marginBottom="3dp"
+                                    android:orientation="horizontal"
+                                    android:padding="3dp">
+
+                                    <TextView
+                                        android:id="@+id/utilitiesPercentage"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="0"
+                                        android:textAlignment="textEnd"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/textView7"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="0dp"
+                                        android:layout_marginRight="0dp"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="%"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="25dp"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginEnd="25dp"
+                                    android:layout_marginRight="25dp"
+                                    android:layout_marginBottom="3dp"
+                                    android:orientation="horizontal"
+                                    android:padding="3dp">
+
+                                    <TextView
+                                        android:id="@+id/medicalPercentage"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="0"
+                                        android:textAlignment="textEnd"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/textView8"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="0dp"
+                                        android:layout_marginRight="0dp"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="%"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="25dp"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginEnd="25dp"
+                                    android:layout_marginRight="25dp"
+                                    android:layout_marginBottom="3dp"
+                                    android:orientation="horizontal"
+                                    android:padding="3dp">
+
+                                    <TextView
+                                        android:id="@+id/savingsPercentage"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="0"
+                                        android:textAlignment="textEnd"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="0dp"
+                                        android:layout_marginRight="0dp"
+                                        android:fontFamily="@font/anaheim"
+                                        android:text="%"
+                                        android:textColor="#27314F"
+                                        android:textSize="18sp" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
-    </LinearLayout>
-
-
-    <!-- Another Card view for displaying -->
-    <!-- Use of programming languages -->
+    </ScrollView>
 
 </LinearLayout>

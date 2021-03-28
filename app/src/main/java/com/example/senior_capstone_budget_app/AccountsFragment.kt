@@ -1,4 +1,4 @@
-package com.example.senior_capstone_budget_app.ui.tabs
+package com.example.senior_capstone_budget_app
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.senior_capstone_budget_app.R
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
@@ -28,8 +27,8 @@ class AccountsFragment : Fragment() {
             accountItemAdapter.clear()
 
             for (sectionItem: AccountItem in value) {
-                val imageButton = AccountAdapter(sectionItem)
-                accountItemAdapter.add(imageButton)
+                val account = AccountAdapter(sectionItem)
+                accountItemAdapter.add(account)
             }
             field = value
         }
@@ -76,25 +75,11 @@ class AccountsFragment : Fragment() {
             "ACCOUNT NAME",
             1, 3000.00
         )
-        val item3 = AccountItem(
-            "ACCOUNT NAME",
-            2, 243.80
-        )
-        val item4 = AccountItem(
-            "ACCOUNT NAME",
-            3, 56.98
-        )
-        val item5 = AccountItem(
-            "ACCOUNT NAME",
-            4, 348.65
-        )
+
 
         //add home menu items to an array list
         accountItems.add(item1)
         accountItems.add(item2)
-        accountItems.add(item3)
-        accountItems.add(item4)
-        accountItems.add(item5)
 
         //pass array list to displayItems to pass through Adapter
         displayItems = accountItems

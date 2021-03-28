@@ -1,5 +1,6 @@
-package com.example.senior_capstone_budget_app.ui.login
+package com.example.senior_capstone_budget_app.login
 
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.annotation.StringRes
@@ -15,8 +16,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+
 
 import com.example.senior_capstone_budget_app.R
+import com.example.senior_capstone_budget_app.DashboardActivity
 
 class LoginFragment : Fragment() {
 
@@ -34,6 +38,8 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
+
+        var navController = findNavController()
 
         val usernameEditText = view.findViewById<EditText>(R.id.username)
         val passwordEditText = view.findViewById<EditText>(R.id.password)
@@ -96,10 +102,19 @@ class LoginFragment : Fragment() {
 
         loginButton.setOnClickListener {
             loadingProgressBar.visibility = View.VISIBLE
-            loginViewModel.login(
+            var result = loginViewModel.login(
                 usernameEditText.text.toString(),
                 passwordEditText.text.toString()
             )
+
+            var intent = Intent(activity, DashboardActivity::class.java)
+            when {
+                (result == 0) ->
+                    //success
+                    startActivity(intent)
+                /*(result == 1) ->*/
+                //failed
+            }
         }
     }
 

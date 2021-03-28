@@ -5,9 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
-import com.example.senior_capstone_budget_app.R
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineDataSet
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_pie_chart.*
+import kotlinx.android.synthetic.main.month_chart_item.view.*
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.LineData
+import kotlinx.android.synthetic.main.month_chart_item.*
 import org.eazegraph.lib.charts.PieChart
 import org.eazegraph.lib.models.PieModel
 
@@ -23,6 +34,25 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class PieChartFragment : Fragment() {
+
+
+    //______________Variables For Recycler View____________________
+    private val monthChartAdapter = GroupAdapter<GroupieViewHolder>()
+
+    //here we are adding items to the recycler view using the adapter we created to use images as buttons in a list
+    private var displayItems: ArrayList<MonthChartItem> = ArrayList()
+        set(value) {
+            monthChartAdapter.clear()
+
+            for (sectionItem: MonthChartItem in value) {
+                val monthChart = MonthChartAdapter(sectionItem)
+                monthChartAdapter.add(monthChart)
+            }
+            field = value
+        }
+    //_____________________________________________________________
+
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -46,6 +76,84 @@ class PieChartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         createPieChart(piechart)
+        getMonthChartItems()
+
+        month_chart_container.apply {
+            month_chart_container.layoutManager = LinearLayoutManager(
+                context, LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            month_chart_container.adapter = monthChartAdapter
+        }
+
+        //put functional code here for function calls, etc.
+    }
+
+
+    private fun makeNewChart() : LineData {
+
+        //programmatically create a view to add to month_chart_item.xml layout file
+        var chart: LineChart = LineChart(context)
+
+        /* The goal here is to get data from api data objects that would ideally
+         contain the data for current and the previous months (just for the current year)
+          total spending to compare */
+
+        //api data array
+        val dataObject = ArrayList<String>()
+
+        // getMonthChartData(dataObject) // TODO:  create function to gather the months, starting on current month, and its former months data into an array
+
+
+        //actual chart entry array
+        val chartEntries = ArrayList<Entry>()
+
+        //turn data into entries. ref this URl:  https://weeklycoding.com/mpandroidchart-documentation/getting-started/
+        for (data in dataObject) {
+            //chartEntries.add(dataObject.getValueX, dataObject.getValueY) TODO: gather data like this instead
+            val entry = Entry(15.0F, 20.0F)
+            chartEntries.add(20, entry)
+        }
+
+        //add entries to dataset
+        var lineDataSet = LineDataSet(chartEntries, "My Label")
+        lineDataSet.color = Color.CYAN
+
+        val lineData = LineData(lineDataSet)
+
+
+        return lineData
+    }
+    private fun getMonthChartItems() {
+        //recycler view item array
+        val monthChartItems = ArrayList<MonthChartItem>()
+
+        //form each full chart into an item to pass into each slot in recycler view
+        val item1 = MonthChartItem(
+            "Month Name",
+            0, makeNewChart()
+        )
+        val item2 = MonthChartItem(
+            "Month Name",
+            1, makeNewChart()
+        )
+//        val item3 = MonthChartItem(
+//            "Month Name",
+//            2, "yo make this a chart"
+//        )
+//        val item4 = MonthChartItem(
+//            "Month Name",
+//            3, "yo make this a chart"
+//        )
+
+        monthChartItems.add(item1)
+        monthChartItems.add(item2)
+//        monthChartItems.add(item3)
+//        monthChartItems.add(item4)
+
+
+        //pass array list to displayItems to pass through Adapter
+        displayItems = monthChartItems
     }
 
     private fun createPieChart(pieChart: PieChart?) {
@@ -104,6 +212,8 @@ class PieChartFragment : Fragment() {
 
         // To animate the pie chart
         pieChart?.startAnimation();
+
+        viewTransactions.setOnClickListener { findNavController().navigate(R.id.transactionsFragment) }
     }
 
     companion object {
@@ -125,4 +235,31 @@ class PieChartFragment : Fragment() {
                 }
             }
     }
+
 }
+
+
+class MonthChartAdapter(private val item: MonthChartItem) :
+    com.xwray.groupie.kotlinandroidextensions.Item() {
+    private var itemID = item.id
+
+    override fun bind(viewHolder: GroupieViewHolder, position: Int) {
+        //this this a function to add item properties to the recycler view
+       viewHolder.itemView.chart_view.data = item.lineData
+
+
+
+    }
+
+    override fun getLayout(): Int {
+        return R.layout.month_chart_item
+    }
+
+}
+
+
+data class MonthChartItem(
+    var month_name: String,
+    var id: Int,
+    var lineData: LineData
+)

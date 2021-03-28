@@ -1,4 +1,4 @@
-package com.example.senior_capstone_budget_app.ui.tabs
+package com.example.senior_capstone_budget_app
 
 
 import android.graphics.drawable.Drawable
@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.senior_capstone_budget_app.R
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
@@ -27,8 +26,8 @@ class OptionsFragment : Fragment() {
             goalItemAdapter.clear()
 
             for (sectionItem: GoalItem in value) {
-                val imageButton = GoalAdapter(sectionItem)
-                goalItemAdapter.add(imageButton)
+                val goal = GoalAdapter(sectionItem)
+                goalItemAdapter.add(goal)
             }
             field = value
         }
@@ -85,24 +84,16 @@ class OptionsFragment : Fragment() {
             1
         )
         val item3 = GoalItem(
-            "Pay off debt",
+            "Pay off debt - Pay off debt - Pay off debt - Pay off debt - Pay off debt ",
             2
         )
-        val item4 = GoalItem(
-            "Get a new Credit Card",
-            3
-        )
-        val item5 = GoalItem(
-            "Earn 50,000/yr from my personal business",
-            4
-        )
+
 
         //add home menu items to an array list
         goalItems.add(item1)
         goalItems.add(item2)
         goalItems.add(item3)
-        goalItems.add(item4)
-        goalItems.add(item5)
+
 
         //pass array list to displayItems to pass through Adapter
         displayItems = goalItems

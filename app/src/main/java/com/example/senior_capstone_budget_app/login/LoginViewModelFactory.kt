@@ -1,4 +1,4 @@
-package com.example.senior_capstone_budget_app.ui.login
+package com.example.senior_capstone_budget_app.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

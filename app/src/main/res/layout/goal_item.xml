@@ -9,10 +9,10 @@
     android:paddingRight="20dp">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:cardCornerRadius="8dp"
+        app:cardCornerRadius="4dp"
+        app:cardMaxElevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,57 +21,91 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#990038AA"
             android:gravity="center"
-            android:orientation="vertical"
-            android:padding="15dp">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/goalName"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|top"
+                android:background="#FFFFFF"
+                android:gravity="start|top"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/goalName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|start"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:background="#00101010"
+                    android:fontFamily="@font/anaheim"
+                    android:gravity="center|start"
+                    android:padding="3dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="#0B0B0B"
+                    android:textSize="18sp"
+                    android:textStyle="normal|bold"
+                    tools:text="Goal" />
+
+
+                <TextView
+                    android:id="@+id/daysLeft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center|start"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:background="#00101010"
+                    android:fontFamily="@font/anaheim"
+                    android:gravity="center|start"
+                    android:padding="3dp"
+                    android:text="___ Days Left"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="#171717"
+                    android:textSize="12sp"
+                    android:textStyle="normal|bold"
+                    tools:text="___ Days Left" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginLeft="4dp"
-                android:background="#00101010"
-                android:fontFamily="@font/anaheim"
-                android:gravity="center|center_horizontal|center_vertical"
-                android:padding="3dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:textStyle="normal|bold"
-                tools:text="Goal" />
+                android:layout_gravity="center|end"
+                android:gravity="center|end"
+                android:orientation="vertical"
+                android:padding="15dp">
 
+                <ProgressBar
+                    android:id="@+id/goalProgressBar"
+                    style="@android:style/Widget.Material.ProgressBar.Horizontal"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="10dp" />
 
-            <TextView
-                android:id="@+id/percentComplete"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="4dp"
-                android:layout_marginLeft="4dp"
-                android:background="#00101010"
-                android:fontFamily="@font/anaheim"
-                android:padding="3dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="#FFEAEAEA"
-                android:textSize="12sp"
-                android:textStyle="normal|bold"
-                tools:text="00% Complete" />
-
-            <TextView
-                android:id="@+id/daysLeft"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="4dp"
-                android:layout_marginLeft="4dp"
-                android:background="#00101010"
-                android:fontFamily="@font/anaheim"
-                android:padding="3dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="#FFEAEAEA"
-                android:textSize="12sp"
-                android:textStyle="normal|bold"
-                tools:text="___ Days Left" />
+                <TextView
+                    android:id="@+id/percentComplete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:background="#00101010"
+                    android:fontFamily="@font/anaheim"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="00% Complete"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="#0B0B0B"
+                    android:textSize="12sp"
+                    android:textStyle="normal|bold"
+                    tools:text="00% Complete" />
+            </LinearLayout>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

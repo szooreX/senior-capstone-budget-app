@@ -9,6 +9,6 @@ import java.util.ArrayList;
  * @author Katelynn Urgitus
  */
 public interface TransactionAPIInterface {
-    public ArrayList<String> getTransactionType();
+    public ArrayList<String> getAccountBalance();
     public ArrayList<String> getTransactionAmount();
 }

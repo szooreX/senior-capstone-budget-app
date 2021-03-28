@@ -1,4 +1,4 @@
-package com.example.senior_capstone_budget_app.ui.login
+package com.example.senior_capstone_budget_app.login
 
 /**
  * Authentication result : success (user details) or error message.

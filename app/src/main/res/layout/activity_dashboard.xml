@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DashboardActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppBarOverlay">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#2334A5">
+
+            <ImageView
+                android:id="@+id/appHeader5"
+                android:layout_width="170dp"
+                android:layout_height="59dp"
+                android:background="#2334A5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_centered_transparent_logo" />
+
+            <ImageButton
+                android:id="@+id/settingsBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#2334A5"
+                android:tint="#39F9F9F9"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.84"
+                app:layout_constraintStart_toEndOf="@+id/appHeader5"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.487"
+                app:srcCompat="@drawable/ic_settings__setup__set__gear__mechanic" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ECECEC"
+            app:tabIndicatorColor="#000000"
+            app:tabTextColor="#020202">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/dashboardTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DASHBOARD" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/accountsTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Accounts" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/goalsTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Goals" />
+        </com.google.android.material.tabs.TabLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/content_dashboard" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

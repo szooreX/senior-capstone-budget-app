@@ -1,9 +1,11 @@
 package com.example.senior_capstone_budget_app.data.paypalAPI;
 
 import android.util.Base64;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,7 +20,7 @@ import java.io.UnsupportedEncodingException;
 /**
  * This is an API for PayPal's Transaction Search
  * <p>
- * Last Updated 03/29/2021
+ * Last Updated 03/30/2021
  *
  * @author Katelynn Urgitus
  */
@@ -29,28 +31,24 @@ public class PayPalTransactionAPI {
     private URL url;
     private String authToken;
 
+    /**
+     * Constructor
+     */
     public PayPalTransactionAPI() {
         this.clientID = "AYrRb_N3xKvsqWCkqtANS7pxKFMol0bitnq7MkciLCMVYTFiqtu32feWTefYYJwov8WTO6GrsRnSSxCQ";
         this.secret = "ECeue3J28wU-Nzk9T0jZipiVoVp3jwVg0QTj9CSiMAR0yUFRoKq_nTG6SyHL4fw3kJ8nicjHI3KdAxAI";
         this.authToken = setAuthToken();
     }
 
-    protected ArrayList<Object> getDataFromAPI(String _contentRequested, String _transactionID) {
-        String callAction = "";
-        String objNeeded = "";
-        switch (_contentRequested) {
-            case "transactions":
-                callAction = "/v1/reporting/transactions";
-                objNeeded = "transaction_amount";
-                break;
-            case "balances":
-                callAction = "/v1/reporting/balances";
-                objNeeded = "total_balance";
-                break;
-        }
+    /**
+     *  Gets the users total account balance
+     * @return
+     */
+    public String findBalance() {
         String baseUrl = "https://api-m.sandbox.paypal.com";
+        String callAction = "/v1/reporting/balances?currency_code=USD";
         String urlString = baseUrl + callAction;
-        ArrayList<Object> notSoEmptyList = new ArrayList();
+        String balance = "";
         try {
             url = new URL(urlString);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -59,7 +57,6 @@ public class PayPalTransactionAPI {
             con.setRequestProperty("Accept-Language", "en_US");
             con.setRequestProperty("Accept", "application/json");
             con.setRequestProperty("Content-Type", "application/json");
-            con.setRequestProperty("User-Agent", "Mozilla/5.0");
             StringBuffer content;
             try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
                 String inputLine;
@@ -69,28 +66,62 @@ public class PayPalTransactionAPI {
                 }
             }
             con.disconnect();
-            JSONArray obj = new JSONArray(content.toString());
+            JSONObject obj = new JSONObject(content.toString());
+            balance = obj.getString("balance.total_balance.value");
 
-            for (int i = 0; i < obj.length() - 1; i++) {
-                JSONObject temp = new JSONObject(obj.get(i).toString());
-                notSoEmptyList.add(temp.getJSONObject(objNeeded));
-
-            }
         } catch (IOException | JSONException ex) {
             Logger.getLogger(PayPalTransactionAPI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return notSoEmptyList;
+        return balance;
     }
 
+    /**
+     *  Gets the transaction amounts for a user
+     * @return
+     */
+    public String findTransaction() {
+        String baseUrl = "https://api-m.sandbox.paypal.com";
+        String callAction = "/v1/reporting/transactions?start_date=2014-07-01T00:00:00-0700&end_date=2021-03-30T23:59:59-0700";
+        String urlString = baseUrl + callAction;
+        String transactionAmount = "";
+        try {
+            url = new URL(urlString);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Authorization", "Bearer " + this.authToken);
+            con.setRequestProperty("Accept-Language", "en_US");
+            con.setRequestProperty("Accept", "application/json");
+            con.setRequestProperty("Content-Type", "application/json");
+            StringBuffer content;
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+                String inputLine;
+                content = new StringBuffer();
+                while ((inputLine = in.readLine()) != null) {
+                    content.append(inputLine);
+                }
+            }
+            con.disconnect();
+            JSONObject obj = new JSONObject(content.toString());
+            transactionAmount = obj.getString("transaction_details.transaction_info.transaction_amount.value");
 
+        } catch (IOException | JSONException ex) {
+            Logger.getLogger(PayPalTransactionAPI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return transactionAmount;
+    }
+
+    /**
+     * Retrieves the Authorization Token from the API
+     * @return
+     */
     private String setAuthToken() {
         byte[] authBytes = (this.clientID + ":" + this.secret).getBytes();
-        byte[] authBase64Encoded = android.util.Base64.encode(authBytes, Base64.DEFAULT);
+        byte[] authBase64Encoded = android.util.Base64.encode(authBytes, Base64.NO_WRAP);
         String credentialsBase64Encoded = "";
         try {
             credentialsBase64Encoded = new String(authBase64Encoded, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-
+            Logger.getLogger(PayPalTransactionAPI.class.getName()).log(Level.SEVERE, "Unable to base 64 encode", e);
         }
         String baseUrl = "https://api-m.sandbox.paypal.com";
 

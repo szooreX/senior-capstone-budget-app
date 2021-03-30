@@ -1,27 +1,24 @@
 package com.example.senior_capstone_budget_app.data.paypalAPI;
 
-import com.android.volley.toolbox.HttpResponse;
-
-import org.json.HTTP;
+import android.util.Base64;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.io.UnsupportedEncodingException;
+
 
 /**
  * This is an API for PayPal's Transaction Search
- *
- * Last Updated 03/12/2021
+ * <p>
+ * Last Updated 03/29/2021
  *
  * @author Katelynn Urgitus
  */
@@ -41,7 +38,7 @@ public class PayPalTransactionAPI {
     protected ArrayList<Object> getDataFromAPI(String _contentRequested, String _transactionID) {
         String callAction = "";
         String objNeeded = "";
-        switch (_contentRequested){
+        switch (_contentRequested) {
             case "transactions":
                 callAction = "/v1/reporting/transactions";
                 objNeeded = "transaction_amount";
@@ -58,7 +55,7 @@ public class PayPalTransactionAPI {
             url = new URL(urlString);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
-            con.setRequestProperty("Authorization", "Bearer " + authToken);
+            con.setRequestProperty("Authorization", "Bearer " + this.authToken);
             con.setRequestProperty("Accept-Language", "en_US");
             con.setRequestProperty("Accept", "application/json");
             con.setRequestProperty("Content-Type", "application/json");
@@ -85,20 +82,28 @@ public class PayPalTransactionAPI {
         return notSoEmptyList;
     }
 
+
     private String setAuthToken() {
+        byte[] authBytes = (this.clientID + ":" + this.secret).getBytes();
+        byte[] authBase64Encoded = android.util.Base64.encode(authBytes, Base64.DEFAULT);
+        String credentialsBase64Encoded = "";
+        try {
+            credentialsBase64Encoded = new String(authBase64Encoded, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+
+        }
         String baseUrl = "https://api-m.sandbox.paypal.com";
-        String callActionAuth = "/v1/oauth2/token";
+
+        String callActionAuth = "/v1/oauth2/token?grant_type=client_credentials";
         URL urlAuth;
         try {
             urlAuth = new URL(baseUrl + callActionAuth);
             HttpURLConnection con = (HttpURLConnection) urlAuth.openConnection();
-            con.setRequestMethod("GET");
+
+            con.setRequestMethod("POST");
             con.setRequestProperty("Accept", "application/json");
             con.setRequestProperty("Accept-Language", "en_US");
-            con.setRequestProperty("client_id", this.clientID);
-            con.setRequestProperty("secret", this.secret);
-            con.setRequestProperty("grant_type", "client_credentials");
-            con.setRequestProperty("User-Agent", "Mozilla/5.0");
+            con.setRequestProperty("Authorization", "Basic " + credentialsBase64Encoded);
             StringBuffer content;
             try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
                 String inputLine;
@@ -114,7 +119,7 @@ public class PayPalTransactionAPI {
             return authToken;
         } catch (IOException | JSONException ex) {
             Logger.getLogger(PayPalTransactionAPI.class.getName()).log(Level.SEVERE, null, ex);
-            return "failed to connect";
+            return "failed to connect " + ex.getMessage();
         }
     }
 }

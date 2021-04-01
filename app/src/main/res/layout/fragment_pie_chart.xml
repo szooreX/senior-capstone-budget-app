@@ -23,13 +23,11 @@
             android:layout_height="wrap_content"
             android:background="#3CB6B6B6"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:padding="8dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_marginTop="5dp"
                 android:layout_weight="0"
                 android:padding="15dp"
                 app:cardBackgroundColor="#FFFFFF"

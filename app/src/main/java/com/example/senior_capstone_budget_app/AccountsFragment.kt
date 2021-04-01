@@ -12,7 +12,7 @@ import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.account_item.view.*
 import kotlinx.android.synthetic.main.fragment_accounts.*
 import kotlinx.android.synthetic.main.fragment_accounts.view.*
-
+import com.example.senior_capstone_budget_app.data.paypalAPI.PayPalTransactionAPI
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -69,7 +69,7 @@ class AccountsFragment : Fragment() {
         val accountItems = ArrayList<AccountItem>()
         val item1 = AccountItem(
             "ACCOUNT NAME",
-            0,4000.55
+            0, 4000.00
         )
         val item2 = AccountItem(
             "ACCOUNT NAME",

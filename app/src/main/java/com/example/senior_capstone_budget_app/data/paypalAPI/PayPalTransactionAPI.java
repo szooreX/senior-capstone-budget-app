@@ -18,7 +18,7 @@ import java.io.UnsupportedEncodingException;
 
 
 /**
- * This is an API for PayPal's Transaction Search
+ * This is an API for PayPal's com.example.senior_capstone_budget_app.Transaction Search
  * <p>
  * Last Updated 03/30/2021
  *

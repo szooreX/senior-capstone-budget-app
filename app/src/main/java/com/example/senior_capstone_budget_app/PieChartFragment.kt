@@ -3,10 +3,10 @@ package com.example.senior_capstone_budget_app
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,12 +16,12 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_pie_chart.*
 import kotlinx.android.synthetic.main.month_chart_item.view.*
-import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.LineData
-import kotlinx.android.synthetic.main.month_chart_item.*
 import org.eazegraph.lib.charts.PieChart
 import org.eazegraph.lib.models.PieModel
+import java.time.Month
+import kotlin.math.log
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -39,6 +39,7 @@ class PieChartFragment : Fragment() {
 
     //______________Variables For Recycler View____________________
     private val monthChartAdapter = GroupAdapter<GroupieViewHolder>()
+    private var mTrans: MonthlyTransactions? = null
 
     //here we are adding items to the recycler view using the adapter we created to use images as buttons in a list
     private var displayItems: ArrayList<MonthChartItem> = ArrayList()
@@ -53,10 +54,10 @@ class PieChartFragment : Fragment() {
         }
     //_____________________________________________________________
 
-
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,8 +71,12 @@ class PieChartFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        mTrans = MonthlyTransactions()
+        mTrans?.loadTransactions()
+        mTrans?.transactionLoop()
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pie_chart, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -160,14 +165,15 @@ class PieChartFragment : Fragment() {
 
     private fun createPieChart(pieChart: PieChart?) {
         // Set the percentage of language used
-        personalPercentage.text = Integer.toString(23)
-        miscellaneousPercentage.text = Integer.toString(15)
-        housingPercentage.text = Integer.toString(40)
-        groceriesPercentage.text = Integer.toString(12)
-        utilitiesPercentage.text = Integer.toString(60)
-        medicalPercentage.text = Integer.toString(3)
-        savingsPercentage.text = Integer.toString(7)
 
+        Log.e("testing", mTrans?.getCategoryPercents(0).toString())
+        personalPercentage.text = mTrans?.getCategoryPercents(5).toString();
+        savingsPercentage.text = mTrans?.getCategoryPercents(8).toString();
+        rentPercentage.text = mTrans?.getCategoryPercents(1).toString();
+        householdPercentage.text = mTrans?.getCategoryPercents(4).toString();
+        utilitiesPercentage.text = mTrans?.getCategoryPercents(2).toString();
+        medicalPercentage.text = mTrans?.getCategoryPercents(6).toString();
+        uncategorizedPercentage.text = mTrans?.getCategoryPercents(0).toString();
 
         pieChart?.addPieSlice(
             PieModel(
@@ -175,6 +181,7 @@ class PieChartFragment : Fragment() {
                 Color.parseColor("#18AF2C")
             )
         )
+        Log.e("medical percentage", medicalPercentage.text.toString())
         pieChart?.addPieSlice(
             PieModel(
                 "Personal", personalPercentage.text.toString().toInt().toFloat(),
@@ -183,19 +190,19 @@ class PieChartFragment : Fragment() {
         )
         pieChart?.addPieSlice(
             PieModel(
-                "Miscellaneous", miscellaneousPercentage.text.toString().toInt().toFloat(),
+                "Savings", savingsPercentage.text.toString().toInt().toFloat(),
                 Color.parseColor("#063E3B")
             )
         )
         pieChart?.addPieSlice(
             PieModel(
-                "Housing", housingPercentage.text.toString().toInt().toFloat(),
+                "Rent", rentPercentage.text.toString().toInt().toFloat(),
                 Color.parseColor("#122B54")
             )
         )
         pieChart?.addPieSlice(
             PieModel(
-                "Groceries", groceriesPercentage.text.toString().toInt().toFloat(),
+                "Household", householdPercentage.text.toString().toInt().toFloat(),
                 Color.parseColor("#446192")
             )
         )
@@ -207,12 +214,14 @@ class PieChartFragment : Fragment() {
         )
         pieChart?.addPieSlice(
             PieModel(
-                "Savings", savingsPercentage.text.toString().toInt().toFloat(),
+                "Uncategorized", uncategorizedPercentage.text.toString().toInt().toFloat(),
                 Color.parseColor("#ACC4E2")
             )
         )
 
+
         // To animate the pie chart
+        Log.e("Pie Chart", "Created")
         pieChart?.startAnimation();
 
         // click listener for view transactions

@@ -1,3 +1,5 @@
+package com.example.senior_capstone_budget_app;
+
 public interface Tracker {
     enum trackerEnum {
         DEFAULT(0),
@@ -11,9 +13,7 @@ public interface Tracker {
             this.value = value;
         }
 
-        public int getVal() {
-            return this.value;
-        }
+        public int getVal() {return this.value;}
     }
 
     public double percentSuccessful();

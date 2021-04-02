@@ -225,11 +225,11 @@
                                         android:background="@color/Medical" />
 
                                     <TextView
-                                        android:id="@+id/medicalTextView"
+                                        android:id="@+id/personalTextView"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/anaheim"
-                                        android:text="Medical"
+                                        android:text="Personal"
                                         android:textColor="#27314F"
                                         android:textSize="18sp" />
 
@@ -255,11 +255,11 @@
                                         android:background="@color/Personal" />
 
                                     <TextView
-                                        android:id="@+id/personalTextView"
+                                        android:id="@+id/savingsTextView"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/anaheim"
-                                        android:text="Personal"
+                                        android:text="Savings"
                                         android:textColor="#27314F"
                                         android:textSize="18sp" />
 
@@ -290,11 +290,11 @@
                                         android:background="@color/Miscellaneous" />
 
                                     <TextView
-                                        android:id="@+id/MiscellaneousTextView"
+                                        android:id="@+id/rentTextView"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/anaheim"
-                                        android:text="Miscellaneous"
+                                        android:text="Rent"
                                         android:textColor="#27314F"
                                         android:textSize="18sp" />
 
@@ -323,11 +323,11 @@
                                         android:background="@color/Housing" />
 
                                     <TextView
-                                        android:id="@+id/housingTextView"
+                                        android:id="@+id/householdTextView"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/anaheim"
-                                        android:text="Housing"
+                                        android:text="Household"
                                         android:textColor="#27314F"
                                         android:textSize="18sp" />
 
@@ -356,11 +356,11 @@
                                         android:background="@color/Groceries" />
 
                                     <TextView
-                                        android:id="@+id/groceriesTextView"
+                                        android:id="@+id/utilitiesTextView"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/anaheim"
-                                        android:text="Groceries"
+                                        android:text="Utilities"
                                         android:textColor="#27314F"
                                         android:textSize="18sp" />
 
@@ -389,11 +389,11 @@
                                         android:background="@color/Utilities" />
 
                                     <TextView
-                                        android:id="@+id/utilitiesTextView"
+                                        android:id="@+id/medicalTextView"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/anaheim"
-                                        android:text="Utilities"
+                                        android:text="Medical"
                                         android:textColor="#27314F"
                                         android:textSize="18sp" />
 
@@ -426,12 +426,12 @@
                                         android:background="@color/Savings" />
 
                                     <TextView
-                                        android:id="@+id/savingsTextView"
+                                        android:id="@+id/uncategorizedTextView"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="0"
                                         android:fontFamily="@font/anaheim"
-                                        android:text="Savings"
+                                        android:text="Uncategorized"
                                         android:textColor="#27314F"
                                         android:textSize="18sp" />
 
@@ -500,7 +500,7 @@
                                     android:padding="3dp">
 
                                     <TextView
-                                        android:id="@+id/miscellaneousPercentage"
+                                        android:id="@+id/savingsPercentage"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/anaheim"
@@ -536,7 +536,7 @@
                                     android:padding="3dp">
 
                                     <TextView
-                                        android:id="@+id/housingPercentage"
+                                        android:id="@+id/rentPercentage"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/anaheim"
@@ -571,7 +571,7 @@
                                     android:padding="3dp">
 
                                     <TextView
-                                        android:id="@+id/groceriesPercentage"
+                                        android:id="@+id/householdPercentage"
                                         android:layout_width="wrap_content"
 
                                         android:layout_height="wrap_content"
@@ -675,7 +675,7 @@
                                     android:padding="3dp">
 
                                     <TextView
-                                        android:id="@+id/savingsPercentage"
+                                        android:id="@+id/uncategorizedPercentage"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/anaheim"

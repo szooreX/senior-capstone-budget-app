@@ -1,18 +1,20 @@
+package com.example.senior_capstone_budget_app;
+
 import java.util.Date;
 
-public class SavePercent implements Tracker{
+public class SpendLessThanPercent implements Tracker{
     trackerEnum type = trackerEnum.PERCENT;
     int limit = 0;
     Categories cat = Categories.UNCATEGORIZED;
-    trackerEnum direction = trackerEnum.GREATER;
+    trackerEnum direction = trackerEnum.LESS;
     Date reminder = null;
 
-    public SavePercent (int limit, Categories cat) {
+    public SpendLessThanPercent (int limit, Categories cat) {
         this.limit = limit;
         this.cat = cat;
     }
 
-    public SavePercent(int limit, Categories cat, Date reminder) {
+    public SpendLessThanPercent(int limit, Categories cat, Date reminder) {
         this.limit = limit;
         this.cat = cat;
         this.reminder = reminder;
@@ -23,4 +25,3 @@ public class SavePercent implements Tracker{
         return 0;
     }
 }
-

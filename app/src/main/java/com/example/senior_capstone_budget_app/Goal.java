@@ -1,3 +1,5 @@
+package com.example.senior_capstone_budget_app;
+
 import java.security.SecureRandom;
 import java.util.Date;
 

@@ -90,4 +90,8 @@ dependencies {
 
     implementation group: 'com.eclipsesource.j2v8', name: 'j2v8', version: '6.2.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+
+    // For Login
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
 }

@@ -3,10 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
-    android:padding="4dp"
-    android:paddingTop="20dp"
-    android:paddingBottom="20dp">
+    android:layout_height="250dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"

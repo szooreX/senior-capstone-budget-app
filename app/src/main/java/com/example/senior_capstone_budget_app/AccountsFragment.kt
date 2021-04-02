@@ -12,14 +12,13 @@ import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.account_item.view.*
 import kotlinx.android.synthetic.main.fragment_accounts.*
 import kotlinx.android.synthetic.main.fragment_accounts.view.*
+import com.example.senior_capstone_budget_app.data.paypalAPI.PayPalTransactionAPI
 
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
 class AccountsFragment : Fragment() {
     //______________Variables For Recycler View____________________
     private val accountItemAdapter = GroupAdapter<GroupieViewHolder>()
+//    private var paypalAPI : PayPalTransactionAPI? = null
 
     //here we are adding items to the recycler view using the adapter we created to use images as buttons in a list
     private var displayItems: ArrayList<AccountItem> = ArrayList()
@@ -37,12 +36,17 @@ class AccountsFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        //view has been been instantiated yet
+        //assign values here
+
+//        paypalAPI = PayPalTransactionAPI()
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_accounts, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //now you have access to the view to make changes
         accountsRecyclerView.apply {
             accountsRecyclerView.layoutManager = LinearLayoutManager(context)
             accountsRecyclerView.adapter = accountItemAdapter
@@ -67,10 +71,10 @@ class AccountsFragment : Fragment() {
     private fun getAccountItems() {
         //create home menu items
         val accountItems = ArrayList<AccountItem>()
-        val item1 = AccountItem(
-            "ACCOUNT NAME",
-            0,4000.55
-        )
+//        val item1 = AccountItem(
+//            "ACCOUNT NAME",
+//            0, paypalAPI?.findBalance().toString().toDouble()
+//        )
         val item2 = AccountItem(
             "ACCOUNT NAME",
             1, 3000.00
@@ -78,7 +82,7 @@ class AccountsFragment : Fragment() {
 
 
         //add home menu items to an array list
-        accountItems.add(item1)
+//        accountItems.add(item1)
         accountItems.add(item2)
 
         //pass array list to displayItems to pass through Adapter

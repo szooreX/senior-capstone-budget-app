@@ -71,6 +71,8 @@ class PieChartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         mTrans = MonthlyTransactions()
+        mTrans?.loadTransactions()
+        mTrans?.transactionLoop()
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pie_chart, container, false)
 
@@ -78,7 +80,6 @@ class PieChartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mTrans?.loadTransactions()
         createPieChart(piechart)
         getMonthChartItems()
 
@@ -163,7 +164,7 @@ class PieChartFragment : Fragment() {
     private fun createPieChart(pieChart: PieChart?) {
         // Set the percentage of language used
 
-
+        Log.e("testing", mTrans?.getCategoryPercents(0).toString())
         personalPercentage.text = mTrans?.getCategoryPercents(5).toString();
         savingsPercentage.text = mTrans?.getCategoryPercents(8).toString();
         rentPercentage.text = mTrans?.getCategoryPercents(1).toString();
@@ -178,6 +179,7 @@ class PieChartFragment : Fragment() {
                 Color.parseColor("#18AF2C")
             )
         )
+        Log.e("medical percentage", medicalPercentage.text.toString())
         pieChart?.addPieSlice(
             PieModel(
                 "Personal", personalPercentage.text.toString().toInt().toFloat(),
@@ -217,6 +219,7 @@ class PieChartFragment : Fragment() {
 
 
         // To animate the pie chart
+        Log.e("Pie Chart", "Created")
         pieChart?.startAnimation();
 
         viewTransactions.setOnClickListener { findNavController().navigate(R.id.transactionsFragment) }

@@ -144,6 +144,9 @@ public class MonthlyTransactions {
                     categoryPercents[8] = (int) ((ending / total) * 100);
                     break;
             }
+
+            System.out.println(total);
+            System.out.println(categoryPercents[1]);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.senior_capstone_budget_app
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -90,7 +91,7 @@ class PieChartFragment : Fragment() {
     }
 
 
-    private fun makeNewChart() : LineData {
+    private fun makeNewChart(): LineData {
 
         //programmatically create a view to add to month_chart_item.xml layout file
         var chart: LineChart = LineChart(context)
@@ -124,6 +125,7 @@ class PieChartFragment : Fragment() {
 
         return lineData
     }
+
     private fun getMonthChartItems() {
         //recycler view item array
         val monthChartItems = ArrayList<MonthChartItem>()
@@ -213,7 +215,20 @@ class PieChartFragment : Fragment() {
         // To animate the pie chart
         pieChart?.startAnimation();
 
+        // click listener for view transactions
         viewTransactions.setOnClickListener { findNavController().navigate(R.id.transactionsFragment) }
+
+        addTransaction.setOnClickListener {
+            val intent = Intent(context, AddTransactionActivity::class.java)
+            intent.putExtra("popuptitle", "Add Transaction")
+            intent.putExtra("popuptext", "Transaction Amount")
+            intent.putExtra("popupbtn", "+ADD")
+           // intent.putExtra("darkstatusbar", false)
+            startActivity(intent)
+        }
+        //To use the popup window, just pass the values for the Title, Text, Button text and Status Bar appearance.
+
+
     }
 
     companion object {
@@ -245,8 +260,7 @@ class MonthChartAdapter(private val item: MonthChartItem) :
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         //this this a function to add item properties to the recycler view
-       viewHolder.itemView.chart_view.data = item.lineData
-
+        viewHolder.itemView.chart_view.data = item.lineData
 
 
     }

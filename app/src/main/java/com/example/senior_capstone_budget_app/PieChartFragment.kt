@@ -38,6 +38,7 @@ class PieChartFragment : Fragment() {
 
     //______________Variables For Recycler View____________________
     private val monthChartAdapter = GroupAdapter<GroupieViewHolder>()
+    private var mTrans: MonthlyTransactions? = null
 
     //here we are adding items to the recycler view using the adapter we created to use images as buttons in a list
     private var displayItems: ArrayList<MonthChartItem> = ArrayList()
@@ -56,8 +57,6 @@ class PieChartFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    private var mTrans = MonthlyTransactions()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,14 +64,13 @@ class PieChartFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        mTrans.loadTransactions()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        mTrans = MonthlyTransactions()
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pie_chart, container, false)
 
@@ -80,6 +78,7 @@ class PieChartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mTrans?.loadTransactions()
         createPieChart(piechart)
         getMonthChartItems()
 
@@ -165,13 +164,13 @@ class PieChartFragment : Fragment() {
         // Set the percentage of language used
 
 
-        personalPercentage.text = mTrans.getCategoryPercents(5).toString();
-        savingsPercentage.text = mTrans.getCategoryPercents(8).toString();
-        rentPercentage.text = mTrans.getCategoryPercents(1).toString();
-        householdPercentage.text = mTrans.getCategoryPercents(4).toString();
-        utilitiesPercentage.text = mTrans.getCategoryPercents(2).toString();
-        medicalPercentage.text = mTrans.getCategoryPercents(6).toString();
-        uncategorizedPercentage.text = mTrans.getCategoryPercents(0).toString();
+        personalPercentage.text = mTrans?.getCategoryPercents(5).toString();
+        savingsPercentage.text = mTrans?.getCategoryPercents(8).toString();
+        rentPercentage.text = mTrans?.getCategoryPercents(1).toString();
+        householdPercentage.text = mTrans?.getCategoryPercents(4).toString();
+        utilitiesPercentage.text = mTrans?.getCategoryPercents(2).toString();
+        medicalPercentage.text = mTrans?.getCategoryPercents(6).toString();
+        uncategorizedPercentage.text = mTrans?.getCategoryPercents(0).toString();
 
         pieChart?.addPieSlice(
             PieModel(

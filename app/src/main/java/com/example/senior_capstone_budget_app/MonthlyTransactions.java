@@ -63,7 +63,6 @@ public class MonthlyTransactions {
     public void loadTransactions(){
         int counter = 0;
         for (String s: temp){
-            Log.e("", s);
             String[] t = s.split("\\,");
             double amount = Double.parseDouble(t[0]);
             long l = Long.parseLong(t[2]);

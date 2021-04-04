@@ -87,55 +87,47 @@ public class MonthlyTransactions {
         for (Transaction t : transactions){
             double a = -1.0 * t.getAmount();
             total += a;
-
+            System.out.println(t.getCategory());
             switch (t.getCategory()) {
                 case UNCATEGORIZED:
                     starting = categoryTotals[0];
                     ending = starting + a;
                     categoryTotals[0] = ending;
-                    categoryPercents[0] = (int) ((ending / total) * 100);
                     break;
                 case RENT:
                     starting = categoryTotals[1];
                     ending = starting + a;
                     categoryTotals[1] = ending;
-                    categoryPercents[1] = (int) ((ending / total) * 100);
                     break;
                 case UTILITIES:
                     starting = categoryTotals[2];
                     ending = starting + a;
                     categoryTotals[2] = ending;
-                    categoryPercents[2] = (int) ((ending / total) * 100);
                     break;
                 case TRANSPORTATION:
                     starting = categoryTotals[3];
                     ending = starting + a;
                     categoryTotals[3] = ending;
-                    categoryPercents[3] = (int) ((ending / total) * 100);
                     break;
                 case HOUSEHOLD:
                     starting = categoryTotals[4];
                     ending = starting + a;
                     categoryTotals[4] = ending;
-                    categoryPercents[4] = (int) ((ending / total) * 100);
                     break;
                 case PERSONAL:
                     starting = categoryTotals[5];
                     ending = starting + a;
                     categoryTotals[5] = ending;
-                    categoryPercents[5] = (int) ((ending / total) * 100);
                     break;
                 case MEDICAL:
                     starting = categoryTotals[6];
                     ending = starting + a;
                     categoryTotals[6] = ending;
-                    categoryPercents[6] = (int) ((ending / total) * 100);
                     break;
                 case DEBT:
                     starting = categoryTotals[7];
                     ending = starting + a;
                     categoryTotals[7] = ending;
-                    categoryPercents[7] = (int) ((ending / total) * 100);
                     break;
                 case SAVINGS:
                     starting = categoryTotals[8];
@@ -144,9 +136,10 @@ public class MonthlyTransactions {
                     categoryPercents[8] = (int) ((ending / total) * 100);
                     break;
             }
-
-            System.out.println(total);
-            System.out.println(categoryPercents[1]);
+            for (int k = 0; k < 9; k++){
+                double catTotal = categoryTotals[k];
+                categoryPercents[k] = (int) ((catTotal/total) * 100);
+            }
         }
     }
 

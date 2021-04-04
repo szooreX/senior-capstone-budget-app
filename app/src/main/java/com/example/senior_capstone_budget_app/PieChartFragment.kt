@@ -20,6 +20,8 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.LineData
 import org.eazegraph.lib.charts.PieChart
 import org.eazegraph.lib.models.PieModel
+import java.io.IOException
+import java.io.InputStream
 import java.time.Month
 import kotlin.math.log
 
@@ -28,6 +30,9 @@ import kotlin.math.log
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+
+var mT: MonthlyTransactions? = null
+var input = ""
 
 /**
  * A simple [Fragment] subclass.
@@ -65,6 +70,20 @@ class PieChartFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        mT = MonthlyTransactions()
+
+        try{
+            val inputStream: InputStream = activity?.applicationContext?.assets!!.open("TransactionSample.txt")
+            val size: Int = inputStream.available()
+            val buffer = ByteArray(size)
+            inputStream.read(buffer)
+            input = String(buffer)
+        }catch (e: IOException){
+            e.printStackTrace()
+        }
+        mT?.loadTransactions2(input)
+        mT?.transactionLoop()
     }
 
     override fun onCreateView(
@@ -72,6 +91,7 @@ class PieChartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         mTrans = MonthlyTransactions()
+        //DashboardActivity().mT?.loadTransactions2()
         mTrans?.loadTransactions()
         mTrans?.transactionLoop()
         // Inflate the layout for this fragment
@@ -81,6 +101,7 @@ class PieChartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         createPieChart(piechart)
         getMonthChartItems()
 
@@ -94,7 +115,6 @@ class PieChartFragment : Fragment() {
 
         //put functional code here for function calls, etc.
     }
-
 
     private fun makeNewChart(): LineData {
 
@@ -166,14 +186,21 @@ class PieChartFragment : Fragment() {
     private fun createPieChart(pieChart: PieChart?) {
         // Set the percentage of language used
 
-        Log.e("testing", mTrans?.getCategoryPercents(0).toString())
-        personalPercentage.text = mTrans?.getCategoryPercents(5).toString();
-        savingsPercentage.text = mTrans?.getCategoryPercents(8).toString();
-        rentPercentage.text = mTrans?.getCategoryPercents(1).toString();
-        householdPercentage.text = mTrans?.getCategoryPercents(4).toString();
-        utilitiesPercentage.text = mTrans?.getCategoryPercents(2).toString();
-        medicalPercentage.text = mTrans?.getCategoryPercents(6).toString();
-        uncategorizedPercentage.text = mTrans?.getCategoryPercents(0).toString();
+        personalPercentage.text = mT?.getCategoryPercents(5).toString();
+        savingsPercentage.text = mT?.getCategoryPercents(8).toString();
+        rentPercentage.text = mT?.getCategoryPercents(1).toString();
+        householdPercentage.text = mT?.getCategoryPercents(4).toString();
+        utilitiesPercentage.text = mT?.getCategoryPercents(2).toString();
+        medicalPercentage.text = mT?.getCategoryPercents(6).toString();
+        uncategorizedPercentage.text = mT?.getCategoryPercents(0).toString();
+
+//        personalPercentage.text = mTrans?.getCategoryPercents(5).toString();
+//        savingsPercentage.text = mTrans?.getCategoryPercents(8).toString();
+//        rentPercentage.text = mTrans?.getCategoryPercents(1).toString();
+//        householdPercentage.text = mTrans?.getCategoryPercents(4).toString();
+//        utilitiesPercentage.text = mTrans?.getCategoryPercents(2).toString();
+//        medicalPercentage.text = mTrans?.getCategoryPercents(6).toString();
+//        uncategorizedPercentage.text = mTrans?.getCategoryPercents(0).toString();
 
         pieChart?.addPieSlice(
             PieModel(
@@ -181,7 +208,6 @@ class PieChartFragment : Fragment() {
                 Color.parseColor("#18AF2C")
             )
         )
-        Log.e("medical percentage", medicalPercentage.text.toString())
         pieChart?.addPieSlice(
             PieModel(
                 "Personal", personalPercentage.text.toString().toInt().toFloat(),
@@ -221,7 +247,6 @@ class PieChartFragment : Fragment() {
 
 
         // To animate the pie chart
-        Log.e("Pie Chart", "Created")
         pieChart?.startAnimation();
 
         // click listener for view transactions

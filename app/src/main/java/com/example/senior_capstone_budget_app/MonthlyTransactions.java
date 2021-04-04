@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.File;
 import java.io.InputStream;
@@ -14,10 +15,11 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 
-public class MonthlyTransactions {
+public class MonthlyTransactions extends AppCompatActivity{
     String[] temp = new String[]{"-100.00,Amazon,1617249600000,0",
             "-60.42,Harris Teeter,1617249600000,4",
             "-7.82,McDonald's,1617336000000,4",
@@ -30,6 +32,7 @@ public class MonthlyTransactions {
             "-12.32,Walgreens,1618977600000,6",
             "-73.45,Duke Power,1619496000000,2"};
 
+    private Context context;
     private Date currentMonth;
     private Date nextMonth;
     private Timestamp currentTimestamp;
@@ -44,6 +47,9 @@ public class MonthlyTransactions {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
 
         currentMonth = cal.getTime();
         currentTimestamp = new Timestamp(cal.getTimeInMillis());
@@ -58,6 +64,35 @@ public class MonthlyTransactions {
         this.transactions = new ArrayList<Transaction>();
     }
 
+    public MonthlyTransactions(Context c) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+
+        currentMonth = cal.getTime();
+        currentTimestamp = new Timestamp(cal.getTimeInMillis());
+
+        cal.add(Calendar.MONTH, 1);
+
+        nextMonth = cal.getTime();
+        nextTimestamp = new Timestamp(cal.getTimeInMillis());
+
+        this.context = c;
+        this.categoryTotals = new double[9];
+        this.categoryPercents = new int[9];
+        this.transactions = new ArrayList<Transaction>();
+    }
+
+    public void printList(String s){
+        String[] a = s.split("\n");
+        for (String t:a){
+
+        }
+    }
+
 
     //!!! Modify for database when ready
     public void loadTransactions(){
@@ -68,16 +103,32 @@ public class MonthlyTransactions {
             long l = Long.parseLong(t[2]);
             Timestamp time = new Timestamp(l);
             int cat = Integer.parseInt(t[3]);
-            System.out.println(t[3]);
+
             if(currentTimestamp.compareTo(time)<= 0 && nextTimestamp.compareTo(time)>0){
                 transactions.add(counter, new Transaction(amount, t[1], time, cat));
-                double u = transactions.get(counter).getAmount();
-                String r = String.valueOf(u);
                 counter ++;
             }
         }
     }
 
+    public void loadTransactions2(String input){
+        String[] split = input.split("\n");
+        int counter = 0;
+        for (String s: split){
+            s = s.replaceAll("[^\\x00-\\x7F]", "");
+            s = s.replaceAll("[\\p{Cntrl}&&[^\r\n\t]]", "");
+            s = s.replaceAll("\\p{C}", "");
+            String[] t = s.split("\\,");
+            double amount = Double.parseDouble(t[0]);
+            long l = Long.parseLong(t[2]);
+            Timestamp time = new Timestamp(l);
+            int cat = Integer.parseInt(t[3]);
+            if(currentTimestamp.compareTo(time)<= 0 && nextTimestamp.compareTo(time)>0){
+                transactions.add(counter, new Transaction(amount, t[1], time, cat));
+                counter ++;
+            }
+        }
+    }
 
     public void transactionLoop(){
         total = 0;
@@ -87,7 +138,6 @@ public class MonthlyTransactions {
         for (Transaction t : transactions){
             double a = -1.0 * t.getAmount();
             total += a;
-            System.out.println(t.getCategory());
             switch (t.getCategory()) {
                 case UNCATEGORIZED:
                     starting = categoryTotals[0];

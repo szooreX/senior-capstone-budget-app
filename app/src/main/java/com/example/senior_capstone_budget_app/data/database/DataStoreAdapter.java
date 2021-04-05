@@ -5,7 +5,7 @@ package com.example.senior_capstone_budget_app.data.database;
  * we would like to use a new or different database and connects that to the
  * system.
  * <p>
- * Last Updated: 03/23/2021
+ * Last Updated: 04/05/2021
  *
  * @author Katelynn Urgitus
  */
@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 public class DataStoreAdapter {
 
-    protected static final DBConnectorInterface connector = new MSSQLDatabase();
+    protected static final DBConnectorInterface connector = new MySQLDatabase();
 
     /**
      *

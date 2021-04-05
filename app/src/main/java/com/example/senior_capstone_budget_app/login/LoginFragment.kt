@@ -1,5 +1,6 @@
 package com.example.senior_capstone_budget_app.login
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -26,9 +27,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+
 
 class LoginFragment : Fragment() {
 
@@ -53,17 +54,14 @@ class LoginFragment : Fragment() {
 
         val signInButton =
             view.findViewById<com.google.android.gms.common.SignInButton>(R.id.sign_in_button)
-        //signInButton.setSize(SignInButton.SIZE_STANDARD)
-        val loadingProgressBar = view.findViewById<ProgressBar>(R.id.loading)
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("528295970870-8sk6npbu6age89red3sr1k8l7kgm82c6.apps.googleusercontent.com ")
+            .requestIdToken(getString(R.string.server_client_id))
             .requestEmail()
             .build()
 
         mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
 
-        signInButton.setOnClickListener {
-            //loadingProgressBar.visibility = View.VISIBLE
+        signInButton.setOnClickListener{
             signIn()
         }
 
@@ -75,46 +73,38 @@ class LoginFragment : Fragment() {
         startActivityForResult(
             signInIntent, RCSIGNIN
         )
+
     }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RCSIGNIN) {
-            val task =
-                GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task)
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                handleSignInResult(task)
+            } catch (e: ApiException) {
+                Log.e(
+                    "onAct:failed code=", e.statusCode.toString()
+                )
+            }
+
         }
     }
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
-            val account = completedTask.getResult(
-                ApiException::class.java
-            )
-            // Signed in successfully
+
             var intent = Intent(activity, DashboardActivity::class.java)
             startActivity(intent)
 
         } catch (e: ApiException) {
             // Sign in was unsuccessful
             Log.e(
-                "failed code=", e.statusCode.toString()
+                "Login:failed code=", e.statusCode.toString()
             )
         }
+
     }
 
-
-
-    private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome) + model.displayName
-        // TODO : initiate successful logged in experience
-        val appContext = context?.applicationContext ?: return
-        Toast.makeText(appContext, welcome, Toast.LENGTH_LONG).show()
-    }
-
-    private fun showLoginFailed(@StringRes errorString: Int) {
-        val appContext = context?.applicationContext ?: return
-        Toast.makeText(appContext, errorString, Toast.LENGTH_LONG).show()
-    }
 }

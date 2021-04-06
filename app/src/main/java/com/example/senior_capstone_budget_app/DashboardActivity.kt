@@ -1,21 +1,12 @@
 package com.example.senior_capstone_budget_app
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
-import android.util.Log
-import android.view.View
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.example.senior_capstone_budget_app.R
+import com.example.senior_capstone_budget_app.transaction.MonthlyTransactions
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_dashboard.*
-import kotlinx.android.synthetic.main.fragment_pie_chart.*
-import java.io.IOException
-import java.io.InputStream
 
 class DashboardActivity : AppCompatActivity() {
 

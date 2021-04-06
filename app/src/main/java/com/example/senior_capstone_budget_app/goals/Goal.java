@@ -1,4 +1,4 @@
-package com.example.senior_capstone_budget_app;
+package com.example.senior_capstone_budget_app.goals;
 
 import java.security.SecureRandom;
 import java.util.Date;

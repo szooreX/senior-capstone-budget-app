@@ -1,4 +1,4 @@
-package com.example.senior_capstone_budget_app;
+package com.example.senior_capstone_budget_app.budget;
 
 import android.os.Build;
 

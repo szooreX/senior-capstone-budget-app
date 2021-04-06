@@ -1,7 +1,7 @@
 package com.example.senior_capstone_budget_app.data.paypalAPI;
 
 /**
- * This is a BaseAPI Class for our com.example.senior_capstone_budget_app.Transaction API
+ * This is a BaseAPI Class for our com.example.senior_capstone_budget_app.transaction.Transaction API
  *
  * Last Updated 03/12/2021
  *

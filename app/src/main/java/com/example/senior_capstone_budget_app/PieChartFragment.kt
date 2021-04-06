@@ -3,13 +3,13 @@ package com.example.senior_capstone_budget_app
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.senior_capstone_budget_app.transaction.MonthlyTransactions
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineDataSet
 import com.xwray.groupie.GroupAdapter
@@ -22,8 +22,6 @@ import org.eazegraph.lib.charts.PieChart
 import org.eazegraph.lib.models.PieModel
 import java.io.IOException
 import java.io.InputStream
-import java.time.Month
-import kotlin.math.log
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -71,7 +69,8 @@ class PieChartFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
-        mT = MonthlyTransactions()
+        mT =
+            MonthlyTransactions()
 
         try{
             val inputStream: InputStream = activity?.applicationContext?.assets!!.open("TransactionSample.txt")
@@ -90,7 +89,8 @@ class PieChartFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mTrans = MonthlyTransactions()
+        mTrans =
+            MonthlyTransactions()
         //DashboardActivity().mT?.loadTransactions2()
         mTrans?.loadTransactions()
         mTrans?.transactionLoop()

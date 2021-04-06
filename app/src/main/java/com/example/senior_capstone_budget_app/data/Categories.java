@@ -1,4 +1,4 @@
-package com.example.senior_capstone_budget_app;
+package com.example.senior_capstone_budget_app.data;
 
 public enum Categories {
     UNCATEGORIZED(0),

@@ -1,5 +1,7 @@
-package com.example.senior_capstone_budget_app;
+package com.example.senior_capstone_budget_app.transaction;
 
+
+import com.example.senior_capstone_budget_app.data.Categories;
 
 import java.util.Date;
 import java.sql.Timestamp;

@@ -1,25 +1,18 @@
-package com.example.senior_capstone_budget_app;
+package com.example.senior_capstone_budget_app.transaction;
 
 import android.content.Context;
-import android.util.Log;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import com.example.senior_capstone_budget_app.transaction.Transaction;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
 
 
 public class MonthlyTransactions extends AppCompatActivity{
+    //Example transaction set for uses when testing the class without context passing issues
     String[] temp = new String[]{"-100.00,Amazon,1617249600000,0",
             "-60.42,Harris Teeter,1617249600000,4",
             "-7.82,McDonald's,1617336000000,4",
@@ -43,6 +36,9 @@ public class MonthlyTransactions extends AppCompatActivity{
     private double[] categoryTotals;
     private int[] categoryPercents;
 
+    /**
+     * MonthlyTransaction object constructor with no context passed
+     */
     public MonthlyTransactions() {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 0);
@@ -61,9 +57,13 @@ public class MonthlyTransactions extends AppCompatActivity{
 
         this.categoryTotals = new double[9];
         this.categoryPercents = new int[9];
-        this.transactions = new ArrayList<Transaction>();
+        this.transactions = new ArrayList<>();
     }
 
+    /**
+     * Monthly Transaction Object constructor for use if context is passed
+     * @param c Android application context
+     */
     public MonthlyTransactions(Context c) {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 0);
@@ -83,22 +83,38 @@ public class MonthlyTransactions extends AppCompatActivity{
         this.context = c;
         this.categoryTotals = new double[9];
         this.categoryPercents = new int[9];
-        this.transactions = new ArrayList<Transaction>();
+        this.transactions = new ArrayList<>();
     }
 
-    public void printList(String s){
-        String[] a = s.split("\n");
-        for (String t:a){
+    /**
+     * Creates a MonthlyTransactions object for use when populating the transactions history view
+     * @param date The start date of the month we want history for
+     */
+    public void MonthlyTransactionsHistory(Date date) {
+        this.currentMonth = date;
+        currentTimestamp = new Timestamp(currentMonth.getTime());
 
-        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(currentMonth);
+        cal.add(Calendar.MONTH, 1);
+
+        nextMonth = cal.getTime();
+        nextTimestamp = new Timestamp(cal.getTimeInMillis());
+
+        this.categoryTotals = new double[9];
+        this.categoryPercents = new int[9];
+        this.transactions = new ArrayList<>();
     }
 
-
-    //!!! Modify for database when ready
+    /**
+     * !!! Modify for database when ready
+     * For reading from internal array
+     * Deprecated
+     */
     public void loadTransactions(){
         int counter = 0;
         for (String s: temp){
-            String[] t = s.split("\\,");
+            String[] t = s.split(",");
             double amount = Double.parseDouble(t[0]);
             long l = Long.parseLong(t[2]);
             Timestamp time = new Timestamp(l);
@@ -111,6 +127,12 @@ public class MonthlyTransactions extends AppCompatActivity{
         }
     }
 
+
+    /**
+     * For use when reading from a file/database
+     * '\n' separates each transaction ',' separates each transaction pieces
+     * @param input File/Database input as a string
+     */
     public void loadTransactions2(String input){
         String[] split = input.split("\n");
         int counter = 0;
@@ -118,7 +140,7 @@ public class MonthlyTransactions extends AppCompatActivity{
             s = s.replaceAll("[^\\x00-\\x7F]", "");
             s = s.replaceAll("[\\p{Cntrl}&&[^\r\n\t]]", "");
             s = s.replaceAll("\\p{C}", "");
-            String[] t = s.split("\\,");
+            String[] t = s.split(",");
             double amount = Double.parseDouble(t[0]);
             long l = Long.parseLong(t[2]);
             Timestamp time = new Timestamp(l);
@@ -130,6 +152,10 @@ public class MonthlyTransactions extends AppCompatActivity{
         }
     }
 
+    /**
+     * Loop trough the transaction list to calculate the total spent, total spent per category,
+     * and the percent spent per category.
+     */
     public void transactionLoop(){
         total = 0;
         double starting;
@@ -193,10 +219,18 @@ public class MonthlyTransactions extends AppCompatActivity{
         }
     }
 
+    /**
+     * Add a single transaction to transactions list
+     * @param t the transaction object to be added
+     */
     public void addTransaction(Transaction t){
         transactions.add(t);
     }
 
+    /**
+     * Remove a specifc transaction from the transactions list
+     * @param index the  integer index of the transaction to be removed
+     */
     public void removeTransaction(int index){
         transactions.remove(index);
     }
@@ -208,6 +242,7 @@ public class MonthlyTransactions extends AppCompatActivity{
     public Timestamp getNextTimestamp() {return nextTimestamp;}
     public ArrayList<Transaction> getTransactions() {return transactions;}
     public Transaction getTransaction(int index) {return transactions.get(index);}
+    public double getTotal() {return total;}
     public int getCategoryPercents(int index) {return categoryPercents[index];}
 
     //====================================Setters====================================//
@@ -218,6 +253,7 @@ public class MonthlyTransactions extends AppCompatActivity{
     public void setTransactions(ArrayList<Transaction> transactions) {
         this.transactions = transactions;
     }
+    public void setTotal(double total) {this.total = total;}
     public void setMonthlyTransactions(Transaction t, int index) {
         this.transactions.set(index, t);
     }

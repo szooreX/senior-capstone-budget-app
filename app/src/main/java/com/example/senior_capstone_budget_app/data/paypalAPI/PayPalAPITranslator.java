@@ -5,18 +5,16 @@ import java.util.ArrayList;
 /**
  * This is a Translator for the PayPal API
  *
- * Last Updated 03/12/2021
+ * Last Updated 04/06/2021
  *
  * @author Katelynn Urgitus
  */
 public class PayPalAPITranslator extends PayPalTransactionAPI implements TransactionAPIInterface{
     @Override
-    public ArrayList<String> getTransactionAmount() {
-        return null;
-    }
+    public String findTransaction() {return this.findTransaction(); }
 
     @Override
-    public ArrayList<String> getAccountBalance() {
-        return null;
+    public String findBalance() {
+        return this.findBalance();
     }
 }

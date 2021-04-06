@@ -30,14 +30,14 @@ class AddTransactionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_transaction)
 
         // Fade animation for the background of Popup Window
-        val alpha = 100 //between 0-255
-        val alphaColor = ColorUtils.setAlphaComponent(Color.parseColor("#000000"), alpha)
-        val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), Color.TRANSPARENT, alphaColor)
-        colorAnimation.duration = 500 // milliseconds
-        colorAnimation.addUpdateListener { animator ->
-            popup_window_background.setBackgroundColor(animator.animatedValue as Int)
-        }
-        colorAnimation.start()
+//        val alpha = 50 //between 0-255
+//        val alphaColor = ColorUtils.setAlphaComponent(Color.parseColor("#000000"), alpha)
+//        val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), Color.TRANSPARENT, alphaColor)
+//        colorAnimation.duration = 500 // milliseconds
+//        colorAnimation.addUpdateListener { animator ->
+//            popup_window_background.setBackgroundColor(animator.animatedValue as Int)
+//        }
+//        colorAnimation.start()
 
 //        // Fade animation for the Popup Window
 //        popup_window_view_with_border.alpha = 0f
@@ -46,23 +46,22 @@ class AddTransactionActivity : AppCompatActivity() {
 //        ).start()
 
         // Get the data
-        val bundle = intent.extras
-        popupTitle = bundle?.getString("popuptitle", "Title") ?: ""
-        transactionAmount = bundle?.getString("popupamount", "Text") ?: ""
-        transactionPayee = bundle?.getString("popuppayee", "Text") ?: ""
-        transactionDate = bundle?.getString("popupdate", "Text") ?: ""
-        transactionCategory = bundle?.getString("popupcategory", "Text") ?: ""
-        popupButton = bundle?.getString("popupbtn", "Button") ?: ""
-        darkStatusBar = bundle?.getBoolean("darkstatusbar", false) ?: false
+//        val bundle = intent.extras
+//        popupTitle = bundle?.getString("popuptitle", "Title") ?: ""
+//        transactionAmount = bundle?.getString("popupamount", "Text") ?: ""
+//        transactionPayee = bundle?.getString("popuppayee", "Text") ?: ""
+//        transactionDate = bundle?.getString("popupdate", "Text") ?: ""
+//        transactionCategory = bundle?.getString("popupcategory", "Text") ?: ""
+//        popupButton = bundle?.getString("popupbtn", "Button") ?: ""
+//        darkStatusBar = bundle?.getBoolean("darkstatusbar", false) ?: false
 
-        // Set the data
-        popup_window_title.text = popupTitle
-        transaction_amount.text = transactionAmount
-        payment_to.text = transactionPayee
-        payment_date.text = transactionDate
-        payment_category.text = transactionCategory
 
-        add_button.text = popupButton
+        popup_window_title.text = "Add Transaction"
+        transaction_amount.text = "Transaction Amount:"
+        payment_to.text = "Payment To:"
+        payment_date.text = "Date of Transaction:"
+        payment_category.text = "Category:"
+        add_button.text = "Add Transaction"
 
         // Set the Status bar appearance for different API levels
         if (Build.VERSION.SDK_INT in 19..20) {

@@ -16,6 +16,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="server_client_id">194758913421-cod5ailjk7i52eo4mc5ch1d2iire54o4.apps.googleusercontent.com</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -38,4 +39,6 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+
 </resources>

@@ -1,9 +1,9 @@
 package com.example.senior_capstone_budget_app.data.database;
 
 /**
- * This class implements the DBConnectorInterface for MS SQL Databases.
+ * This class implements the DBConnectorInterface for My SQL Databases.
  *
- * Last Updated: 03/23/2021
+ * Last Updated: 04/05/2021
  *
  * @author Katelynn Urgitus
  */
@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.DriverManager;
 import java.util.HashMap;
@@ -20,20 +19,19 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MSSQLDatabase implements DBConnectorInterface {
+public class MySQLDatabase implements DBConnectorInterface {
 
     Connection connection = null;
     Statement statement = null;
 
-    static String connectionURL = "jdbc:sqlserver://76.120.47.204:25000";
-    static String databaseName = "Arvio";
-    static String user = "arvioAdmin";
-    static String pwd = "Csc490";
+    static String connectionURL = "jdbc:mysql://sql9.freemysqlhosting.net:3306/sql9368288?zeroDateTimeBehavior=convertToNull";
+    static String user = "sql5403571";
+    static String pwd = "F3VyK79v23";
 
     /**
      * Default Constructor connects to the MS SQL Database
      */
-    public MSSQLDatabase() {
+    public MySQLDatabase() {
         this.connect();
     }
 
@@ -143,7 +141,7 @@ public class MSSQLDatabase implements DBConnectorInterface {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(MSSQLDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MySQLDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
         // Close the statement connection.
         if (isEmpty) {
@@ -253,7 +251,7 @@ public class MSSQLDatabase implements DBConnectorInterface {
      */
     private void connect() {
         try {
-            this.connection = DriverManager.getConnection(MSSQLDatabase.connectionURL, MSSQLDatabase.user, MSSQLDatabase.pwd);
+            this.connection = DriverManager.getConnection(MySQLDatabase.connectionURL, MySQLDatabase.user, MySQLDatabase.pwd);
             this.statement = connection.createStatement();
         } catch (SQLException ex) {
             System.out.println("Could Not Connect To Database" + ex.getMessage());

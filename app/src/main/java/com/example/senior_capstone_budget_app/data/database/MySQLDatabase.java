@@ -48,6 +48,10 @@ public class MySQLDatabase implements DBConnectorInterface {
         String names = "(";
         String values = "VALUES (";
         for (Map.Entry<String, String> entry : _keyValuePair.entrySet()) {
+            if(entry.getKey().equals("userPassword")){
+                names += " " + entry.getKey() + ", ";
+                values += " " + entry.getValue() + ", ";
+            }
             names += " " + entry.getKey() + ", ";
             values += " '" + entry.getValue() + "', ";
         }

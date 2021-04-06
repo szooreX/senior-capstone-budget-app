@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
@@ -12,12 +15,17 @@ import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.account_item.view.*
 import kotlinx.android.synthetic.main.fragment_accounts.*
 import kotlinx.android.synthetic.main.fragment_accounts.view.*
-import com.example.senior_capstone_budget_app.data.paypalAPI.PayPalTransactionAPI
+import com.example.senior_capstone_budget_app.data.paypalAPI.BaseTransactionAPIClass
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
 
 class AccountsFragment : Fragment() {
     //______________Variables For Recycler View____________________
     private val accountItemAdapter = GroupAdapter<GroupieViewHolder>()
+    private var accountBalance = 0.0
 //    private var paypalAPI : PayPalTransactionAPI? = null
 
     //here we are adding items to the recycler view using the adapter we created to use images as buttons in a list
@@ -68,13 +76,25 @@ class AccountsFragment : Fragment() {
         }
     }
 
+    fun displayBalance(){
+
+        val balanceObservable: Single<String> = Single.just(BaseTransactionAPIClass.payPalAPI.findBalance())
+        balanceObservable
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSuccess { accountBalance = it.toDouble() }
+            .doOnError { print(it) }
+
+    }
+
     private fun getAccountItems() {
+        displayBalance()
         //create home menu items
         val accountItems = ArrayList<AccountItem>()
-//        val item1 = AccountItem(
-//            "ACCOUNT NAME",
-//            0, paypalAPI?.findBalance().toString().toDouble()
-//        )
+        val item1 = AccountItem(
+           "ACCOUNT NAME",
+           0, accountBalance
+        )
         val item2 = AccountItem(
             "ACCOUNT NAME",
             1, 3000.00
@@ -111,5 +131,5 @@ class AccountAdapter(private val item: AccountItem) : Item() {
 
 }
 
-
 data class AccountItem(var title: String, var id: Int, var balance : Double)
+

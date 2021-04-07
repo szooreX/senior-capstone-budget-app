@@ -9,4 +9,17 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
+
+
+    <string-array name="spinnerItems">
+        <item>Personal</item>
+        <item>Savings</item>
+        <item>Rent</item>
+        <item>Household</item>
+        <item>Utilities</item>
+        <item>Medical</item>
+        <item>Uncategorized</item>
+    </string-array>
+
+
 </resources>

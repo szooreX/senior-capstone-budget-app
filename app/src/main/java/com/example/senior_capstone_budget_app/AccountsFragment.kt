@@ -1,24 +1,35 @@
 package com.example.senior_capstone_budget_app
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.senior_capstone_budget_app.data.paypalAPI.PayPalTransactionAPI
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.account_item.view.*
 import kotlinx.android.synthetic.main.fragment_accounts.*
 import kotlinx.android.synthetic.main.fragment_accounts.view.*
-import com.example.senior_capstone_budget_app.data.paypalAPI.PayPalTransactionAPI
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class AccountsFragment : Fragment() {
     //______________Variables For Recycler View____________________
     private val accountItemAdapter = GroupAdapter<GroupieViewHolder>()
-//    private var paypalAPI : PayPalTransactionAPI? = null
+    private var accountBalance = 0.0
+    private var paypalAPI: PayPalTransactionAPI? = null
+
+    companion object {
+        fun newInstance() = GoalItemViewFragment()
+    }
+
+    private lateinit var viewModel: AccountsFragmentViewModel
 
     //here we are adding items to the recycler view using the adapter we created to use images as buttons in a list
     private var displayItems: ArrayList<AccountItem> = ArrayList()
@@ -32,14 +43,18 @@ class AccountsFragment : Fragment() {
             field = value
         }
     //_____________________________________________________________
+
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         //view has been been instantiated yet
         //assign values here
+//thread overrider-----
+//        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+//        StrictMode.setThreadPolicy(policy)
+        //-----------
 
-//        paypalAPI = PayPalTransactionAPI()
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_accounts, container, false)
     }
@@ -52,7 +67,7 @@ class AccountsFragment : Fragment() {
             accountsRecyclerView.adapter = accountItemAdapter
         }
         //put functional code here for function calls, etc.
-        getAccountItems()
+
 
         accountItemAdapter.setOnItemClickListener { item, _ ->
 
@@ -66,15 +81,36 @@ class AccountsFragment : Fragment() {
 //                }
 //            }
         }
+
+
     }
+
+    //prevent network on main thread error using view model below this class, AccountsFragmentViewModel
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(AccountsFragmentViewModel::class.java)
+        // TODO: Use the ViewModel
+        viewModel.launchDataLoad()
+        getAccountItems()
+    }
+//    private fun displayBalance(){
+//
+//        val balanceObservable: Single<String> = Single.just(BaseTransactionAPIClass.payPalAPI.findBalance())
+//        balanceObservable
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .doOnSuccess { accountBalance = it.toDouble() }
+//            .doOnError { print(it) }
+//
+//    }
 
     private fun getAccountItems() {
         //create home menu items
         val accountItems = ArrayList<AccountItem>()
-//        val item1 = AccountItem(
-//            "ACCOUNT NAME",
-//            0, paypalAPI?.findBalance().toString().toDouble()
-//        )
+        val item1 = AccountItem(
+            "ACCOUNT NAME",
+            0, 3000.00
+        )
         val item2 = AccountItem(
             "ACCOUNT NAME",
             1, 3000.00
@@ -111,5 +147,29 @@ class AccountAdapter(private val item: AccountItem) : Item() {
 
 }
 
+class AccountsFragmentViewModel : ViewModel() {
 
-data class AccountItem(var title: String, var id: Int, var balance : Double)
+    private var accountBalance = 0.0
+
+    /**
+     * Heavy operation that cannot be done in the Main Thread
+     */
+    fun launchDataLoad() {
+        viewModelScope.launch {
+            callPayPal()
+
+            // Modify UI
+        }
+    }
+
+    suspend fun callPayPal() = withContext(Dispatchers.Default) {
+        // Heavy work
+
+        var paypalAPI = PayPalTransactionAPI()
+        //accountBalance = paypalAPI?.findBalance().toString().toDouble()
+
+    }
+}
+
+data class AccountItem(var title: String, var id: Int, var balance: Double)
+

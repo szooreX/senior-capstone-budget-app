@@ -16,6 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.UnsupportedEncodingException;
 
+import io.reactivex.rxjava3.core.Single;
+
 
 /**
  * This is an API for PayPal's com.example.senior_capstone_budget_app.transaction.Transaction Search
@@ -41,7 +43,8 @@ public class PayPalTransactionAPI {
     }
 
     /**
-     *  Gets the users total account balance
+     * Gets the users total account balance
+     *
      * @return
      */
     public String findBalance() {
@@ -67,7 +70,11 @@ public class PayPalTransactionAPI {
             }
             con.disconnect();
             JSONObject obj = new JSONObject(content.toString());
-            balance = obj.getString("balance.total_balance.value");
+
+            balance = obj.getString("balances.total_balance.value");
+//            JSONArray arr = new JSONArray();
+//            obj.toJSONArray(arr);
+
 
         } catch (IOException | JSONException ex) {
             Logger.getLogger(PayPalTransactionAPI.class.getName()).log(Level.SEVERE, null, ex);
@@ -76,7 +83,8 @@ public class PayPalTransactionAPI {
     }
 
     /**
-     *  Gets the transaction amounts for a user
+     * Gets the transaction amounts for a user
+     *
      * @return
      */
     public String findTransaction() {
@@ -112,9 +120,10 @@ public class PayPalTransactionAPI {
 
     /**
      * Retrieves the Authorization Token from the API
+     *
      * @return
      */
-    private String setAuthToken() {
+    public String setAuthToken() {
         byte[] authBytes = (this.clientID + ":" + this.secret).getBytes();
         byte[] authBase64Encoded = android.util.Base64.encode(authBytes, Base64.NO_WRAP);
         String credentialsBase64Encoded = "";

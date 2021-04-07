@@ -58,7 +58,7 @@ public class ArvioUser extends com.example.senior_capstone_budget_app.data.datab
         saveUser.put("firstName", this.getFirstName());
         saveUser.put("lastName", this.getLastName());
         saveUser.put("email", this.getEmail());
-        saveUser.put("userPassword", this.getPassword());
+        saveUser.put("userPassword", "SHA1('"+ this.getPassword()+"')");
 
         connector.createObject(saveUser, "user");
     }

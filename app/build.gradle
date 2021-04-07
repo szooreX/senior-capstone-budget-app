@@ -5,13 +5,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 29
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.example.seniorcapstone"
         minSdkVersion 16
-        targetSdkVersion 30
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -45,6 +45,9 @@ android {
 
 
 dependencies {
+
+    def lifecycle_version = "2.3.1"
+    def arch_version = "2.1.0"
 
     implementation files('./libs/org.json.jar')
     implementation 'androidx.preference:preference:1.1.1'
@@ -94,6 +97,13 @@ dependencies {
     // For threading
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+
+    // Lifecycles only (without ViewModel or LiveData)
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    
 
     // For Login
     implementation 'com.google.android.gms:play-services-auth:19.0.0'

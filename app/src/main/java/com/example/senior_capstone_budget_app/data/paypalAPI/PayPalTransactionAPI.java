@@ -43,7 +43,8 @@ public class PayPalTransactionAPI {
     }
 
     /**
-     *  Gets the users total account balance
+     * Gets the users total account balance
+     *
      * @return
      */
     public String findBalance() {
@@ -69,16 +70,21 @@ public class PayPalTransactionAPI {
             }
             con.disconnect();
             JSONObject obj = new JSONObject(content.toString());
-            balance = obj.getString("balance.total_balance.value");
+
+            balance = obj.getString("balances.total_balance.value");
+//            JSONArray arr = new JSONArray();
+//            obj.toJSONArray(arr);
+
 
         } catch (IOException | JSONException ex) {
             Logger.getLogger(PayPalTransactionAPI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return  balance;
+        return balance;
     }
 
     /**
-     *  Gets the transaction amounts for a user
+     * Gets the transaction amounts for a user
+     *
      * @return
      */
     public String findTransaction() {
@@ -114,6 +120,7 @@ public class PayPalTransactionAPI {
 
     /**
      * Retrieves the Authorization Token from the API
+     *
      * @return
      */
     public String setAuthToken() {

@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_pieChartFragment_to_transactionsFragment"
             app:destination="@id/transactionsFragment" />
+        <action
+            android:id="@+id/action_pieChartFragment_to_budgetFragment"
+            app:destination="@id/budgetFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -74,4 +77,9 @@
         android:name="com.example.senior_capstone_budget_app.GoalItemViewFragment"
         android:label="goal_item_view_fragment"
         tools:layout="@layout/goal_item_view_fragment" />
+    <fragment
+        android:id="@+id/budgetFragment"
+        android:name="com.example.senior_capstone_budget_app.BudgetFragment"
+        android:label="fragment_budget"
+        tools:layout="@layout/fragment_budget" />
 </navigation>

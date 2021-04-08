@@ -29,6 +29,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import kotlinx.android.synthetic.main.fragment_login.*
 
 
 class LoginFragment : Fragment() {
@@ -52,8 +53,6 @@ class LoginFragment : Fragment() {
 
         var navController = findNavController()
 
-        val signInButton =
-            view.findViewById<com.google.android.gms.common.SignInButton>(R.id.sign_in_button)
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.server_client_id))
             .requestEmail()
@@ -61,7 +60,7 @@ class LoginFragment : Fragment() {
 
         mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
 
-        signInButton.setOnClickListener{
+        sign_in_button.setOnClickListener{
             signIn()
         }
 

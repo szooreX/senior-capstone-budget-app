@@ -37,5 +37,9 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
     <string name="spinner_prompt">Select Category</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="complete_task_empty_prompt">You Haven\'t Completed Any Tasks Yet</string>
+    <string name="no_tasks_in_list_prompt">You Don\'t Have Any Tasks Yet</string>
 
 </resources>

@@ -5,13 +5,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.example.seniorcapstone"
-        minSdkVersion 16
-        targetSdkVersion 29
+        minSdkVersion 21
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -103,8 +103,14 @@ dependencies {
 
     // Lifecycles only (without ViewModel or LiveData)
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
-    
+
 
     // For Login
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
+    //progress bar
+    implementation 'com.akexorcist:round-corner-progress-bar:2.1.1'
+
+    //buttons i like
+    implementation 'com.google.android.material:material:1.4.0-alpha02'
 }

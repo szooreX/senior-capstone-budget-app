@@ -70,8 +70,7 @@ public class PayPalTransactionAPI {
             }
             con.disconnect();
             JSONObject obj = new JSONObject(content.toString());
-
-            balance = obj.getString("balances.total_balance.value");
+            balance = obj.getJSONArray("balances").getJSONObject(0).getJSONObject("total_balance").getString("value");
 //            JSONArray arr = new JSONArray();
 //            obj.toJSONArray(arr);
 

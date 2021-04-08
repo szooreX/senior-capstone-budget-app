@@ -109,11 +109,11 @@ class AccountsFragment : Fragment() {
         val accountItems = ArrayList<AccountItem>()
         val item1 = AccountItem(
             "ACCOUNT NAME",
-            0, 3000.00
+            0,3000.00
         )
         val item2 = AccountItem(
             "ACCOUNT NAME",
-            1, 3000.00
+            1, accountBalance
         )
 
 
@@ -166,7 +166,7 @@ class AccountsFragmentViewModel : ViewModel() {
         // Heavy work
 
         var paypalAPI = PayPalTransactionAPI()
-        //accountBalance = paypalAPI?.findBalance().toString().toDouble()
+        // accountBalance = paypalAPI?.findBalance().toString().toDouble()
 
     }
 }

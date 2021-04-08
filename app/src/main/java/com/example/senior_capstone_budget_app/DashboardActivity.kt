@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import com.akexorcist.snaptimepicker.SnapTimePickerDialog
 import com.example.senior_capstone_budget_app.transaction.MonthlyTransactions
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_dashboard.*
@@ -49,6 +50,7 @@ class DashboardActivity : AppCompatActivity() {
         })
 
         settingsBtn.setOnClickListener { navController.navigate(R.id.settingsFragment) }
+
     }
 
 
@@ -65,4 +67,20 @@ class DashboardActivity : AppCompatActivity() {
             }
         }
     }
+
+    fun launchTimePicker() {
+
+        SnapTimePickerDialog.Builder().apply {
+            setThemeColor(R.color.ARVIO_THEME_COLOR)
+            title = "Set New Deadline"
+            setTitleColor(R.color.white)
+
+        }.build().apply{
+
+            setListener { hour, minute ->
+                // Do something when user selected the time
+            }
+        }.show(supportFragmentManager, SnapTimePickerDialog.TAG)
+    }
+
 }

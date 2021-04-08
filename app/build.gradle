@@ -113,4 +113,7 @@ dependencies {
 
     //buttons i like
     implementation 'com.google.android.material:material:1.4.0-alpha02'
+
+    //time picker
+    implementation 'com.akexorcist:snap-time-picker:1.0.2'
 }

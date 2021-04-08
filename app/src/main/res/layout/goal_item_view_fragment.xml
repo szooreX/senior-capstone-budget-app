@@ -60,11 +60,12 @@
                             app:rcBackgroundPadding="2dp"
                             app:rcMax="100"
                             app:rcProgress="50"
-                            app:rcProgressColor="#28AA39"
+                            app:rcProgressColor="#4D8558"
                             app:rcRadius="10dp"
                             app:rcSecondaryProgress="60"
                             app:rcTextProgress="50%"
-                            app:rcTextProgressColor="#000000" />
+                            app:rcTextProgressColor="#FFFFFF" />
+                        <!--ref url: https://github.com/akexorcist/RoundCornerProgressBar -->
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -75,21 +76,15 @@
                         android:fontFamily="@font/abeezee"
                         android:gravity="center"
                         android:text="You have 5 Days Left To Complete your Goal On Time!"
+                        android:textColor="#102075"
                         android:textSize="18sp" />
 
                     <Button
-                        android:id="@+id/need_more_time_btn"
-                        style="@style/Widget.AppCompat.Button.Small"
+                        android:id="@+id/timepickerbutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="#102075"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:text="I Need More Time!"
-                        android:textColor="#FFFFFF"
-                        android:textSize="10sp" />
+                        android:text="Set Time"
+                        />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -100,32 +95,33 @@
                 android:layout_marginTop="5dp"
                 android:padding="15dp">
 
-                <TextView
-                    android:id="@+id/no_tasks_in_list_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/no_tasks_in_list_prompt"
-                    android:visibility="invisible" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:gravity="start"
-                        android:padding="10dp"
-                        android:text="Tasks Left To Complete" />
+                        android:padding="5dp"
+                        android:text="Tasks Left To Complete"
+                        android:textColor="#000000" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="?android:attr/listDivider" />
+                        android:background="?android:attr/listDivider"
+                        android:backgroundTint="#FFFFFF" />
+
+                    <TextView
+                        android:id="@+id/no_tasks_in_list_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/no_tasks_in_list_prompt"
+                        android:visibility="invisible" />
 
                     <fragment
                         android:id="@+id/fragment"
@@ -163,16 +159,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:gravity="start"
-                        android:padding="10dp"
-                        android:text="Tasks Completed" />
+                        android:padding="5dp"
+                        android:text="Tasks Completed"
+                        android:textColor="#000000" />
 
                     <View
                         android:layout_width="match_parent"

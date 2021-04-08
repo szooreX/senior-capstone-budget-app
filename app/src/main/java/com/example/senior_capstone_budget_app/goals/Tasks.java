@@ -18,6 +18,20 @@ public class Tasks {
         completed = false;
     }
 
+    public Tasks(int taskId, String title, int completed) {
+        TaskId = taskId;
+        this.title = title;
+        this.track = null;
+        this.category = 0;
+        this.reminder = null;
+        if (completed == 1){
+            this.completed = true;
+        }
+        else{
+            this.completed = false;
+        }
+    }
+
     public Tasks(int taskId, String title, Tracker track, int category, Date reminder, boolean completed) {
         TaskId = taskId;
         this.title = title;

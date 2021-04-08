@@ -2,13 +2,16 @@ package com.example.senior_capstone_budget_app
 
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.senior_capstone_budget_app.budget.Budget
 import com.example.senior_capstone_budget_app.transaction.MonthlyTransactions
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.*
@@ -28,8 +31,11 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 var mT: MonthlyTransactions? = null
+var budget: Budget? = null
 var input = ""
+var bInput= ""
 private var spentString = ""
+private var percentString = ""
 
 /**
  * A simple [Fragment] subclass.
@@ -59,6 +65,7 @@ class PieChartFragment : Fragment() {
     private var param2: String? = null
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -67,7 +74,17 @@ class PieChartFragment : Fragment() {
         }
 
         mT = MonthlyTransactions()
+        budget = Budget()
 
+        try{
+            val inputStream: InputStream = activity?.applicationContext?.assets!!.open("budget.txt")
+            val size: Int = inputStream.available()
+            val buffer = ByteArray(size)
+            inputStream.read(buffer)
+            bInput = String(buffer)
+        }catch (e: IOException){
+            e.printStackTrace()
+        }
         try{
             val inputStream: InputStream = activity?.applicationContext?.assets!!.open("TransactionSample.txt")
             val size: Int = inputStream.available()
@@ -79,8 +96,11 @@ class PieChartFragment : Fragment() {
         }
         mT?.loadTransactions2(input)
         mT?.transactionLoop()
-        var stringTotal = mT?.total.toString()
+        budget?.loadBudget(bInput)
+        val stringTotal = mT?.total.toString()
+        val percent = ((budget!!.totalExpenses/mT!!.total)*100).toInt().toString()
         spentString = "$$stringTotal Spent"
+        percentString = "You've spent $percent% of your budget this month."
     }
 
     override fun onCreateView(
@@ -96,9 +116,10 @@ class PieChartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //setSepndingLabels(spentString)
+
         totalSpent.text = (spentString)
-        println("testing" + totalSpent.text)
+        percentBudget.text = (percentString)
+
         createPieChart(piechart)
         getMonthChartItems()
 

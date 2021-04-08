@@ -308,6 +308,7 @@ public class MonthlyTransactions extends AppCompatActivity{
     public double getTotal() {return total;}
     public ArrayList<Double> getTotals() {return totals;}
     public int getCategoryPercents(int index) {return categoryPercents[index];}
+    public int getLength(){return currentTransactions.size();}
 
 
     //====================================Setters====================================//

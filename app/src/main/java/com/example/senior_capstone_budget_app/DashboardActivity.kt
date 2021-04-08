@@ -7,11 +7,13 @@ import androidx.navigation.findNavController
 import com.example.senior_capstone_budget_app.transaction.MonthlyTransactions
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import java.io.IOException
+import java.io.InputStream
 
 class DashboardActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
-    var mT: MonthlyTransactions? = null
+    var T: MonthlyTransactions? = null
     var input = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +49,6 @@ class DashboardActivity : AppCompatActivity() {
         })
 
         settingsBtn.setOnClickListener { navController.navigate(R.id.settingsFragment) }
-
     }
 
 

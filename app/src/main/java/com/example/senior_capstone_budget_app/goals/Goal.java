@@ -1,7 +1,9 @@
 package com.example.senior_capstone_budget_app.goals;
 
 import java.security.SecureRandom;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 
 public class Goal {
@@ -12,6 +14,8 @@ public class Goal {
     private Tasks[] goalTasks;
     private Date[] reminders;
     private boolean recurring;
+    private int completion = 0;
+    private int percent;
 
     public Goal(int goalId) {
         this.goalId = generateID();
@@ -25,6 +29,21 @@ public class Goal {
         this.goalTasks = goalTasks;
         this.reminders = reminders;
         this.recurring = recurring;
+
+        for(Tasks t: goalTasks){
+            if (t.isCompleted()){
+                completion++;
+            }
+        }
+        this.percent = (int) ((completion/3.0)*100);
+    }
+
+    public int calculateDays(){
+        Calendar cal = Calendar.getInstance();
+        long start = cal.getTimeInMillis();
+        long end = deadline.getTime();
+
+        return (int) TimeUnit.MILLISECONDS.toDays(Math.abs(end-start));
     }
 
     /**
@@ -59,6 +78,7 @@ public class Goal {
     public Date[] getReminders() {return reminders;}
     public Date getReminder(int index) {return reminders[index];}
     public boolean isRecurring() {return recurring;}
+    public int getPercent() {return percent;}
 
     //====================================Setters====================================//
     public void setGoalId(int goalId) {this.goalId = goalId;}

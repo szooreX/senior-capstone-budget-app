@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.senior_capstone_budget_app.budget.Budget
+import com.example.senior_capstone_budget_app.transaction.MonthlyTransactions
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
@@ -13,6 +15,8 @@ import kotlinx.android.synthetic.main.fragment_transactions.*
 import kotlinx.android.synthetic.main.fragment_transactions.transactionRecyclerView
 import kotlinx.android.synthetic.main.fragment_transactions.view.*
 import kotlinx.android.synthetic.main.transaction_item.view.*
+import java.io.IOException
+import java.io.InputStream
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -52,6 +56,7 @@ class TransactionsFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onCreateView(
@@ -88,34 +93,46 @@ class TransactionsFragment : Fragment() {
     private fun getTransactionItems() {
         //create home menu items
         val transactionItems = ArrayList<TransactionItem>()
-        val item1 = TransactionItem(
-            "transaction",
-            0, 4000.55
-        )
-        val item2 = TransactionItem(
-            "transaction",
-            1, 4000.55
-        )
-        val item3 = TransactionItem(
-            "transaction",
-            2, 4000.55
-        )
 
-        val item4 = TransactionItem(
-            "transaction",
-            3, 4000.55
-        )
-        val item5 = TransactionItem(
-            "transaction",
-            4, 4000.55
-        )
+        val size = mT!!.length
 
-        //add home menu items to an array list
-        transactionItems.add(item1)
-        transactionItems.add(item2)
-        transactionItems.add(item3)
-        transactionItems.add(item4)
-        transactionItems.add(item5)
+        for (i in 0 until size){
+            var trans = mT?.getTransaction(i)
+
+            val item = TransactionItem(
+                trans!!.paymentTo,
+                i, trans!!.amount
+            )
+            transactionItems.add(item)
+        }
+//        val item1 = TransactionItem(
+//            "transaction",
+//            0, 4000.55
+//        )
+//        val item2 = TransactionItem(
+//            "transaction",
+//            1, 4000.55
+//        )
+//        val item3 = TransactionItem(
+//            "transaction",
+//            2, 4000.55
+//        )
+//
+//        val item4 = TransactionItem(
+//            "transaction",
+//            3, 4000.55
+//        )
+//        val item5 = TransactionItem(
+//            "transaction",
+//            4, 4000.55
+//        )
+//
+//        //add home menu items to an array list
+//        transactionItems.add(item1)
+//        transactionItems.add(item2)
+//        transactionItems.add(item3)
+//        transactionItems.add(item4)
+//        transactionItems.add(item5)
 
         //pass array list to displayItems to pass through Adapter
         displayItems = transactionItems

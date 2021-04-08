@@ -6,25 +6,28 @@ import androidx.annotation.RequiresApi;
 
 import com.example.senior_capstone_budget_app.transaction.Transaction;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Budget {
-    private Month month;
+    private int month;
     private double expectedIncome;
     private double additionalIncome;
-    private double[] limits = new double[7];
+    private double[] limits = new double[9];
     private double totalExpenses;
     private int percentTotal;
-    private int[] categoryPercents = new int[7];
+    private int[] categoryPercents = new int[9];
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public Budget() {
-        this.month = LocalDate.now().getMonth();
+        Calendar cal = Calendar.getInstance();
+        this.month = cal.MONTH;
     }
 
-    public Budget(Month month, double expectedIncome, double additionalIncome, double[] limits, double totalExpenses) {
+    public Budget(int month, double expectedIncome, double additionalIncome, double[] limits, double totalExpenses) {
         this.month = month;
         this.expectedIncome = expectedIncome;
         this.additionalIncome = additionalIncome;
@@ -38,6 +41,24 @@ public class Budget {
         }
     }
 
+    public void loadBudget(String input){
+        String[] split = input.split("\n");
+        for (String s: split) {
+            s = s.replaceAll("[^\\x00-\\x7F]", "");
+            s = s.replaceAll("[\\p{Cntrl}&&[^\r\n\t]]", "");
+            s = s.replaceAll("\\p{C}", "");
+        }
+        expectedIncome = Double.parseDouble(split[0]);
+        additionalIncome = Double.parseDouble(split[1]);
+        String[] b = split[2].split(",");
+        for(int k = 0; k < 8; k++){
+            limits[k] = Double.parseDouble(b[k]);
+        }
+        for (Double d: limits){
+            totalExpenses += d;
+        }
+    }
+
     public void calculatePercentTotal(double total) {
         double lim = 0;
         for (double d:limits){
@@ -47,7 +68,7 @@ public class Budget {
     }
 
     //====================================Getters====================================//
-    public Month getMonth() {return month;}
+    public int getMonth() {return month;}
     public double getExpectedIncome() {return expectedIncome;}
     public double getAdditionalIncome() {return additionalIncome;}
     public double[] getLimits() {return limits;}
@@ -58,7 +79,7 @@ public class Budget {
     public int getCategoryPercent(int index) {return categoryPercents[index];}
 
     //====================================Setters====================================//
-    public void setMonth(Month month) {this.month = month;}
+    public void setMonth(int month) {this.month = month;}
     public void setExpectedIncome(double expectedIncome) {this.expectedIncome = expectedIncome;}
     public void setAdditionalIncome(double additionalIncome) {this.additionalIncome = additionalIncome;}
     public void setLimits(double[] limits) {this.limits = limits;}

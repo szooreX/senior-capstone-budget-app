@@ -10,11 +10,20 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.senior_capstone_budget_app.goals.Goals
+import com.example.senior_capstone_budget_app.transaction.MonthlyTransactions
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.fragment_goals.*
 import kotlinx.android.synthetic.main.goal_item.view.*
+import kotlinx.android.synthetic.main.transaction_item.view.*
+import java.io.IOException
+import java.io.InputStream
+
+var g: Goals? = null
+var gInput= ""
+var caller: Int = -1
 
 class OptionsFragment : Fragment() {
 
@@ -33,6 +42,25 @@ class OptionsFragment : Fragment() {
             field = value
         }
     //_____________________________________________________________
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        g = Goals()
+
+        try{
+            val inputStream: InputStream = activity?.applicationContext?.assets!!.open("goals.txt")
+            val size: Int = inputStream.available()
+            val buffer = ByteArray(size)
+            inputStream.read(buffer)
+            gInput = String(buffer)
+        }catch (e: IOException){
+            e.printStackTrace()
+        }
+
+        g?.loadGoals(gInput)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,13 +84,13 @@ class OptionsFragment : Fragment() {
         getGoalItems()
 
         goalItemAdapter.setOnItemClickListener { item, _ ->
-
             goalItemAction(item)
 
         }
     }
 
     private fun getGoalItems() {
+
         val image1: Drawable? =
             context?.let { ResourcesCompat.getDrawable(it.resources,
                 R.drawable.ic_button_background, null) }
@@ -70,16 +98,25 @@ class OptionsFragment : Fragment() {
         //create home menu items
         val goalItems = ArrayList<GoalItem>()
         val item1 = GoalItem(
-            "Save 500 dollars",
-            0
+             g!!.goals[0].title,
+            0,
+            g!!.goals[0].calculateDays().toString() + " Days Left",
+            g!!.goals[0].percent,
+            g!!.goals[0].percent.toString() + "% Complete"
         )
         val item2 = GoalItem(
-            "Buy a House",
-            1
+            g!!.goals[1].title,
+            1,
+            g!!.goals[1].calculateDays().toString() + " Days Left",
+            g!!.goals[1].percent,
+            g!!.goals[1].percent.toString() + "% Complete"
         )
         val item3 = GoalItem(
-            "Pay off debt - Pay off debt - Pay off debt - Pay off debt - Pay off debt ",
-            2
+            g!!.goals[2].title,
+            2,
+            g!!.goals[2].calculateDays().toString() + " Days Left",
+            g!!.goals[2].percent,
+            g!!.goals[2].percent.toString() + "% Complete"
         )
 
 
@@ -96,9 +133,7 @@ class OptionsFragment : Fragment() {
     private fun goalItemAction(item: com.xwray.groupie.Item<com.xwray.groupie.GroupieViewHolder>) {
         //handle goal click action
         findNavController().navigate(R.id.goalItemViewFragment)
-
     }
-
 }
 
 class GoalAdapter(private val item: GoalItem) : Item() {
@@ -107,6 +142,8 @@ class GoalAdapter(private val item: GoalItem) : Item() {
         //this this a function to add item properties to the recycler view, in this case I just want the image
         //viewHolder.itemView.goalImageView.setImageDrawable(item.image)
         viewHolder.itemView.goalName.text = item.title
+        viewHolder.itemView.daysLeft.text = item.days
+        viewHolder.itemView.percentComplete.text = item.percent
     }
 
     override fun getLayout(): Int {
@@ -116,4 +153,4 @@ class GoalAdapter(private val item: GoalItem) : Item() {
 }
 
 
-data class GoalItem(var title: String, var id: Int)
+data class GoalItem(var title: String, var id: Int, var days: String, var per: Int, var percent: String)

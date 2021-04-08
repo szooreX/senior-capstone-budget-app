@@ -42,7 +42,6 @@ public class MonthlyTransactions extends AppCompatActivity{
     private Timestamp timestampMinus5;
 
     private ArrayList<Transaction> currentTransactions;
-    private ArrayList<Transaction> transactions;
 
     private double total = 0;
     private double minus1Month = 0;
@@ -52,7 +51,6 @@ public class MonthlyTransactions extends AppCompatActivity{
     private double minus5Month = 0;
 
     private ArrayList<Double> totals;
-    private ArrayList<String> history;
     private double[] categoryTotals;
     private int[] categoryPercents;
 
@@ -109,7 +107,6 @@ public class MonthlyTransactions extends AppCompatActivity{
 
         currentMonth = cal.getTime();
         currentTimestamp = new Timestamp(cal.getTimeInMillis());
-        history.add(5, monthNames[cal.get(Calendar.MONTH)]);
 
         cal.add(Calendar.MONTH, 1);
 
@@ -118,24 +115,18 @@ public class MonthlyTransactions extends AppCompatActivity{
 
         cal.add(Calendar.MONTH, -2);
         timestampMinus1 = new Timestamp(cal.getTimeInMillis());
-        history.add(4, monthNames[cal.get(Calendar.MONTH)]);
 
         cal.add(Calendar.MONTH, -1);
         timestampMinus2 = new Timestamp(cal.getTimeInMillis());
-        history.add(3, monthNames[cal.get(Calendar.MONTH)]);
 
         cal.add(Calendar.MONTH, -1);
         timestampMinus3 = new Timestamp(cal.getTimeInMillis());
-        history.add(2, monthNames[cal.get(Calendar.MONTH)]);
 
         cal.add(Calendar.MONTH, -1);
         timestampMinus4 = new Timestamp(cal.getTimeInMillis());
-        history.add(1, monthNames[cal.get(Calendar.MONTH)]);
 
         cal.add(Calendar.MONTH, -1);
         timestampMinus5 = new Timestamp(cal.getTimeInMillis());
-        history.add(0, monthNames[cal.get(Calendar.MONTH)]);
-
 
         this.context = c;
         this.categoryTotals = new double[9];

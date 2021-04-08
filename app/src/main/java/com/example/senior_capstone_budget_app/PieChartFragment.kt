@@ -10,14 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.senior_capstone_budget_app.transaction.MonthlyTransactions
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.*
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_pie_chart.*
 import kotlinx.android.synthetic.main.month_chart_item.view.*
-import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.data.LineData
 import org.eazegraph.lib.charts.PieChart
 import org.eazegraph.lib.models.PieModel
 import java.io.IOException
@@ -31,6 +29,7 @@ private const val ARG_PARAM2 = "param2"
 
 var mT: MonthlyTransactions? = null
 var input = ""
+private var spentString = ""
 
 /**
  * A simple [Fragment] subclass.
@@ -38,8 +37,6 @@ var input = ""
  * create an instance of this fragment.
  */
 class PieChartFragment : Fragment() {
-
-
     //______________Variables For Recycler View____________________
     private val monthChartAdapter = GroupAdapter<GroupieViewHolder>()
     private var mTrans: MonthlyTransactions? = null
@@ -69,8 +66,7 @@ class PieChartFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
-        mT =
-            MonthlyTransactions()
+        mT = MonthlyTransactions()
 
         try{
             val inputStream: InputStream = activity?.applicationContext?.assets!!.open("TransactionSample.txt")
@@ -83,17 +79,16 @@ class PieChartFragment : Fragment() {
         }
         mT?.loadTransactions2(input)
         mT?.transactionLoop()
+        var stringTotal = mT?.total.toString()
+        spentString = "$$stringTotal Spent"
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mTrans =
-            MonthlyTransactions()
         //DashboardActivity().mT?.loadTransactions2()
-        mTrans?.loadTransactions()
-        mTrans?.transactionLoop()
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pie_chart, container, false)
 
@@ -101,7 +96,9 @@ class PieChartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        //setSepndingLabels(spentString)
+        totalSpent.text = (spentString)
+        println("testing" + totalSpent.text)
         createPieChart(piechart)
         getMonthChartItems()
 
@@ -116,8 +113,8 @@ class PieChartFragment : Fragment() {
         //put functional code here for function calls, etc.
     }
 
-    private fun makeNewChart(): LineData {
 
+    private fun makeNewChart(): LineData {
         //programmatically create a view to add to month_chart_item.xml layout file
         var chart: LineChart = LineChart(context)
 
@@ -125,28 +122,38 @@ class PieChartFragment : Fragment() {
          contain the data for current and the previous months (just for the current year)
           total spending to compare */
 
+        var values = ArrayList<Entry>()
+        for (i in 0 until 5){
+            values.add(Entry((i-6).toFloat(), mT!!.totals.get(i).toFloat()))
+        }
+
         //api data array
-        val dataObject = ArrayList<String>()
+        //val dataObject = ArrayList<Double>()
 
         // getMonthChartData(dataObject) // TODO:  create function to gather the months, starting on current month, and its former months data into an array
-
 
         //actual chart entry array
         val chartEntries = ArrayList<Entry>()
 
-        //turn data into entries. ref this URl:  https://weeklycoding.com/mpandroidchart-documentation/getting-started/
-        for (data in dataObject) {
-            //chartEntries.add(dataObject.getValueX, dataObject.getValueY) TODO: gather data like this instead
+        for (data in values) {
+            chartEntries.add(data)
             val entry = Entry(15.0F, 20.0F)
-            chartEntries.add(20, entry)
+            //chartEntries.add(20, entry)
         }
 
+        //turn data into entries. ref this URl:  https://weeklycoding.com/mpandroidchart-documentation/getting-started/
+//        for (data in dataObject) {
+//            //chartEntries.add(dataObject.getValueX, dataObject.getValueY) TODO: gather data like this instead
+//            val entry = Entry(15.0F, 20.0F)
+//            chartEntries.add(20, entry)
+//        }
+
         //add entries to dataset
-        var lineDataSet = LineDataSet(chartEntries, "My Label")
-        lineDataSet.color = Color.CYAN
+        var lineDataSet = LineDataSet(chartEntries, "Spending History")
+        lineDataSet.color = Color.BLUE
+        lineDataSet.fillColor = Color.CYAN
 
         val lineData = LineData(lineDataSet)
-
 
         return lineData
     }
@@ -157,13 +164,13 @@ class PieChartFragment : Fragment() {
 
         //form each full chart into an item to pass into each slot in recycler view
         val item1 = MonthChartItem(
-            "Month Name",
+            "Spending History",
             0, makeNewChart()
         )
-        val item2 = MonthChartItem(
-            "Month Name",
-            1, makeNewChart()
-        )
+//        val item2 = MonthChartItem(
+//            "Month Name",
+//            1, makeNewChart()
+//        )
 //        val item3 = MonthChartItem(
 //            "Month Name",
 //            2, "yo make this a chart"
@@ -174,7 +181,7 @@ class PieChartFragment : Fragment() {
 //        )
 
         monthChartItems.add(item1)
-        monthChartItems.add(item2)
+//        monthChartItems.add(item2)
 //        monthChartItems.add(item3)
 //        monthChartItems.add(item4)
 
@@ -183,11 +190,17 @@ class PieChartFragment : Fragment() {
         displayItems = monthChartItems
     }
 
+    private fun setSepndingLabels(string: String){
+        totalSpent.text = (string)
+        println("testing" + totalSpent.text)
+    }
+
+
     private fun createPieChart(pieChart: PieChart?) {
         // Set the percentage of language used
 
         personalPercentage.text = mT?.getCategoryPercents(5).toString();
-        savingsPercentage.text = mT?.getCategoryPercents(8).toString();
+        financialPercentage.text = mT?.getCategoryPercents(8).toString();
         rentPercentage.text = mT?.getCategoryPercents(1).toString();
         householdPercentage.text = mT?.getCategoryPercents(4).toString();
         utilitiesPercentage.text = mT?.getCategoryPercents(2).toString();
@@ -216,7 +229,7 @@ class PieChartFragment : Fragment() {
         )
         pieChart?.addPieSlice(
             PieModel(
-                "Savings", savingsPercentage.text.toString().toInt().toFloat(),
+                "Savings", financialPercentage.text.toString().toInt().toFloat(),
                 Color.parseColor("#063E3B")
             )
         )
@@ -304,7 +317,6 @@ class MonthChartAdapter(private val item: MonthChartItem) :
     }
 
 }
-
 
 data class MonthChartItem(
     var month_name: String,

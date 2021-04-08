@@ -14,10 +14,10 @@ public class Budget {
     private Month month;
     private double expectedIncome;
     private double additionalIncome;
-    private double[] limits = new double[9];
+    private double[] limits = new double[7];
     private double totalExpenses;
     private int percentTotal;
-    private int[] categoryPercents = new int[9];
+    private int[] categoryPercents = new int[7];
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public Budget() {

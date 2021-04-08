@@ -69,13 +69,23 @@
                         android:textSize="14sp"
                         android:typeface="normal" />
 
-                    <ProgressBar
-                        android:id="@+id/progressBar"
-                        style="@android:style/Widget.ProgressBar.Horizontal"
+                    <com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:paddingTop="10dp"
-                        android:paddingBottom="10dp" />
+                        android:paddingBottom="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:rcBackgroundColor="#0D000000"
+                        app:rcBackgroundPadding="2dp"
+                        app:rcMax="100"
+                        app:rcProgress="50"
+                        app:rcProgressColor="#FF1F3C88"
+                        app:rcRadius="10dp"
+                        app:rcSecondaryProgress="60" />
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -89,12 +99,16 @@
 
                 <Button
                     android:id="@+id/viewTransactions"
-                    style="@style/Widget.AppCompat.Button"
+
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:shadowColor="#151515"
-                    android:text="View Transactions" />
+                    android:background="#FF1F3C88"
+                    android:elevation="2dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="View Transactions"
+                    android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/addTransaction"
@@ -103,6 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="+ Add Transaction"
+                    android:textColor="#FF1F3C88"
                     android:textSize="14sp" />
 
             </LinearLayout>

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
@@ -57,14 +58,7 @@ class OptionsFragment : Fragment() {
         goalItemAdapter.setOnItemClickListener { item, _ ->
 
             goalItemAction(item)
-//            when ((item as GoalAdapter).itemID) {
-//                0 -> {
-//                    item1Action()
-//                }
-//                1 -> {
-//                    item2Action()
-//                }
-//            }
+
         }
     }
 
@@ -101,6 +95,7 @@ class OptionsFragment : Fragment() {
 
     private fun goalItemAction(item: com.xwray.groupie.Item<com.xwray.groupie.GroupieViewHolder>) {
         //handle goal click action
+        findNavController().navigate(R.id.goalItemViewFragment)
 
     }
 

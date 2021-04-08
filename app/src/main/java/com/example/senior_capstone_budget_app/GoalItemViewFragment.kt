@@ -25,7 +25,12 @@ class GoalItemViewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        println()
+
+        //var days: String = g!!.goals[].calculateDays().toString()
+        //days_left_goal_item_view.text = "You have $days days left to complete you Goal on time!"
         return inflater.inflate(R.layout.goal_item_view_fragment, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

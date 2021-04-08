@@ -1,28 +1,17 @@
 package com.example.senior_capstone_budget_app.login
 
-import android.content.ContentValues.TAG
+
 import android.content.Intent
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-
-
-import com.example.senior_capstone_budget_app.R
 import com.example.senior_capstone_budget_app.DashboardActivity
+import com.example.senior_capstone_budget_app.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -30,6 +19,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.fragment_login.*
+
+var userEmail = " "
 
 
 class LoginFragment : Fragment() {
@@ -66,15 +57,14 @@ class LoginFragment : Fragment() {
 
     }
 
-
     private fun signIn() {
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(
             signInIntent, RCSIGNIN
         )
 
-    }
 
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -93,7 +83,6 @@ class LoginFragment : Fragment() {
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
-
             var intent = Intent(activity, DashboardActivity::class.java)
             startActivity(intent)
 

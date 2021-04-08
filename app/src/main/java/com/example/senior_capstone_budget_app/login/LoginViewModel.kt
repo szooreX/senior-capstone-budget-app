@@ -1,5 +1,6 @@
 package com.example.senior_capstone_budget_app.login
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

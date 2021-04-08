@@ -1,5 +1,7 @@
-package com.example.senior_capstone_budget_app;
+package com.example.senior_capstone_budget_app.transaction;
 
+
+import com.example.senior_capstone_budget_app.data.Categories;
 
 import java.util.Date;
 import java.sql.Timestamp;
@@ -27,9 +29,6 @@ public class Transaction {
             case 2:
                 this.category = Categories.UTILITIES;
                 break;
-            case 3:
-                this.category = Categories.TRANSPORTATION;
-                break;
             case 4:
                 this.category = Categories.HOUSEHOLD;
                 break;
@@ -39,11 +38,8 @@ public class Transaction {
             case 6:
                 this.category = Categories.MEDICAL;
                 break;
-            case 7:
-                this.category = Categories.DEBT;
-                break;
             case 8:
-                this.category = Categories.SAVINGS;
+                this.category = Categories.FINANCIAL;
                 break;
         }
     }

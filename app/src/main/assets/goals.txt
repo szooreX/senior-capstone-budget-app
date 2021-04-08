@@ -1,0 +1,3 @@
+1,Save 400 Dollars,Save some money,1619755200000,Reduce Uncategorized Spending|1,Save $200|-1,Save $400|-1
+2,Buy a House,Buy my Dream Home,1651291200000,Find Dream House|1,Get Approved for a Morgage|-1,Make an Offer|-1
+3,Pay off Student Loans,Pay Down Debt,1640926800000,Plan Payment Schedule|1,Pay off 50% of Student Loans|1,Pay off 100% of Loans|-1

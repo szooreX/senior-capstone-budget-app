@@ -1,4 +1,6 @@
-package com.example.senior_capstone_budget_app;
+package com.example.senior_capstone_budget_app.trackers;
+
+import com.example.senior_capstone_budget_app.data.Categories;
 
 import java.util.Date;
 

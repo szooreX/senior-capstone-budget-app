@@ -58,13 +58,14 @@
 
                     <TextView
 
+                        android:id="@+id/totalSpent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/abeezee"
                         android:lineSpacingExtra="8sp"
                         android:paddingTop="15dp"
                         android:paddingBottom="5dp"
-                        android:text="$900 Spent"
+                        android:text="$--- Spent"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         android:textColor="#0B1E45"
                         android:textSize="24sp"
@@ -73,6 +74,7 @@
 
                     <TextView
 
+                        android:id="@+id/percentBudget"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/anaheim"
@@ -531,7 +533,7 @@
                                     android:padding="3dp">
 
                                     <TextView
-                                        android:id="@+id/savingsPercentage"
+                                        android:id="@+id/financialPercentage"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/anaheim"

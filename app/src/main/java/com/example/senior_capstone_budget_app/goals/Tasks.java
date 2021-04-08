@@ -1,4 +1,6 @@
-package com.example.senior_capstone_budget_app;
+package com.example.senior_capstone_budget_app.goals;
+
+import com.example.senior_capstone_budget_app.trackers.Tracker;
 
 import java.security.SecureRandom;
 import java.util.Date;
@@ -14,6 +16,20 @@ public class Tasks {
     public Tasks(int taskId) {
         TaskId = taskId;
         completed = false;
+    }
+
+    public Tasks(int taskId, String title, int completed) {
+        TaskId = taskId;
+        this.title = title;
+        this.track = null;
+        this.category = 0;
+        this.reminder = null;
+        if (completed == 1){
+            this.completed = true;
+        }
+        else{
+            this.completed = false;
+        }
     }
 
     public Tasks(int taskId, String title, Tracker track, int category, Date reminder, boolean completed) {

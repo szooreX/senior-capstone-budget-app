@@ -8,7 +8,6 @@ import com.example.senior_capstone_budget_app.data.model.LoggedInUser
  */
 
 class LoginRepository(val dataSource: LoginDataSource) {
-
     // in-memory cache of the loggedInUser object
     var user: LoggedInUser? = null
         private set
@@ -43,4 +42,6 @@ class LoginRepository(val dataSource: LoginDataSource) {
         // If user credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
     }
+
+
 }

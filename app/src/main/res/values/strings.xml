@@ -42,4 +42,12 @@
     <string name="complete_task_empty_prompt">You Haven\'t Completed Any Tasks Yet</string>
     <string name="no_tasks_in_list_prompt">You Don\'t Have Any Tasks Yet</string>
 
+    <string name="category1">Personal</string>
+    <string name="category2">Savings</string>
+    <string name="category3">Rent</string>
+    <string name="category4">Household</string>
+    <string name="category5">Utilities</string>
+    <string name="category6">Medical</string>
+    <string name="category7">Uncategorized</string>
+
 </resources>

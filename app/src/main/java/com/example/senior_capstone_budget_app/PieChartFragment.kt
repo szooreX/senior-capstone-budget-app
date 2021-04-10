@@ -132,6 +132,8 @@ class PieChartFragment : Fragment() {
         }
 
         //put functional code here for function calls, etc.
+
+        budget_panel_button.setOnClickListener { findNavController().navigate(R.id.budgetFragment) }
     }
 
 
@@ -188,10 +190,10 @@ class PieChartFragment : Fragment() {
             "Spending History",
             0, makeNewChart()
         )
-//        val item2 = MonthChartItem(
-//            "Month Name",
-//            1, makeNewChart()
-//        )
+        val item2 = MonthChartItem(
+            "Month Name",
+            1, makeNewChart()
+        )
 //        val item3 = MonthChartItem(
 //            "Month Name",
 //            2, "yo make this a chart"
@@ -202,7 +204,7 @@ class PieChartFragment : Fragment() {
 //        )
 
         monthChartItems.add(item1)
-//        monthChartItems.add(item2)
+        monthChartItems.add(item2)
 //        monthChartItems.add(item3)
 //        monthChartItems.add(item4)
 
@@ -211,7 +213,7 @@ class PieChartFragment : Fragment() {
         displayItems = monthChartItems
     }
 
-    private fun setSepndingLabels(string: String){
+    private fun setSpendingLabels(string: String){
         totalSpent.text = (string)
         println("testing" + totalSpent.text)
     }

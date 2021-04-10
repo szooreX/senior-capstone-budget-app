@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/goalsFragment"
-        android:name="com.example.senior_capstone_budget_app.OptionsFragment"
+        android:name="com.example.senior_capstone_budget_app.GoalsFragment"
         tools:layout="@layout/fragment_goals">
 
         <action
@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_goalsFragment_to_goalItemViewFragment"
             app:destination="@id/goalItemViewFragment" />
+        <action
+            android:id="@+id/action_goalsFragment_to_createGoalFragment"
+            app:destination="@id/createGoalFragment" />
     </fragment>
     <fragment
         android:id="@+id/accountsFragment"
@@ -82,4 +85,9 @@
         android:name="com.example.senior_capstone_budget_app.BudgetFragment"
         android:label="fragment_budget"
         tools:layout="@layout/fragment_budget" />
+    <fragment
+        android:id="@+id/createGoalFragment"
+        android:name="com.example.senior_capstone_budget_app.CreateGoalFragment"
+        android:label="fragment_create_goal"
+        tools:layout="@layout/fragment_create_goal" />
 </navigation>

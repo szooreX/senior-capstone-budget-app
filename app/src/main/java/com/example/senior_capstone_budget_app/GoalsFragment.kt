@@ -10,6 +10,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.senior_capstone_budget_app.goals.Goal
 import com.example.senior_capstone_budget_app.goals.Goals
 import com.example.senior_capstone_budget_app.transaction.MonthlyTransactions
 import com.xwray.groupie.GroupAdapter
@@ -25,7 +26,7 @@ var g: Goals? = null
 var gInput= ""
 var caller: Int = -1
 
-class OptionsFragment : Fragment() {
+class GoalsFragment : Fragment() {
 
     //______________Variables For Recycler View____________________
     private val goalItemAdapter = GroupAdapter<GroupieViewHolder>()
@@ -87,6 +88,9 @@ class OptionsFragment : Fragment() {
             goalItemAction(item)
 
         }
+        new_goal_button.setOnClickListener {
+            findNavController().navigate(R.id.createGoalFragment)
+        }
     }
 
     private fun getGoalItems() {
@@ -128,6 +132,9 @@ class OptionsFragment : Fragment() {
 
         //pass array list to displayItems to pass through Adapter
         displayItems = goalItems
+    }
+    fun addGoal(goal : GoalItem) {
+        displayItems.add(goal)
     }
 
     private fun goalItemAction(item: com.xwray.groupie.Item<com.xwray.groupie.GroupieViewHolder>) {

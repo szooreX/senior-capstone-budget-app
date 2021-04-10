@@ -6,17 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.view.isEmpty
-import androidx.core.view.isNotEmpty
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.completed_task_item.view.*
-import kotlinx.android.synthetic.main.fragment_completed_tasks.*
 import kotlinx.android.synthetic.main.fragment_completed_tasks.completed_tasks_recycler_view
 import kotlinx.android.synthetic.main.fragment_completed_tasks.view.*
-import kotlinx.android.synthetic.main.fragment_tasks.*
 import kotlinx.android.synthetic.main.goal_item_view_fragment.*
 
 // TODO: Rename parameter arguments, choose names that match

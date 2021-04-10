@@ -17,12 +17,12 @@ import kotlinx.android.synthetic.main.fragment_accounts.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.properties.Delegates
 
 
 class AccountsFragment : Fragment() {
     //______________Variables For Recycler View____________________
     private val accountItemAdapter = GroupAdapter<GroupieViewHolder>()
-    private var accountBalance = 0.0
     private var paypalAPI: PayPalTransactionAPI? = null
 
     companion object {
@@ -91,7 +91,7 @@ class AccountsFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(AccountsFragmentViewModel::class.java)
         // TODO: Use the ViewModel
         viewModel.launchDataLoad()
-        getAccountItems()
+
     }
 //    private fun displayBalance(){
 //
@@ -104,22 +104,22 @@ class AccountsFragment : Fragment() {
 //
 //    }
 
-    private fun getAccountItems() {
+    fun getAccountItems() {
         //create home menu items
         val accountItems = ArrayList<AccountItem>()
         val item1 = AccountItem(
             "ACCOUNT NAME",
             0,3000.00
         )
-        val item2 = AccountItem(
-            "ACCOUNT NAME",
-            1, accountBalance
-        )
+//        val item2 = AccountItem(
+//            "ACCOUNT NAME",
+//            1, accountBalance
+//        )
 
 
         //add home menu items to an array list
-//        accountItems.add(item1)
-        accountItems.add(item2)
+        accountItems.add(item1)
+//        accountItems.add(item2)
 
         //pass array list to displayItems to pass through Adapter
         displayItems = accountItems
@@ -158,6 +158,7 @@ class AccountsFragmentViewModel : ViewModel() {
         viewModelScope.launch {
             callPayPal()
 
+
             // Modify UI
         }
     }
@@ -166,7 +167,8 @@ class AccountsFragmentViewModel : ViewModel() {
         // Heavy work
 
         var paypalAPI = PayPalTransactionAPI()
-        // accountBalance = paypalAPI?.findBalance().toString().toDouble()
+         accountBalance = paypalAPI.findBalance().toString().toDouble()
+
 
     }
 }

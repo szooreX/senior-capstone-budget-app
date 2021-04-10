@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_add_task.*
-import kotlinx.android.synthetic.main.fragment_create_goal.*
-
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,16 +15,13 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [CreateGoalFragment.newInstance] factory method to
+ * Use the [AddTaskFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CreateGoalFragment : Fragment() {
+class AddTaskFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private var goalAdapter: GoalAdapter? = null
-    private var goalsFragment: GoalsFragment? = null
-    private lateinit var goalItem: GoalItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,22 +35,21 @@ class CreateGoalFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        goalsFragment = GoalsFragment()
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_goal, container, false)
+        return inflater.inflate(R.layout.fragment_add_task, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        save_goal_button.setOnClickListener {
+        add_task_button.setOnClickListener {
+            //add task to task recycler list
+            //code here
 
-            goalItem = GoalItem("title", 1, "1", 1, "40")
-            goalsFragment?.addGoal(goalItem)
-            findNavController().navigate(R.id.goalsFragment)
+            //navigate back to goalitemviewfragment
+            findNavController().navigate(R.id.goalItemViewFragment)
         }
 
-//
     }
 
     companion object {
@@ -65,12 +59,12 @@ class CreateGoalFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment CreateGoalFragment.
+         * @return A new instance of fragment AddTaskFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            CreateGoalFragment().apply {
+            AddTaskFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

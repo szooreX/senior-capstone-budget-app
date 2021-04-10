@@ -79,7 +79,11 @@
         android:id="@+id/goalItemViewFragment"
         android:name="com.example.senior_capstone_budget_app.GoalItemViewFragment"
         android:label="goal_item_view_fragment"
-        tools:layout="@layout/goal_item_view_fragment" />
+        tools:layout="@layout/goal_item_view_fragment" >
+        <action
+            android:id="@+id/action_goalItemViewFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
+    </fragment>
     <fragment
         android:id="@+id/budgetFragment"
         android:name="com.example.senior_capstone_budget_app.BudgetFragment"
@@ -89,5 +93,14 @@
         android:id="@+id/createGoalFragment"
         android:name="com.example.senior_capstone_budget_app.CreateGoalFragment"
         android:label="fragment_create_goal"
-        tools:layout="@layout/fragment_create_goal" />
+        tools:layout="@layout/fragment_create_goal" >
+        <action
+            android:id="@+id/action_createGoalFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTaskFragment"
+        android:name="com.example.senior_capstone_budget_app.AddTaskFragment"
+        android:label="fragment_add_task"
+        tools:layout="@layout/fragment_add_task" />
 </navigation>

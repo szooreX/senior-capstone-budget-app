@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.PrecomputedTextCompat
+import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.senior_capstone_budget_app.data.paypalAPI.PayPalTransactionAPI
@@ -25,6 +28,7 @@ class AccountsFragment : Fragment() {
     private val accountItemAdapter = GroupAdapter<GroupieViewHolder>()
     private var paypalAPI: PayPalTransactionAPI? = null
 
+
     companion object {
         fun newInstance() = GoalItemViewFragment()
     }
@@ -44,6 +48,12 @@ class AccountsFragment : Fragment() {
         }
     //_____________________________________________________________
 
+
+    // Use the 'by viewModels()' Kotlin property delegate
+    // from the activity-ktx artifact
+    private val model: AccountsFragmentViewModel by viewModels()
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,6 +71,17 @@ class AccountsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(AccountsFragmentViewModel::class.java)
+        viewLifecycleOwner.lifecycleScope.launch {
+            val params = TextViewCompat.getTextMetricsParams(test_text_view)
+            val precomputedText = withContext(Dispatchers.Default) {
+
+                // TODO: Use the ViewModel
+                viewModel.launchDataLoad()
+                PrecomputedTextCompat.create("Loading Accounts...", params)
+            }
+            TextViewCompat.setPrecomputedText(test_text_view, precomputedText)
+        }
         //now you have access to the view to make changes
         accountsRecyclerView.apply {
             accountsRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -69,30 +90,21 @@ class AccountsFragment : Fragment() {
         //put functional code here for function calls, etc.
 
 
-        accountItemAdapter.setOnItemClickListener { item, _ ->
-
-            accountItemAction(item)
-//            when ((item as accountAdapter).itemID) {
-//                0 -> {
-//                    item1Action()
-//                }
-//                1 -> {
-//                    item2Action()
-//                }
-//            }
+        // Create the observer which updates the UI.
+        val nameObserver = Observer<String> { newBalance ->
+            // Update the UI, in this case, a TextView.
+            //test_text_view.text = newBalance
+            test_text_view.visibility = View.INVISIBLE
+            getAccountItems(newBalance)
         }
 
-
+        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
+        model.liveData.observe(viewLifecycleOwner, nameObserver)
     }
+
 
     //prevent network on main thread error using view model below this class, AccountsFragmentViewModel
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AccountsFragmentViewModel::class.java)
-        // TODO: Use the ViewModel
-        viewModel.launchDataLoad()
 
-    }
 //    private fun displayBalance(){
 //
 //        val balanceObservable: Single<String> = Single.just(BaseTransactionAPIClass.payPalAPI.findBalance())
@@ -104,12 +116,12 @@ class AccountsFragment : Fragment() {
 //
 //    }
 
-    fun getAccountItems() {
+    fun getAccountItems(newBalance : String) {
         //create home menu items
         val accountItems = ArrayList<AccountItem>()
         val item1 = AccountItem(
             "ACCOUNT NAME",
-            0,3000.00
+            0, newBalance
         )
 //        val item2 = AccountItem(
 //            "ACCOUNT NAME",
@@ -149,7 +161,10 @@ class AccountAdapter(private val item: AccountItem) : Item() {
 
 class AccountsFragmentViewModel : ViewModel() {
 
-    private var accountBalance = 0.0
+    val liveData: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+
 
     /**
      * Heavy operation that cannot be done in the Main Thread
@@ -157,8 +172,6 @@ class AccountsFragmentViewModel : ViewModel() {
     fun launchDataLoad() {
         viewModelScope.launch {
             callPayPal()
-
-
             // Modify UI
         }
     }
@@ -167,11 +180,17 @@ class AccountsFragmentViewModel : ViewModel() {
         // Heavy work
 
         var paypalAPI = PayPalTransactionAPI()
-         accountBalance = paypalAPI.findBalance().toString().toDouble()
+
+        //postValue - Posts a task to a main thread to set the given value.
+        liveData.postValue(paypalAPI.findBalance().toString())
+
 
 
     }
+
 }
 
-data class AccountItem(var title: String, var id: Int, var balance: Double)
+data class AccountItem(var title: String, var id: Int, var balance: String) {
+
+}
 

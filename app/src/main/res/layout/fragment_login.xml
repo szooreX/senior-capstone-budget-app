@@ -62,7 +62,7 @@
             android:paddingBottom="20dp"
             android:text="   Sign In With Google"
             android:textAlignment="center"
-            android:textColor="#7A7A7A"
+            android:textColor="#6A6A6A"
             android:textSize="24sp"
             android:textStyle="bold" />
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/Background_Color"
     tools:context=".BudgetFragment">
 
@@ -26,18 +26,20 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="15dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -61,8 +63,9 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -104,7 +107,9 @@
                         android:layout_gravity="center"
                         android:layout_margin="10dp"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -121,6 +126,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/abeezee"
+                            android:text="$$$$$$"
                             android:textColor="@color/black"
                             android:textSize="18sp"
                             tools:text="$$$$$$" />
@@ -133,34 +139,54 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="15dp">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:fontFamily="@font/abeezee"
-                        android:gravity="center"
-                        android:text="Now Let's Set Up Your Budget."
-                        android:textColor="@color/ARVIO_THEME_COLOR"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingBottom="20dp">
 
-                    <View
-                        android:id="@+id/divider4"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="?android:attr/listDivider" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/abeezee"
+                            android:gravity="center"
+                            android:paddingBottom="10dp"
+                            android:text="Now Let's Set Up Your Budget."
+                            android:textColor="@color/ARVIO_THEME_COLOR"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:id="@+id/divider4"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="?android:attr/listDivider" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/abeezee"
+                            android:gravity="center"
+                            android:paddingTop="10dp"
+                            android:text="How Much Do You Expect To Spend Per Category?"
+                            android:textColor="@color/black" />
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -168,17 +194,11 @@
                         android:layout_margin="5dp"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/abeezee"
-                            android:text="How Much Do You Expect To Spend Per Category?"
-                            android:textColor="@color/black" />
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingBottom="10dp">
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -201,7 +221,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingBottom="10dp">
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -224,7 +245,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingBottom="10dp">
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -247,7 +269,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingBottom="10dp">
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -269,7 +292,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingBottom="10dp">
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -292,7 +316,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingBottom="10dp">
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -315,7 +340,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingBottom="10dp">
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -342,7 +368,8 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="15dp"
                             android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:padding="10dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -359,6 +386,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/abeezee"
+                                android:text="$$$$$$"
                                 android:textColor="@color/black"
                                 android:textSize="18sp"
                                 tools:text="$$$$$$" />
@@ -369,7 +397,7 @@
                     <Button
                         android:id="@+id/set_budget_button"
                         style="@android:style/Widget.DeviceDefault.Button"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="10dp"
@@ -378,7 +406,7 @@
                         android:gravity="center"
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
-                        android:text="Save Budget"
+                        android:text="SAVE BUDGET"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="#FFFFFF"
                         android:textSize="18sp" />

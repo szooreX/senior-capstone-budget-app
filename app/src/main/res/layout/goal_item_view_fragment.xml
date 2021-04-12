@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#3CB6B6B6"
     android:orientation="vertical"
     android:padding="8dp"
     tools:context=".GoalItemViewFragment">
 
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,55 +25,44 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/cardView4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
                 android:padding="15dp">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/abeezee"
                         android:gravity="center"
-                        android:padding="10dp"
+                        android:paddingTop="25dp"
+                        android:paddingBottom="10dp"
                         android:text="Let's Look At Your Progress."
                         android:textColor="#1C1C1C"
                         android:textSize="24sp" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar
-                            android:layout_width="0dp"
-                            android:layout_height="60dp"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="20dp"
-                            android:layout_marginBottom="10dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:rcBackgroundColor="#0D000000"
-                            app:rcBackgroundPadding="2dp"
-                            app:rcMax="100"
-                            app:rcProgress="50"
-                            app:rcProgressColor="#4D8558"
-                            app:rcRadius="10dp"
-                            app:rcSecondaryProgress="60"
-                            app:rcTextProgress="50%"
-                            app:rcTextProgressColor="#FFFFFF" />
-                        <!--ref url: https://github.com/akexorcist/RoundCornerProgressBar -->
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        app:rcBackgroundColor="#0D000000"
+                        app:rcBackgroundPadding="2dp"
+                        app:rcMax="100"
+                        app:rcProgress="50"
+                        app:rcProgressColor="#4D8558"
+                        app:rcRadius="10dp"
+                        app:rcSecondaryProgress="60"
+                        app:rcTextProgress="50%"
+                        app:rcTextProgressColor="#FFFFFF" />
 
                     <TextView
                         android:id="@+id/days_left_goal_item_view"
@@ -75,58 +70,58 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/abeezee"
                         android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="20dp"
                         android:text="You have 5 Days Left To Complete your Goal On Time!"
                         android:textColor="#102075"
                         android:textSize="18sp" />
 
-                    <Button
-                        android:id="@+id/timepickerbutton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Set Time"
-                        android:visibility="gone" />
-
                 </LinearLayout>
+
+                <Button
+                    android:id="@+id/timepickerbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Set Time"
+                    android:visibility="gone" />
+
+
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:id="@+id/cardView5"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
                 android:padding="15dp">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="start"
                         android:gravity="start"
-                        android:padding="5dp"
+                        android:padding="20dp"
                         android:text="Tasks Left To Complete"
-                        android:textColor="#000000" />
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
 
                     <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="?android:attr/listDivider" />
-
-                    <TextView
-                        android:id="@+id/no_tasks_in_list_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/no_tasks_in_list_prompt"
-                        android:visibility="invisible" />
+                        android:background="?android:attr/listDivider" />
 
                     <fragment
                         android:id="@+id/fragment"
                         android:name="com.example.senior_capstone_budget_app.TasksFragment"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="match_parent" />
 
                     <Button
                         android:id="@+id/add_task_button_goal_item_view"
@@ -134,57 +129,54 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="+ Add Task"
+                        android:text="+ ADD TASK"
                         android:textColor="#000000"
-                        android:textSize="14sp" />
-
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
+
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:id="@+id/cardView6"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
                 android:padding="15dp">
 
-                <TextView
-                    android:id="@+id/no_completed_tasks_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:visibility="invisible" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="start"
                         android:gravity="start"
-                        android:padding="5dp"
+                        android:padding="20dp"
                         android:text="Tasks Completed"
-                        android:textColor="#000000" />
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
 
                     <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:background="?android:attr/listDivider" />
 
                     <fragment
                         android:id="@+id/fragment2"
                         android:name="com.example.senior_capstone_budget_app.CompletedTasksFragment"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
+                        android:layout_height="match_parent" />
                 </LinearLayout>
+
 
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

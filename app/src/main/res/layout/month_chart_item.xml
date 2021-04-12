@@ -33,7 +33,7 @@
                 android:padding="15dp"
                 tools:text="Month Name Here" />
 
-            <com.github.mikephil.charting.charts.LineChart
+            <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/chart_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

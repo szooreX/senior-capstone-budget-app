@@ -5,7 +5,7 @@
     android:id="@+id/popup_window_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AFAFAF"
+    android:background="@color/Background_Color"
     tools:context=".AddTransactionActivity">
 
     <LinearLayout
@@ -13,6 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:background="#FFFFFF"
         android:gravity="center"
         android:minHeight="170dp"
@@ -37,6 +39,7 @@
                     android:id="@+id/popup_window_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/abeezee"
                     android:gravity="start"
                     android:text="Title"
                     android:textColor="#FFFFFF"
@@ -56,7 +59,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/btn_dialog" />
+                    app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
@@ -72,14 +75,16 @@
                 android:id="@+id/transaction_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:fontFamily="@font/abeezee"
                 android:gravity="center"
                 android:text="Text"
                 android:textAlignment="center"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -93,7 +98,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="number"
-                android:padding="5dp" />
+                android:padding="10dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -110,10 +115,11 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:fontFamily="@font/abeezee"
                 android:gravity="center"
                 android:text="Text"
                 android:textAlignment="center"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -127,7 +133,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="text"
-                android:padding="5dp" />
+                android:padding="10dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -145,10 +151,11 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:fontFamily="@font/abeezee"
                 android:gravity="center"
                 android:text="Text"
                 android:textAlignment="center"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <CalendarView
@@ -163,7 +170,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="10dp">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/payment_category"
@@ -173,26 +181,28 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:fontFamily="@font/abeezee"
                 android:gravity="center"
+                android:padding="10dp"
                 android:text="Text"
                 android:textAlignment="center"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
+
 
             <Spinner
                 android:id="@+id/category_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:animateLayoutChanges="false"
-                android:background="#9FFFFFFF"
-                android:drawSelectorOnTop="true"
+                android:layout_gravity="center|end"
+                android:background="@android:drawable/btn_dropdown"
+                android:dropDownWidth="fill_parent"
                 android:entries="@array/spinnerItems"
-                android:prompt="@string/spinner_prompt" />
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:padding="10dp"
+                android:prompt="@string/spinner_prompt"
+                android:spinnerMode="dialog" />
 
 
         </LinearLayout>
@@ -204,12 +214,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="#FF1F3C88"
+            android:fontFamily="@font/abeezee"
             android:padding="5dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="14sp"
+            android:textSize="18sp"
             tools:text="add" />
 
     </LinearLayout>

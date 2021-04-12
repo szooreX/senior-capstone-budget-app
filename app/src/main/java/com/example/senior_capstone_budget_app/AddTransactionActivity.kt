@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.view.animation.DecelerateInterpolator
 import androidx.core.graphics.ColorUtils
 import kotlinx.android.synthetic.main.activity_add_transaction.*
 
@@ -30,30 +31,14 @@ class AddTransactionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_transaction)
 
         // Fade animation for the background of Popup Window
-//        val alpha = 50 //between 0-255
-//        val alphaColor = ColorUtils.setAlphaComponent(Color.parseColor("#000000"), alpha)
-//        val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), Color.TRANSPARENT, alphaColor)
-//        colorAnimation.duration = 500 // milliseconds
-//        colorAnimation.addUpdateListener { animator ->
-//            popup_window_background.setBackgroundColor(animator.animatedValue as Int)
-//        }
-//        colorAnimation.start()
-
-//        // Fade animation for the Popup Window
-//        popup_window_view_with_border.alpha = 0f
-//        popup_window_view_with_border.animate().alpha(1f).setDuration(500).setInterpolator(
-//            DecelerateInterpolator()
-//        ).start()
-
-        // Get the data
-//        val bundle = intent.extras
-//        popupTitle = bundle?.getString("popuptitle", "Title") ?: ""
-//        transactionAmount = bundle?.getString("popupamount", "Text") ?: ""
-//        transactionPayee = bundle?.getString("popuppayee", "Text") ?: ""
-//        transactionDate = bundle?.getString("popupdate", "Text") ?: ""
-//        transactionCategory = bundle?.getString("popupcategory", "Text") ?: ""
-//        popupButton = bundle?.getString("popupbtn", "Button") ?: ""
-//        darkStatusBar = bundle?.getBoolean("darkstatusbar", false) ?: false
+        val alpha = 50 //between 0-255
+        val alphaColor = ColorUtils.setAlphaComponent(Color.parseColor("#000000"), alpha)
+        val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), Color.TRANSPARENT, alphaColor)
+        colorAnimation.duration = 500 // milliseconds
+        colorAnimation.addUpdateListener { animator ->
+            popup_window_background.setBackgroundColor(animator.animatedValue as Int)
+        }
+        colorAnimation.start()
 
 
         popup_window_title.text = "Add Transaction"

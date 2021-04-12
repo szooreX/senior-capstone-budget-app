@@ -8,6 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
+    android:elevation="3dp"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -47,8 +48,9 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/abeezee"
                         android:lineSpacingExtra="8sp"
+                        android:paddingLeft="15dp"
                         android:paddingTop="15dp"
-                        android:paddingBottom="5dp"
+                        android:paddingRight="15dp"
                         android:text="$--- Spent"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         android:textColor="#0B1E45"
@@ -63,6 +65,10 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/anaheim"
                         android:lineSpacingExtra="8sp"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="5dp"
+                        android:paddingRight="15dp"
+                        android:paddingBottom="10dp"
                         android:text="That's ____% of your budget."
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         android:textColor="#305286"
@@ -71,9 +77,9 @@
 
                     <com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
+                        android:layout_height="70dp"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -91,18 +97,22 @@
                     <Button
 
                         android:id="@+id/budget_panel_button"
-                        style="@style/Widget.MaterialComponents.TimePicker.Button"
-                        android:layout_width="match_parent"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="#E4E4E4"
-                        android:elevation="2dp"
+                        android:layout_gravity="center|start"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="#FFFFFF"
+                        android:elevation="0.6dp"
                         android:fontFamily="@font/abeezee"
+                        android:gravity="center|start"
+                        android:padding="10dp"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
-                        android:text="BUDGET PANEL"
+                        android:text="To Budget Panel  >"
                         android:textColor="@color/Housing"
-                        android:textSize="18sp"
+                        android:textSize="19sp"
                         android:textStyle="bold" />
 
                     <!--ref url: https://github.com/akexorcist/RoundCornerProgressBar -->
@@ -116,12 +126,11 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0"
                 android:orientation="vertical"
-                android:padding="5dp">
+                android:padding="15dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:gravity="center">
 
@@ -153,16 +162,22 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/month_chart_container"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="10dp"
-                android:scrollbars="none">
+                android:layout_weight="0"
+                android:orientation="vertical">
 
-            </androidx.recyclerview.widget.RecyclerView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/month_chart_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:scrollbars="none">
+
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -199,7 +214,10 @@
                         android:layout_weight="0"
                         android:fontFamily="@font/anaheim"
                         android:lineSpacingExtra="8sp"
-                        android:padding="15dp"
+                        android:paddingStart="15dp"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="15dp"
                         android:text="You've spent 100% of your monthly average so far."
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         android:textColor="#305286"

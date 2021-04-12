@@ -30,14 +30,13 @@
                 android:background="#00101010"
                 android:fontFamily="@font/abeezee"
                 android:gravity="start"
-                android:padding="1dp"
                 android:paddingStart="15dp"
-                android:paddingTop="10dp"
+                android:paddingTop="15dp"
                 android:paddingEnd="15dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textStyle="normal"
                 tools:text="TASK NAME" />
 
             <LinearLayout

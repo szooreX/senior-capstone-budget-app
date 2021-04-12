@@ -7,18 +7,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.SeekBar
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.senior_capstone_budget_app.budget.Budget
 import com.example.senior_capstone_budget_app.transaction.MonthlyTransactions
-import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.Legend.LegendForm
+import com.github.mikephil.charting.components.XAxis.XAxisPosition
+import com.github.mikephil.charting.components.YAxis.YAxisLabelPosition
 import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_pie_chart.*
 import kotlinx.android.synthetic.main.month_chart_item.view.*
+import kotlinx.android.synthetic.main.transaction_item.*
 import org.eazegraph.lib.charts.PieChart
 import org.eazegraph.lib.models.PieModel
 import java.io.IOException
@@ -33,7 +41,7 @@ private const val ARG_PARAM2 = "param2"
 var mT: MonthlyTransactions? = null
 var budget: Budget? = null
 var input = ""
-var bInput= ""
+var bInput = ""
 private var spentString = ""
 private var percentString = ""
 
@@ -76,29 +84,30 @@ class PieChartFragment : Fragment() {
         mT = MonthlyTransactions()
         budget = Budget()
 
-        try{
+        try {
             val inputStream: InputStream = activity?.applicationContext?.assets!!.open("budget.txt")
             val size: Int = inputStream.available()
             val buffer = ByteArray(size)
             inputStream.read(buffer)
             bInput = String(buffer)
-        }catch (e: IOException){
+        } catch (e: IOException) {
             e.printStackTrace()
         }
-        try{
-            val inputStream: InputStream = activity?.applicationContext?.assets!!.open("TransactionSample.txt")
+        try {
+            val inputStream: InputStream =
+                activity?.applicationContext?.assets!!.open("TransactionSample.txt")
             val size: Int = inputStream.available()
             val buffer = ByteArray(size)
             inputStream.read(buffer)
             input = String(buffer)
-        }catch (e: IOException){
+        } catch (e: IOException) {
             e.printStackTrace()
         }
         mT?.loadTransactions2(input)
         mT?.transactionLoop()
         budget?.loadBudget(bInput)
         val stringTotal = mT?.total.toString()
-        val percent = ((budget!!.totalExpenses/mT!!.total)*100).toInt().toString()
+        val percent = ((budget!!.totalExpenses / mT!!.total) * 100).toInt().toString()
         spentString = "$$stringTotal Spent"
         percentString = "You've spent $percent% of your budget this month."
     }
@@ -116,7 +125,6 @@ class PieChartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         totalSpent.text = (spentString)
         percentBudget.text = (percentString)
 
@@ -134,21 +142,32 @@ class PieChartFragment : Fragment() {
         //put functional code here for function calls, etc.
 
         budget_panel_button.setOnClickListener { findNavController().navigate(R.id.budgetFragment) }
+
     }
 
 
-    private fun makeNewChart(): LineData {
-        //programmatically create a view to add to month_chart_item.xml layout file
-        var chart: LineChart = LineChart(context)
+    private fun makeNewChart(): BarData {
 
-        /* The goal here is to get data from api data objects that would ideally
-         contain the data for current and the previous months (just for the current year)
-          total spending to compare */
+        /* The goal here is to get data from api data objects to compare total budget to total spent for each month*/
 
-        var values = ArrayList<Entry>()
-        for (i in 0 until 5){
-            values.add(Entry((i-6).toFloat(), mT!!.totals.get(i).toFloat()))
-        }
+        var values = ArrayList<BarEntry>()
+//        for (i in 0 until 2) {
+//            values.add(BarEntry((i - 6).toFloat(), mT!!.totals[i].toFloat()))
+//
+//        }
+
+        values.add(BarEntry(1F, 0F)) //formatting with this for now..
+
+
+        //only change these ----------------
+
+        values.add(BarEntry(3F, budget!!.totalExpenses.toFloat())) //budget amount
+        mT?.total?.let { BarEntry(7F, it.toFloat()) }?.let { values.add(it) } //spent of budget
+
+        //----------------------------------
+
+        values.add(BarEntry(9F, 0F)) //formatting with this for now..
+
 
         //api data array
         //val dataObject = ArrayList<Double>()
@@ -156,11 +175,11 @@ class PieChartFragment : Fragment() {
         // getMonthChartData(dataObject) // TODO:  create function to gather the months, starting on current month, and its former months data into an array
 
         //actual chart entry array
-        val chartEntries = ArrayList<Entry>()
+        val chartEntries = ArrayList<BarEntry>()
 
         for (data in values) {
             chartEntries.add(data)
-            val entry = Entry(15.0F, 20.0F)
+            var entry = Entry(15.0F, 20.0F)
             //chartEntries.add(20, entry)
         }
 
@@ -172,28 +191,42 @@ class PieChartFragment : Fragment() {
 //        }
 
         //add entries to dataset
-        var lineDataSet = LineDataSet(chartEntries, "Spending History")
-        lineDataSet.color = Color.BLUE
-        lineDataSet.fillColor = Color.CYAN
+        var barDataSet = BarDataSet(chartEntries, "Budget Tracking")
 
-        val lineData = LineData(lineDataSet)
+        barDataSet.color = Color.parseColor("#6AAAFA")
 
-        return lineData
+        var barData = BarData(barDataSet)
+        barData.barWidth = 3F
+
+        return barData
     }
 
     private fun getMonthChartItems() {
+        //___________spending verses budget per month________
         //recycler view item array
         val monthChartItems = ArrayList<MonthChartItem>()
 
         //form each full chart into an item to pass into each slot in recycler view
         val item1 = MonthChartItem(
-            "Spending History",
+            "January",
             0, makeNewChart()
         )
         val item2 = MonthChartItem(
-            "Month Name",
+            "February",
             1, makeNewChart()
         )
+        val item3 = MonthChartItem(
+            "March",
+            2, makeNewChart()
+        )
+        val item4 = MonthChartItem(
+            "April",
+            3, makeNewChart()
+        )
+//        val item5 = MonthChartItem(
+//            "May",
+//            4, makeNewChart()
+//        )
 //        val item3 = MonthChartItem(
 //            "Month Name",
 //            2, "yo make this a chart"
@@ -205,15 +238,18 @@ class PieChartFragment : Fragment() {
 
         monthChartItems.add(item1)
         monthChartItems.add(item2)
-//        monthChartItems.add(item3)
-//        monthChartItems.add(item4)
+        monthChartItems.add(item3)
+        monthChartItems.add(item4)
+
+        //TODO: set scroll position to last item in list, so user swipes to the right to see previous month charts
+//        monthChartItems.add(item5)
 
 
         //pass array list to displayItems to pass through Adapter
         displayItems = monthChartItems
     }
 
-    private fun setSpendingLabels(string: String){
+    private fun setSpendingLabels(string: String) {
         totalSpent.text = (string)
         println("testing" + totalSpent.text)
     }
@@ -293,7 +329,7 @@ class PieChartFragment : Fragment() {
             intent.putExtra("popuptitle", "Add Transaction")
             intent.putExtra("popuptext", "Transaction Amount")
             intent.putExtra("popupbtn", "+ADD")
-           // intent.putExtra("darkstatusbar", false)
+            // intent.putExtra("darkstatusbar", false)
             startActivity(intent)
         }
         //To use the popup window, just pass the values for the Title, Text, Button text and Status Bar appearance.
@@ -326,12 +362,58 @@ class PieChartFragment : Fragment() {
 
 class MonthChartAdapter(private val item: MonthChartItem) :
     com.xwray.groupie.kotlinandroidextensions.Item() {
-    private var itemID = item.id
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         //this this a function to add item properties to the recycler view
-        viewHolder.itemView.chart_view.data = item.lineData
+        var chart = viewHolder.itemView.chart_view
 
+        chart.setDrawBarShadow(false);
+        chart.setDrawValueAboveBar(true);
+
+        chart.data = item.barData // this forms the actual BarChart
+
+
+        chart.description.isEnabled = false
+        chart.setDrawGridBackground(false)
+        chart.setPinchZoom(false);
+        chart.isClickable = false
+
+        val xAxis = chart.xAxis
+        xAxis.position = XAxisPosition.BOTTOM
+        xAxis.setDrawGridLines(false)
+        xAxis.granularity = 1f // only intervals of 1 day
+        xAxis.labelCount = 7
+
+        val leftAxis = chart.axisLeft
+
+        leftAxis.setLabelCount(8, false)
+
+        leftAxis.setPosition(YAxisLabelPosition.OUTSIDE_CHART)
+        leftAxis.spaceTop = 15f
+        leftAxis.axisMinimum = 0f // this replaces setStartAtZero(true)
+
+
+        val rightAxis = chart.axisRight
+        rightAxis.setDrawGridLines(false)
+
+        rightAxis.setLabelCount(8, false)
+
+        rightAxis.spaceTop = 15f
+        rightAxis.axisMinimum = 0f // this replaces setStartAtZero(true)
+
+
+        val l = chart.legend
+        l.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
+        l.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
+        l.orientation = Legend.LegendOrientation.HORIZONTAL
+        l.setDrawInside(false)
+        l.form = LegendForm.SQUARE
+        l.formSize = 9f
+        l.textSize = 11f
+        l.xEntrySpace = 4f
+
+
+        viewHolder.itemView.month_chart_name.text = item.month_name
 
     }
 
@@ -344,5 +426,5 @@ class MonthChartAdapter(private val item: MonthChartItem) :
 data class MonthChartItem(
     var month_name: String,
     var id: Int,
-    var lineData: LineData
+    var barData: BarData
 )

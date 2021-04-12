@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#3CB6B6B6"
-    android:padding="10dp"
+    android:padding="8dp"
     tools:context=".CreateGoalFragment">
 
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,12 +25,14 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="8dp"
+                android:padding="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -128,7 +130,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -150,28 +152,28 @@
                     <CalendarView
                         android:id="@+id/calendarView2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <Button
-                        android:id="@+id/save_goal_button"
-                        style="@android:style/Widget.DeviceDefault.Button"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:background="@color/ARVIO_THEME_COLOR"
-                        android:fontFamily="@font/abeezee"
-                        android:gravity="center"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:text="Save Goal"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="#FFFFFF"
-                        android:textSize="18sp" />
+                        android:selectedDateVerticalBar="@color/Groceries" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/save_goal_button"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/ARVIO_THEME_COLOR"
+                android:fontFamily="@font/abeezee"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="SAVE GOAL"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
 
         </LinearLayout>
     </ScrollView>

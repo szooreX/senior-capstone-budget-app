@@ -68,7 +68,6 @@ class TasksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        prompt = no_tasks_in_list_textview
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tasks, container, false)
     }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_budget.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -42,7 +43,10 @@ class BudgetFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         set_budget_button.setOnClickListener {
-            //on click actions here
+            //on click actions here//navigate back to dashboard
+            findNavController().navigate(R.id.pieChartFragment)
+
+
         }
     }
 

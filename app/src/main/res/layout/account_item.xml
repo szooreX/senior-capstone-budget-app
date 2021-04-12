@@ -41,14 +41,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="#00101010"
-                android:fontFamily="@font/anaheim"
+                android:fontFamily="@font/abeezee"
                 android:gravity="center"
                 android:padding="3dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                tools:text="ACCOUNT NAME" />
+                tools:text="PayPal" />
         </LinearLayout>
 
         <LinearLayout

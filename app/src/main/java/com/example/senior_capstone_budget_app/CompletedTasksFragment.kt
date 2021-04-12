@@ -53,7 +53,6 @@ class CompletedTasksFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        prompt = no_completed_tasks_text_view
         return inflater.inflate(R.layout.fragment_completed_tasks, container, false)
     }
 

@@ -27,7 +27,8 @@
             style="@android:style/Widget.DeviceDefault.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="+ Create New Goal" />
+            android:text="+ Create New Goal"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

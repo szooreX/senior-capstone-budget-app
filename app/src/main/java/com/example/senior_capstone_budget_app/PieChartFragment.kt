@@ -107,9 +107,10 @@ class PieChartFragment : Fragment() {
         mT?.transactionLoop()
         budget?.loadBudget(bInput)
         val stringTotal = mT?.total.toString()
-        val percent = ((budget!!.totalExpenses / mT!!.total) * 100).toInt().toString()
+        val percent = ((mT!!.total / budget!!.totalExpenses) * 100).toInt().toString()
+        val percent2 = ((mT!!.total / budget!!.expectedIncome) * 100).toInt().toString()
         spentString = "$$stringTotal Spent"
-        percentString = "You've spent $percent% of your budget this month."
+        percentString = "You've spent $percent% of your budget and $percent2% of your income."
     }
 
     override fun onCreateView(
@@ -146,7 +147,9 @@ class PieChartFragment : Fragment() {
     }
 
 
-    private fun makeNewChart(): BarData {
+    private fun makeNewChart(month: Int): BarData {
+        var monthTotal = 0.0
+        monthTotal = mT!!.totals.get(month)
 
         /* The goal here is to get data from api data objects to compare total budget to total spent for each month*/
 
@@ -160,9 +163,8 @@ class PieChartFragment : Fragment() {
 
 
         //only change these ----------------
-
         values.add(BarEntry(3F, budget!!.totalExpenses.toFloat())) //budget amount
-        mT?.total?.let { BarEntry(7F, it.toFloat()) }?.let { values.add(it) } //spent of budget
+        BarEntry(7F, monthTotal.toFloat())?.let { values.add(it) } //spent of budget
 
         //----------------------------------
 
@@ -208,29 +210,29 @@ class PieChartFragment : Fragment() {
 
         //form each full chart into an item to pass into each slot in recycler view
         val item1 = MonthChartItem(
-            "January",
-            0, makeNewChart()
+            mT!!.getHistory(0),
+            0, makeNewChart(0)
         )
         val item2 = MonthChartItem(
-            "February",
-            1, makeNewChart()
+            mT!!.getHistory(1),
+            1, makeNewChart(1)
         )
         val item3 = MonthChartItem(
-            "March",
-            2, makeNewChart()
+            mT!!.getHistory(2),
+            2, makeNewChart(2)
         )
         val item4 = MonthChartItem(
-            "April",
-            3, makeNewChart()
+            mT!!.getHistory(3),
+            3, makeNewChart(3)
         )
-//        val item5 = MonthChartItem(
-//            "May",
-//            4, makeNewChart()
-//        )
-//        val item3 = MonthChartItem(
-//            "Month Name",
-//            2, "yo make this a chart"
-//        )
+        val item5 = MonthChartItem(
+            mT!!.getHistory(4),
+            4, makeNewChart(4)
+        )
+        val item6 = MonthChartItem(
+            mT!!.getHistory(5),
+            5, makeNewChart(5)
+        )
 //        val item4 = MonthChartItem(
 //            "Month Name",
 //            3, "yo make this a chart"
@@ -240,6 +242,8 @@ class PieChartFragment : Fragment() {
         monthChartItems.add(item2)
         monthChartItems.add(item3)
         monthChartItems.add(item4)
+        monthChartItems.add(item5)
+        monthChartItems.add(item6)
 
         //TODO: set scroll position to last item in list, so user swipes to the right to see previous month charts
 //        monthChartItems.add(item5)
@@ -251,7 +255,6 @@ class PieChartFragment : Fragment() {
 
     private fun setSpendingLabels(string: String) {
         totalSpent.text = (string)
-        println("testing" + totalSpent.text)
     }
 
 

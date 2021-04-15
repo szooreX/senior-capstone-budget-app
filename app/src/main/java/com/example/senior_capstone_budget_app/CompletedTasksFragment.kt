@@ -1,19 +1,22 @@
 package com.example.senior_capstone_budget_app
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.completed_task_item.view.*
-import kotlinx.android.synthetic.main.fragment_completed_tasks.completed_tasks_recycler_view
+import kotlinx.android.synthetic.main.fragment_completed_tasks.*
 import kotlinx.android.synthetic.main.fragment_completed_tasks.view.*
 import kotlinx.android.synthetic.main.goal_item_view_fragment.*
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -53,7 +56,7 @@ class CompletedTasksFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_completed_tasks, container, false)
+        return inflater.inflate(R.layout.fragment_tasks, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -79,24 +82,38 @@ class CompletedTasksFragment : Fragment() {
 
         //create items
         val completedTasksItems = ArrayList<CompletedTasksItem>()
-        val item1 = CompletedTasksItem(
-            "Task 1",
-            0
-        )
-        val item2 = CompletedTasksItem(
-            "Task 2",
-            1
-        )
-        val item3 = CompletedTasksItem(
-            "Task 3",
-            2
-        )
 
+        val size = tasks!!.size
+
+        for (i in 0 until size){
+            var task = tasks[i]
+
+            val item = CompletedTasksItem(
+                task.title,
+                i,
+                task.isCompleted
+            )
+            if(task.isCompleted){
+                completedTasksItems.add(item)
+            }
+        }
+//        val item1 = CompletedTasksItem(
+//            "Task 1",
+//            0
+//        )
+//        val item2 = CompletedTasksItem(
+//            "Task 2",
+//            1
+//        )
+//        val item3 = CompletedTasksItem(
+//            "Task 3",
+//            2
+//        )
 
         //add home menu items to an array list
-        completedTasksItems.add(item1)
-        completedTasksItems.add(item2)
-        completedTasksItems.add(item3)
+//        completedTasksItems.add(item1)
+//        completedTasksItems.add(item2)
+//        completedTasksItems.add(item3)
 
 
         //pass array list to displayItems to pass through Adapter
@@ -106,16 +123,24 @@ class CompletedTasksFragment : Fragment() {
     private fun completedTasksItemAction(item: com.xwray.groupie.Item<com.xwray.groupie.GroupieViewHolder>) {
         //handle click action
 
-
     }
 }
 
 class CompletedTasksItemAdapter(private val item: CompletedTasksItem) : Item() {
     val itemID = item.id
+
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         //this this a function to add item properties to the recycler view, in this case I just want the image
         //viewHolder.itemView.goalImageView.setImageDrawable(item.image)
         viewHolder.itemView.completed_task_name.text = item.title
+
+        viewHolder.itemView.checkBox.setOnClickListener(View.OnClickListener {
+            viewHolder.itemView.checkBox.isChecked = false
+            println(tasks[position].isCompleted)
+            tasks[position].isCompleted = false
+            println(tasks[position].isCompleted)
+            viewHolder.itemView.visibility = View.GONE
+        })
     }
 
     override fun getLayout(): Int {
@@ -124,4 +149,4 @@ class CompletedTasksItemAdapter(private val item: CompletedTasksItem) : Item() {
 
 }
 
-data class CompletedTasksItem(var title: String, var id: Int)
+data class CompletedTasksItem(var title: String, var id: Int, var completed: Boolean)

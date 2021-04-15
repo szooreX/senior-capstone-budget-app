@@ -56,7 +56,7 @@
                             android:fontFamily="@font/abeezee"
                             android:gravity="bottom"
                             android:hint="$"
-                            android:inputType="number" />
+                            android:inputType="numberDecimal" />
 
                     </LinearLayout>
 
@@ -98,7 +98,7 @@
                             android:ems="10"
                             android:fontFamily="@font/abeezee"
                             android:hint="$"
-                            android:inputType="number" />
+                            android:inputType="numberDecimal" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -215,7 +215,7 @@
                                 android:ems="10"
                                 android:fontFamily="@font/abeezee"
                                 android:hint="$"
-                                android:inputType="number" />
+                                android:inputType="numberDecimal" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -239,7 +239,7 @@
                                 android:ems="10"
                                 android:fontFamily="@font/abeezee"
                                 android:hint="$"
-                                android:inputType="number" />
+                                android:inputType="numberDecimal" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -263,7 +263,7 @@
                                 android:ems="10"
                                 android:fontFamily="@font/abeezee"
                                 android:hint="$"
-                                android:inputType="number" />
+                                android:inputType="numberDecimal" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -286,7 +286,7 @@
                                 android:layout_weight="1"
                                 android:ems="10"
                                 android:hint="$"
-                                android:inputType="number" />
+                                android:inputType="numberDecimal" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -310,7 +310,7 @@
                                 android:ems="10"
                                 android:fontFamily="@font/abeezee"
                                 android:hint="$"
-                                android:inputType="number" />
+                                android:inputType="numberDecimal" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -334,7 +334,7 @@
                                 android:ems="10"
                                 android:fontFamily="@font/abeezee"
                                 android:hint="$"
-                                android:inputType="number" />
+                                android:inputType="numberDecimal" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -358,7 +358,7 @@
                                 android:ems="10"
                                 android:fontFamily="@font/abeezee"
                                 android:hint="$"
-                                android:inputType="number" />
+                                android:inputType="numberDecimal" />
 
                         </LinearLayout>
 

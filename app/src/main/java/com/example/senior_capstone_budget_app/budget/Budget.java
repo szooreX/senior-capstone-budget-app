@@ -51,7 +51,7 @@ public class Budget {
         expectedIncome = Double.parseDouble(split[0]);
         additionalIncome = Double.parseDouble(split[1]);
         String[] b = split[2].split(",");
-        for(int k = 0; k < 8; k++){
+        for(int k = 0; k < b.length; k++){
             limits[k] = Double.parseDouble(b[k]);
         }
         for (Double d: limits){

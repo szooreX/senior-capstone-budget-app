@@ -41,6 +41,21 @@ class BudgetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        expected_work_income_edit_text.setText(budget?.expectedIncome.toString())
+        additional_income_edit_text.setText(budget?.additionalIncome.toString())
+        var totalIncome = 0.0
+        totalIncome = budget!!.expectedIncome + budget!!.additionalIncome
+        total_income.setText(totalIncome.toString())
+
+        savings_budget_edit_text.setText(budget!!.limits[8].toString())
+        personal_bugdet_edit_text.setText(budget!!.limits[5].toString())
+        utilities_budget_edit_text.setText(budget!!.limits[2].toString())
+        household_budget_edit_text.setText(budget!!.limits[4].toString())
+        rent_budget_edit_text.setText(budget!!.limits[1].toString())
+        medical_budget_edit_text.setText(budget!!.limits[6].toString())
+        uncategorized_budget_edit_text.setText(budget!!.limits[8].toString())
+        total_expenses.setText(budget?.totalExpenses.toString())
+
 
         set_budget_button.setOnClickListener {
             //on click actions here//navigate back to dashboard

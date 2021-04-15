@@ -51,7 +51,7 @@
                             android:textStyle="bold" />
 
                         <EditText
-                            android:id="@+id/goal_name"
+                            android:id="@+id/goal_name_edit_text"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="end"
@@ -150,7 +150,7 @@
                         android:textStyle="bold" />
 
                     <CalendarView
-                        android:id="@+id/calendarView2"
+                        android:id="@+id/create_goal_calendar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:selectedDateVerticalBar="@color/Groceries" />

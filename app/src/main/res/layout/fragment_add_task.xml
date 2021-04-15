@@ -30,8 +30,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Task" />
+                android:hint="Task"
+                android:inputType="textPersonName" />
 
             <Button
                 android:id="@+id/add_task_button"

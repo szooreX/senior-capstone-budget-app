@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_budget.*
 
@@ -41,6 +42,11 @@ class BudgetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        additional_income_edit_text.visibility = View.GONE
+        additional_income_amount_prompt.visibility = View.GONE
+
+
         expected_work_income_edit_text.setText(budget?.expectedIncome.toString())
         additional_income_edit_text.setText(budget?.additionalIncome.toString())
         var totalIncome = 0.0
@@ -58,9 +64,26 @@ class BudgetFragment : Fragment() {
 
 
         set_budget_button.setOnClickListener {
-            //on click actions here//navigate back to dashboard
+            //on click actions here
+            Toast.makeText(context, "Budget Successfully Saved", Toast.LENGTH_SHORT).show()
+            
+            // navigate back to dashboard
             findNavController().navigate(R.id.pieChartFragment)
 
+
+        }
+
+        additional_income_switch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                additional_income_edit_text.visibility = View.VISIBLE
+                additional_income_amount_prompt.visibility = View.VISIBLE
+
+            } else {
+                additional_income_edit_text.visibility = View.GONE
+                additional_income_amount_prompt.visibility = View.GONE
+
+
+            }
 
         }
     }

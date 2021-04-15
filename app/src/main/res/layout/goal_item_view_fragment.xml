@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="top"
     android:background="#3CB6B6B6"
     android:orientation="vertical"
     android:padding="8dp"
@@ -12,7 +13,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:foregroundGravity="top"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -93,7 +95,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView5"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:padding="15dp">
 
@@ -106,9 +108,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/abeezee"
                         android:gravity="start"
                         android:padding="20dp"
-                        android:text="Tasks Left To Complete"
+                        android:text="Goal To-Do List"
                         android:textColor="#000000"
                         android:textSize="18sp" />
 
@@ -121,7 +124,7 @@
                         android:id="@+id/fragment"
                         android:name="com.example.senior_capstone_budget_app.TasksFragment"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content" />
 
                     <Button
                         android:id="@+id/add_task_button_goal_item_view"
@@ -137,13 +140,6 @@
 
 
             </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView6"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:padding="15dp"/>
 
         </LinearLayout>
     </ScrollView>

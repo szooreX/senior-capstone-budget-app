@@ -27,8 +27,10 @@
             style="@android:style/Widget.DeviceDefault.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/abeezee"
             android:text="+ Create New Goal"
-            android:textStyle="bold" />
+            android:textColor="@color/ARVIO_THEME_COLOR"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

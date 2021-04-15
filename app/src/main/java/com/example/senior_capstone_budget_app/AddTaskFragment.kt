@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_add_task.*
 
@@ -43,6 +44,8 @@ class AddTaskFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         add_task_button.setOnClickListener {
+
+            Toast.makeText(context, " Task '${add_task_edit_text.text}' Successfully Added", Toast.LENGTH_SHORT).show()
             //add task to task recycler list
             //code here
 

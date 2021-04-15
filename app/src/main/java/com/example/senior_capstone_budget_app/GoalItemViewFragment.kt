@@ -48,7 +48,7 @@ private var dashboardActivity : DashboardActivity? = null
         super.onViewCreated(view, savedInstanceState)
 
         var days: String = goal?.calculateDays().toString()
-        days_left_goal_item_view.text = "You have $days days left to complete you Goal on time!"
+        days_left_goal_item_view.text = "You Have $days Days Left To Complete Your Goal On Time!"
 
         timepickerbutton.setOnClickListener {
            // dashboardActivity?.getTimePicker()

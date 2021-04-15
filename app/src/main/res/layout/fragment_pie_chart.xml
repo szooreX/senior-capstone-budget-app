@@ -108,7 +108,7 @@
                         android:padding="10dp"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
-                        android:text="To Budget Panel  >"
+                        android:text="To Budget Panel"
                         android:textColor="@color/Housing"
                         android:textSize="19sp"
                         android:textStyle="bold" />

@@ -1,12 +1,14 @@
 package com.example.senior_capstone_budget_app
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.fragment_add_task.*
 import kotlinx.android.synthetic.main.fragment_create_goal.*
 
 
@@ -50,12 +52,35 @@ class CreateGoalFragment : Fragment() {
 
         save_goal_button.setOnClickListener {
 
+            Toast.makeText(context, "Goal '${goal_name_edit_text.text}' Has Been Saved", Toast.LENGTH_SHORT).show()
             goalItem = GoalItem("title", 1, "1", 1, "40")
             goalsFragment?.addGoal(goalItem)
             findNavController().navigate(R.id.goalsFragment)
         }
 
+        create_goal_calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            hideKeyboard()
+
+
+        }
 //
+    }
+
+    private fun hideKeyboard() {
+        //hide keyboard on tab selected
+        try {
+            val inputMethodManager: InputMethodManager = requireActivity().getSystemService(
+                Activity.INPUT_METHOD_SERVICE
+            ) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(
+                requireActivity().currentFocus!!.windowToken, 0
+            )
+
+        } catch (error: Exception) {
+            //keyboard was not open
+            error.printStackTrace()
+            return
+        }
     }
 
     companion object {

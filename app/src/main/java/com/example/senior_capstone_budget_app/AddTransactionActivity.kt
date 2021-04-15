@@ -11,9 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.view.animation.DecelerateInterpolator
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.graphics.ColorUtils
 import kotlinx.android.synthetic.main.activity_add_transaction.*
+import kotlinx.android.synthetic.main.transaction_item.*
 
 class AddTransactionActivity : AppCompatActivity() {
 
@@ -47,6 +49,7 @@ class AddTransactionActivity : AppCompatActivity() {
         payment_date.text = "Date of Transaction:"
         payment_category.text = "Category:"
         add_button.text = "Add Transaction"
+        transcation_description.text = "Transaction Details"
 
         // Set the Status bar appearance for different API levels
         if (Build.VERSION.SDK_INT in 19..20) {
@@ -70,10 +73,34 @@ class AddTransactionActivity : AppCompatActivity() {
 
         // Close the Popup Window when you press the button
         add_button.setOnClickListener {
+
+            Toast.makeText(this, "Added Transaction $${transaction_amount_edit_text.text} To ${transaction_to_edit_text.text}", Toast.LENGTH_LONG).show()
             onBackPressed()
         }
         close_popup_button.setOnClickListener {
             onBackPressed()
+        }
+
+        add_transaction_calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            hideKeyboard()
+
+        }
+    }
+
+    private fun hideKeyboard() {
+        //hide keyboard on tab selected
+        try {
+            val inputMethodManager: InputMethodManager = this.getSystemService(
+                Activity.INPUT_METHOD_SERVICE
+            ) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(
+                this.currentFocus!!.windowToken, 0
+            )
+
+        } catch (error: Exception) {
+            //keyboard was not open
+            error.printStackTrace()
+            return
         }
     }
 

@@ -24,7 +24,7 @@ import java.io.InputStream
 
 var g: Goals? = null
 var gInput= ""
-var caller: Int = -1
+var index: Int = -1
 
 class GoalsFragment : Fragment() {
 
@@ -86,7 +86,6 @@ class GoalsFragment : Fragment() {
 
         goalItemAdapter.setOnItemClickListener { item, _ ->
             goalItemAction(item)
-
         }
         new_goal_button.setOnClickListener {
             findNavController().navigate(R.id.createGoalFragment)
@@ -94,7 +93,6 @@ class GoalsFragment : Fragment() {
     }
 
     private fun getGoalItems() {
-
         val image1: Drawable? =
             context?.let { ResourcesCompat.getDrawable(it.resources,
                 R.drawable.ic_button_background, null) }
@@ -139,6 +137,7 @@ class GoalsFragment : Fragment() {
 
     private fun goalItemAction(item: com.xwray.groupie.Item<com.xwray.groupie.GroupieViewHolder>) {
         //handle goal click action
+        index = goalItemAdapter.getAdapterPosition(item)
         findNavController().navigate(R.id.goalItemViewFragment)
     }
 }

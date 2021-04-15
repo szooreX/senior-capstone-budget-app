@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.akexorcist.snaptimepicker.SnapTimePickerDialog
+//import com.akexorcist.snaptimepicker.SnapTimePickerDialog
+import com.example.senior_capstone_budget_app.goals.Goal
+import com.example.senior_capstone_budget_app.goals.Tasks
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
@@ -16,6 +18,11 @@ import kotlinx.android.synthetic.main.completed_task_item.view.*
 import kotlinx.android.synthetic.main.fragment_add_task.*
 import kotlinx.android.synthetic.main.fragment_tasks.*
 import kotlinx.android.synthetic.main.goal_item_view_fragment.*
+
+var goal: Goal? = null
+var tasks: Array<Tasks> = emptyArray()
+var taskIndex: Int = -1
+
 
 class GoalItemViewFragment : Fragment() {
 
@@ -28,17 +35,20 @@ private var dashboardActivity : DashboardActivity? = null
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        println()
+        goal = g?.getGoal(index)
+        tasks = goal!!.goalTasks
 
         dashboardActivity = (activity as DashboardActivity)
-        //var days: String = g!!.goals[].calculateDays().toString()
-        //days_left_goal_item_view.text = "You have $days days left to complete you Goal on time!"
+
         return inflater.inflate(R.layout.goal_item_view_fragment, container, false)
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        var days: String = goal?.calculateDays().toString()
+        days_left_goal_item_view.text = "You have $days days left to complete you Goal on time!"
 
         timepickerbutton.setOnClickListener {
            // dashboardActivity?.getTimePicker()
@@ -47,12 +57,6 @@ private var dashboardActivity : DashboardActivity? = null
         add_task_button_goal_item_view.setOnClickListener {
             //opens add task fragment
             findNavController().navigate(R.id.addTaskFragment)
-
-
         }
-
-
     }
-
-
 }

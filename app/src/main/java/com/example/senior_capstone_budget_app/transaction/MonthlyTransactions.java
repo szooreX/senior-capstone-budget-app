@@ -51,6 +51,7 @@ public class MonthlyTransactions extends AppCompatActivity{
     private double minus5Month = 0;
 
     private ArrayList<Double> totals;
+    private ArrayList<String> history;
     private double[] categoryTotals;
     private int[] categoryPercents;
 
@@ -58,6 +59,8 @@ public class MonthlyTransactions extends AppCompatActivity{
      * MonthlyTransaction object constructor with no context passed
      */
     public MonthlyTransactions() {
+        this.history = new ArrayList<>();
+
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.DAY_OF_MONTH, 1);
@@ -65,8 +68,11 @@ public class MonthlyTransactions extends AppCompatActivity{
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
 
+
         currentMonth = cal.getTime();
+        int now = cal.MONTH;
         currentTimestamp = new Timestamp(cal.getTimeInMillis());
+        history.add(monthNames[(now + 1+12)%12]);
 
         cal.add(Calendar.MONTH, 1);
         nextMonth = cal.getTime();
@@ -74,18 +80,23 @@ public class MonthlyTransactions extends AppCompatActivity{
 
         cal.add(Calendar.MONTH, -2);
         timestampMinus1 = new Timestamp(cal.getTimeInMillis());
+        history.add(monthNames[(now +12)%12]);
 
         cal.add(Calendar.MONTH, -1);
         timestampMinus2 = new Timestamp(cal.getTimeInMillis());
+        history.add(monthNames[(now - 1+12)%12]);
 
         cal.add(Calendar.MONTH, -1);
         timestampMinus3 = new Timestamp(cal.getTimeInMillis());
+        history.add(monthNames[(now - 2+12)%12]);
 
         cal.add(Calendar.MONTH, -1);
         timestampMinus4 = new Timestamp(cal.getTimeInMillis());
+        history.add(monthNames[(now - 3+12)%12]);
 
         cal.add(Calendar.MONTH, -1);
         timestampMinus5 = new Timestamp(cal.getTimeInMillis());
+        history.add(monthNames[(now - 4+12)%12]);
 
         this.categoryTotals = new double[9];
         this.categoryPercents = new int[9];
@@ -217,12 +228,12 @@ public class MonthlyTransactions extends AppCompatActivity{
                 minus5Month += -1 * amount;
             }
         }
-        totals.add(minus5Month);
-        totals.add(minus4Month);
-        totals.add(minus3Month);
-        totals.add(minus2Month);
-        totals.add(minus1Month);
         totals.add(total);
+        totals.add(minus1Month);
+        totals.add(minus2Month);
+        totals.add(minus3Month);
+        totals.add(minus4Month);
+        totals.add(minus5Month);
     }
 
     /**
@@ -309,7 +320,7 @@ public class MonthlyTransactions extends AppCompatActivity{
     public ArrayList<Double> getTotals() {return totals;}
     public int getCategoryPercents(int index) {return categoryPercents[index];}
     public int getLength(){return currentTransactions.size();}
-
+    public String getHistory(int index) {return history.get(index);}
 
     //====================================Setters====================================//
     public void setCurrentMonth(Date currentMonth) {this.currentMonth = currentMonth;}

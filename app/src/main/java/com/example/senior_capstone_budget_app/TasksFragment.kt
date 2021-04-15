@@ -1,25 +1,23 @@
 package com.example.senior_capstone_budget_app
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.isEmpty
-import androidx.core.view.isNotEmpty
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
+import kotlinx.android.synthetic.main.completed_task_item.view.*
 import kotlinx.android.synthetic.main.fragment_goals.*
 import kotlinx.android.synthetic.main.fragment_tasks.*
 import kotlinx.android.synthetic.main.goal_item.view.*
 import kotlinx.android.synthetic.main.goal_item_view_fragment.*
 import kotlinx.android.synthetic.main.task_item.view.*
+import kotlinx.android.synthetic.main.task_item.view.checkBox
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -80,43 +78,59 @@ class TasksFragment : Fragment() {
         }
         //put functional code here for function calls, etc.
         getTaskItems()
-        if (taskItemAdapter.itemCount == 0) {
-            prompt?.visibility = View.VISIBLE
-        }
 
         taskItemAdapter.setOnItemClickListener { item, _ ->
-
             taskItemAction(item)
+        }
 
+        if (taskItemAdapter.itemCount == 0) {
+            prompt?.visibility = View.VISIBLE
         }
     }
 
     private fun getTaskItems() {
 
-        //create items
         val taskItems = ArrayList<TaskItem>()
-        val item1 = TaskItem(
-            "Task 1",
-            0
-        )
-        val item2 = TaskItem(
-            "Task 2",
-            1
-        )
-        val item3 = TaskItem(
-            "Task 3",
-            2
-        )
+        val size = tasks!!.size
+
+        for (i in 0 until size){
+            var task = tasks[i]
+
+            val item = TaskItem(
+                task.title,
+                i,
+                task.isCompleted
+            )
+            taskItems.add(item)
+        }
 
 
+        //create items
+
+//        val item1 = TaskItem(
+//            tasks[0].title,
+//            0
+//        )
+//        val item2 = TaskItem(
+//            tasks[1].title,
+//            1
+//        )
+//        val item3 = TaskItem(
+//            tasks[2].title,
+//            2
+//        )
         //add home menu items to an array list
-        taskItems.add(item1)
-        taskItems.add(item2)
-        taskItems.add(item3)
-
 
         //pass array list to displayItems to pass through Adapter
         displayItems = taskItems
+    }
+    private fun taskItemAction(item: com.xwray.groupie.Item<com.xwray.groupie.GroupieViewHolder>) {
+        //handle click action
+        println("Testing")
+//        taskIndex = taskItemAdapter.getAdapterPosition(item)
+//        println(tasks[taskIndex].isCompleted)
+//        tasks[taskIndex].isCompleted = true
+//        println(tasks[taskIndex].isCompleted)
     }
 
     companion object {
@@ -138,12 +152,6 @@ class TasksFragment : Fragment() {
                 }
             }
     }
-
-    private fun taskItemAction(item: com.xwray.groupie.Item<com.xwray.groupie.GroupieViewHolder>) {
-        //handle click action
-
-
-    }
 }
 
 class TaskAdapter(private val item: TaskItem) : Item() {
@@ -152,6 +160,12 @@ class TaskAdapter(private val item: TaskItem) : Item() {
         //this this a function to add item properties to the recycler view, in this case I just want the image
         //viewHolder.itemView.goalImageView.setImageDrawable(item.image)
         viewHolder.itemView.task_name.text = item.title
+        if (item.completed) viewHolder.itemView.checkBox.isChecked = true
+        viewHolder.itemView.checkBox.setOnClickListener(View.OnClickListener {
+            println("before " + tasks[position].isCompleted)
+            tasks[position].isCompleted = !tasks[position].isCompleted
+            println("after " + tasks[position].isCompleted)
+        })
     }
 
     override fun getLayout(): Int {
@@ -160,4 +174,4 @@ class TaskAdapter(private val item: TaskItem) : Item() {
 
 }
 
-data class TaskItem(var title: String, var id: Int)
+data class TaskItem(var title: String, var id: Int, var completed: Boolean)

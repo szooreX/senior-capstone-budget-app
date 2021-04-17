@@ -23,6 +23,8 @@ import java.io.IOException
 import java.io.InputStream
 
 var g: Goals? = null
+var goals: Array<Goal> = emptyArray()
+var goal: Goal? = null
 var gInput= ""
 var index: Int = -1
 
@@ -68,7 +70,7 @@ class GoalsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         //items to add with the view, view does not exist at this point
-
+        goals = g!!.goals
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_goals, container, false)
     }
@@ -99,33 +101,43 @@ class GoalsFragment : Fragment() {
 
         //create home menu items
         val goalItems = ArrayList<GoalItem>()
-        val item1 = GoalItem(
-             g!!.goals[0].title,
-            0,
-            g!!.goals[0].calculateDays().toString() + " Days Left",
-            g!!.goals[0].percent,
-            g!!.goals[0].percent.toString() + "% Complete"
-        )
-        val item2 = GoalItem(
-            g!!.goals[1].title,
-            1,
-            g!!.goals[1].calculateDays().toString() + " Days Left",
-            g!!.goals[1].percent,
-            g!!.goals[1].percent.toString() + "% Complete"
-        )
-        val item3 = GoalItem(
-            g!!.goals[2].title,
-            2,
-            g!!.goals[2].calculateDays().toString() + " Days Left",
-            g!!.goals[2].percent,
-            g!!.goals[2].percent.toString() + "% Complete"
-        )
+        val size = g!!.goals.size
+
+        for (i in 0 until size){
+            var goal = goals[i]
+
+            val item = GoalItem(
+                goal.title,
+                i,
+                goal.calculateDays().toString() + " Days Left",
+                goal.percent,
+                goal.percent
+            )
+            goalItems.add(item)
+        }
+//        val item1 = GoalItem(
+//
+//        )
+//        val item2 = GoalItem(
+//            g!!.goals[1].title,
+//            1,
+//            g!!.goals[1].calculateDays().toString() + " Days Left",
+//            g!!.goals[1].percent,
+//            g!!.goals[1].percent.toString() + "% Complete"
+//        )
+//        val item3 = GoalItem(
+//            g!!.goals[2].title,
+//            2,
+//            g!!.goals[2].calculateDays().toString() + " Days Left",
+//            g!!.goals[2].percent,
+//            g!!.goals[2].percent.toString() + "% Complete"
+//        )
 
 
         //add home menu items to an array list
-        goalItems.add(item1)
-        goalItems.add(item2)
-        goalItems.add(item3)
+//        goalItems.add(item1)
+//        goalItems.add(item2)
+//        goalItems.add(item3)
 
 
         //pass array list to displayItems to pass through Adapter
@@ -149,7 +161,8 @@ class GoalAdapter(private val item: GoalItem) : Item() {
         //viewHolder.itemView.goalImageView.setImageDrawable(item.image)
         viewHolder.itemView.goalName.text = item.title
         viewHolder.itemView.daysLeft.text = item.days
-        viewHolder.itemView.percentComplete.text = item.percent
+        viewHolder.itemView.percentComplete.text = item.percent.toString()+ "% Complete"
+        viewHolder.itemView.percent_bar.progress = item.percent.toFloat()
     }
 
     override fun getLayout(): Int {
@@ -159,4 +172,4 @@ class GoalAdapter(private val item: GoalItem) : Item() {
 }
 
 
-data class GoalItem(var title: String, var id: Int, var days: String, var per: Int, var percent: String)
+data class GoalItem(var title: String, var id: Int, var days: String, var per: Int, var percent: Int)

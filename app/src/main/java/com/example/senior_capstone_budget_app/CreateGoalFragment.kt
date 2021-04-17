@@ -53,7 +53,7 @@ class CreateGoalFragment : Fragment() {
         save_goal_button.setOnClickListener {
 
             Toast.makeText(context, "Goal '${goal_name_edit_text.text}' Has Been Saved", Toast.LENGTH_SHORT).show()
-            goalItem = GoalItem("title", 1, "1", 1, "40")
+            goalItem = GoalItem("title", 1, "1", 1, 40)
             goalsFragment?.addGoal(goalItem)
             findNavController().navigate(R.id.goalsFragment)
         }

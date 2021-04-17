@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_add_task.*
 import kotlinx.android.synthetic.main.fragment_tasks.*
 import kotlinx.android.synthetic.main.goal_item_view_fragment.*
 
-var goal: Goal? = null
+
 var tasks: Array<Tasks> = emptyArray()
 var taskIndex: Int = -1
 
@@ -36,6 +36,7 @@ private var dashboardActivity : DashboardActivity? = null
         savedInstanceState: Bundle?
     ): View? {
         goal = g?.getGoal(index)
+
         tasks = goal!!.goalTasks
 
         dashboardActivity = (activity as DashboardActivity)

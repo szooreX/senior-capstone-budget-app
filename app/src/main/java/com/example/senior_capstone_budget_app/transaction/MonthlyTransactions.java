@@ -286,19 +286,132 @@ public class MonthlyTransactions extends AppCompatActivity{
                     categoryPercents[8] = (int) ((ending / total) * 100);
                     break;
             }
-            for (int k = 0; k < 9; k++){
-                double catTotal = categoryTotals[k];
-                categoryPercents[k] = (int) ((catTotal/total) * 100);
-            }
+            calculatePercents();
         }
+    }
+
+    public void categorizeTransaction(Transaction t){
+        double starting;
+        double ending;
+        double a = 0.0;
+
+        if (t.getAmount() <= 0 ){
+            a = -1.0 * t.getAmount();
+
+        }else{
+            a = t.getAmount();
+        }
+
+        switch (t.getCategory()) {
+            case UNCATEGORIZED:
+                starting = categoryTotals[0];
+                ending = starting + a;
+                categoryTotals[0] = ending;
+                break;
+            case RENT:
+                starting = categoryTotals[1];
+                ending = starting + a;
+                categoryTotals[1] = ending;
+                break;
+            case UTILITIES:
+                starting = categoryTotals[2];
+                ending = starting + a;
+                categoryTotals[2] = ending;
+                break;
+            case HOUSEHOLD:
+                starting = categoryTotals[4];
+                ending = starting + a;
+                categoryTotals[4] = ending;
+                break;
+            case PERSONAL:
+                starting = categoryTotals[5];
+                ending = starting + a;
+                categoryTotals[5] = ending;
+                break;
+            case MEDICAL:
+                starting = categoryTotals[6];
+                ending = starting + a;
+                categoryTotals[6] = ending;
+                break;
+            case FINANCIAL:
+                starting = categoryTotals[8];
+                ending = starting + a;
+                categoryTotals[8] = ending;
+                categoryPercents[8] = (int) ((ending / total) * 100);
+                break;
+        }
+        calculatePercents();
     }
 
     /**
      * Add a single transaction to transactions list
      * @param t the transaction object to be added
      */
-    public void addTransaction(Transaction t){
-        currentTransactions.add(t);
+    public void addTransaction(double d, String payee, Timestamp t, int c){
+        Transaction trans = new Transaction(d, payee, t, c);
+
+        if(currentTimestamp.compareTo(t)<= 0 && nextTimestamp.compareTo(t)>0){
+            currentTransactions.add(trans);
+            if (d <= 0 ){
+                total += -1 * d;
+
+            }else{
+                total += d;
+            }
+            totals.set(0,total);
+        }
+        if(timestampMinus1.compareTo(t)<=0 && currentTimestamp.compareTo(t)>0){
+            minus1Month = totals.get(1);
+            if (d <= 0 ){
+                minus1Month += -1 * d;
+
+            }else{
+                minus1Month += d;
+            }
+            totals.set(1,minus1Month);
+        }
+        if(timestampMinus2.compareTo(t)<=0 &&  timestampMinus1.compareTo(t)>0){
+            minus2Month = totals.get(2);
+            if (d <= 0 ){
+                minus2Month += -1 * d;
+
+            }else{
+                minus2Month += d;
+            }
+            totals.set(2,minus2Month);
+        }
+        if(timestampMinus3.compareTo(t)<=0 &&  timestampMinus2.compareTo(t)>0){
+            minus3Month = totals.get(3);
+            if (d <= 0 ){
+                minus3Month += -1 * d;
+
+            }else{
+                minus3Month += d;
+            }
+            totals.set(3,minus3Month);
+        }
+        if(timestampMinus4.compareTo(t)<=0 &&  timestampMinus3.compareTo(t)>0){
+            minus4Month = totals.get(4);
+            if (d <= 0 ){
+                minus4Month += -1 * d;
+
+            }else{
+                minus4Month += d;
+            }
+            totals.set(4,minus4Month);
+        }
+        if(timestampMinus5.compareTo(t)<=0 &&  timestampMinus4.compareTo(t)>0){
+            minus5Month = totals.get(5);
+            if (d <= 0 ){
+                minus5Month += -1 * d;
+
+            }else{
+                minus5Month += d;
+            }
+            totals.set(5,minus5Month);
+        }
+
+        categorizeTransaction(trans);
     }
 
     /**
@@ -306,7 +419,25 @@ public class MonthlyTransactions extends AppCompatActivity{
      * @param index the  integer index of the transaction to be removed
      */
     public void removeTransaction(int index){
+        Transaction t = currentTransactions.get(index);
+        double a = t.getAmount();
+        int cat = t.getCategory().getVal();
         currentTransactions.remove(index);
+        if (a <= 0 ){
+            total -= -1 * a;
+            categoryTotals[cat] -= -1 * a;
+        }else{
+            total -= a;
+            categoryTotals[cat] -= a;
+        }
+        calculatePercents();
+    }
+
+    private void calculatePercents(){
+        for (int k = 0; k < 9; k++){
+            double catTotal = categoryTotals[k];
+            categoryPercents[k] = (int) ((catTotal/total) * 100);
+        }
     }
 
     //====================================Getters====================================//

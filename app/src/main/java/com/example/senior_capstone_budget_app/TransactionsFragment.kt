@@ -24,6 +24,7 @@ import java.io.InputStream
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
+
 /**
  * A simple [Fragment] subclass.
  * Use the [TransactionsFragment.newInstance] factory method to
@@ -69,6 +70,10 @@ class TransactionsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setValues()
+    }
+
+    private fun setValues(){
         transactionRecyclerView.apply {
             transactionRecyclerView.layoutManager = LinearLayoutManager(context)
             transactionRecyclerView.adapter = transactionItemAdapter
@@ -105,34 +110,6 @@ class TransactionsFragment : Fragment() {
             )
             transactionItems.add(item)
         }
-//        val item1 = TransactionItem(
-//            "transaction",
-//            0, 4000.55
-//        )
-//        val item2 = TransactionItem(
-//            "transaction",
-//            1, 4000.55
-//        )
-//        val item3 = TransactionItem(
-//            "transaction",
-//            2, 4000.55
-//        )
-//
-//        val item4 = TransactionItem(
-//            "transaction",
-//            3, 4000.55
-//        )
-//        val item5 = TransactionItem(
-//            "transaction",
-//            4, 4000.55
-//        )
-//
-//        //add home menu items to an array list
-//        transactionItems.add(item1)
-//        transactionItems.add(item2)
-//        transactionItems.add(item3)
-//        transactionItems.add(item4)
-//        transactionItems.add(item5)
 
         //pass array list to displayItems to pass through Adapter
         displayItems = transactionItems
@@ -145,7 +122,6 @@ class TransactionsFragment : Fragment() {
 
 }
 
-
 class TransactionAdapter(private val item: TransactionItem) : Item() {
     private var itemID = item.id
     private var itemBalance = item.amount.toString()
@@ -153,6 +129,11 @@ class TransactionAdapter(private val item: TransactionItem) : Item() {
         //this this a function to add item properties to the recycler view
         viewHolder.itemView.transactionName.text = item.title
         viewHolder.itemView.transactionAmount.text = itemBalance
+
+        viewHolder.itemView.delete_transaction_btn.setOnClickListener(View.OnClickListener {
+            mT?.removeTransaction(position)
+            viewHolder.itemView.visibility = View.GONE
+        })
     }
 
     override fun getLayout(): Int {

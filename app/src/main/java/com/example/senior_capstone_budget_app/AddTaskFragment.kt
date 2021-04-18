@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_add_task.*
+import kotlinx.android.synthetic.main.task_item.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,6 +24,7 @@ class AddTaskFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var taskTitle: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,9 +52,15 @@ class AddTaskFragment : Fragment() {
             //code here
 
             //navigate back to goalitemviewfragment
+            addTask()
             findNavController().navigate(R.id.goalItemViewFragment)
         }
 
+    }
+
+    private fun addTask(){
+        taskTitle = add_task_edit_text.text.toString()
+        goal?.addTask(taskTitle)
     }
 
     companion object {

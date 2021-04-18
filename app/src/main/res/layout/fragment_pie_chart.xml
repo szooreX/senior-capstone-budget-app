@@ -76,6 +76,7 @@
                         android:typeface="normal" />
 
                     <com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar
+                        android:id="@+id/percent_budget"
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
                         android:paddingTop="15dp"
@@ -90,8 +91,9 @@
                         app:rcProgress="50"
                         app:rcProgressColor="#4D8558"
                         app:rcRadius="10dp"
-                        app:rcSecondaryProgress="60">
-
+                        app:rcSecondaryProgress="60"
+                        app:rcTextPositionPriority="inside"
+                        app:rcTextProgress="50">
                     </com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar>
 
                     <Button

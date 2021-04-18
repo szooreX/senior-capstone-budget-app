@@ -12,10 +12,15 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.CalendarView
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.core.graphics.ColorUtils
+import com.example.senior_capstone_budget_app.transaction.Transaction
 import kotlinx.android.synthetic.main.activity_add_transaction.*
 import kotlinx.android.synthetic.main.transaction_item.*
+import java.sql.Timestamp
+import java.util.*
 
 class AddTransactionActivity : AppCompatActivity() {
 
@@ -26,11 +31,14 @@ class AddTransactionActivity : AppCompatActivity() {
     private var transactionCategory = ""
     private var popupButton = ""
     private var darkStatusBar = false
+    private var cal: Calendar = Calendar.getInstance()
+    lateinit var spinner: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         overridePendingTransition(0, 0)
         setContentView(R.layout.activity_add_transaction)
+        spinner = findViewById(R.id.category_spinner)
 
         // Fade animation for the background of Popup Window
         val alpha = 50 //between 0-255
@@ -49,7 +57,7 @@ class AddTransactionActivity : AppCompatActivity() {
         payment_date.text = "Date of Transaction:"
         payment_category.text = "Category:"
         add_button.text = "Add Transaction"
-        transcation_description.text = "Transaction Details"
+        transaction_description.text = "Transaction Details"
 
         // Set the Status bar appearance for different API levels
         if (Build.VERSION.SDK_INT in 19..20) {
@@ -71,9 +79,15 @@ class AddTransactionActivity : AppCompatActivity() {
             }
         }
 
+        cal = Calendar.getInstance()
+
+        add_transaction_calendar.setOnDateChangeListener{view, year, month, dayOfMonth ->
+            cal.set(year,month,dayOfMonth)
+        }
+
         // Close the Popup Window when you press the button
         add_button.setOnClickListener {
-
+            addTransaction()
             Toast.makeText(this, "Added Transaction $${transaction_amount_edit_text.text} To ${transaction_to_edit_text.text}", Toast.LENGTH_LONG).show()
             onBackPressed()
         }
@@ -113,6 +127,27 @@ class AddTransactionActivity : AppCompatActivity() {
             winParams.flags = winParams.flags and WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS.inv()
         }
         win.attributes = winParams
+    }
+
+    private fun addTransaction(){
+        transactionAmount = transaction_amount_edit_text.text.toString()
+        transactionPayee = transaction_to_edit_text.text.toString()
+        val details: String = transaction_description_edit_text.text.toString()
+        transactionCategory = spinner.selectedItemPosition.toString()
+        val transCategoryPos = transactionCategory.toInt()
+        var transCategoryId = -1
+
+        when(transCategoryPos){
+            0 -> transCategoryId = 5
+            1 -> transCategoryId = 8
+            2 -> transCategoryId = 1
+            3 -> transCategoryId = 4
+            4 -> transCategoryId = 2
+            5 -> transCategoryId = 6
+            6 -> transCategoryId = 0
+        }
+
+        mT?.addTransaction(transactionAmount.toDouble(), transactionPayee, Timestamp(cal.timeInMillis), transCategoryId)
     }
 
     override fun onBackPressed() {

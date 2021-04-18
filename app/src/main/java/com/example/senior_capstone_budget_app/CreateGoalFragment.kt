@@ -10,6 +10,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_create_goal.*
+import java.sql.Timestamp
+import java.util.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -29,6 +31,9 @@ class CreateGoalFragment : Fragment() {
     private var goalAdapter: GoalAdapter? = null
     private var goalsFragment: GoalsFragment? = null
     private lateinit var goalItem: GoalItem
+    private var cal: Calendar = Calendar.getInstance()
+    private var goalTitle: String = ""
+    private var goalDescription: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +41,7 @@ class CreateGoalFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        cal = Calendar.getInstance()
     }
 
     override fun onCreateView(
@@ -53,17 +59,23 @@ class CreateGoalFragment : Fragment() {
         save_goal_button.setOnClickListener {
 
             Toast.makeText(context, "Goal '${goal_name_edit_text.text}' Has Been Saved", Toast.LENGTH_SHORT).show()
-            goalItem = GoalItem("title", 1, "1", 1, "40")
+            goalItem = GoalItem("title", 1, "1", 1, 40)
             goalsFragment?.addGoal(goalItem)
+            addGoal()
             findNavController().navigate(R.id.goalsFragment)
         }
 
         create_goal_calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
             hideKeyboard()
-
-
+            cal.set(year,month,dayOfMonth)
         }
-//
+    }
+
+    private fun addGoal(){
+        goalTitle = goal_name_edit_text.text.toString()
+        goalDescription = goal_description.text.toString()
+
+        g?.addGoal(goalTitle, goalDescription, Timestamp(cal.timeInMillis))
     }
 
     private fun hideKeyboard() {

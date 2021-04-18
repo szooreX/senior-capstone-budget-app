@@ -2,13 +2,12 @@ package com.example.senior_capstone_budget_app
 
 import android.content.Intent
 import android.graphics.Color
+import android.icu.text.DecimalFormat
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.widget.SeekBar
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -20,8 +19,6 @@ import com.github.mikephil.charting.components.Legend.LegendForm
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.components.YAxis.YAxisLabelPosition
 import com.github.mikephil.charting.data.*
-import com.github.mikephil.charting.highlight.Highlight
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_pie_chart.*
@@ -42,6 +39,7 @@ var mT: MonthlyTransactions? = null
 var budget: Budget? = null
 var input = ""
 var bInput = ""
+var percentInt = 0
 private var spentString = ""
 private var percentString = ""
 
@@ -81,36 +79,35 @@ class PieChartFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
-        mT = MonthlyTransactions()
-        budget = Budget()
+        if (mT == null){
+            mT = MonthlyTransactions()
+            try {
+                val inputStream: InputStream =
+                    activity?.applicationContext?.assets!!.open("TransactionSample.txt")
+                val size: Int = inputStream.available()
+                val buffer = ByteArray(size)
+                inputStream.read(buffer)
+                input = String(buffer)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            mT?.loadTransactions2(input)
+            mT?.transactionLoop()
+        }
 
-        try {
-            val inputStream: InputStream = activity?.applicationContext?.assets!!.open("budget.txt")
-            val size: Int = inputStream.available()
-            val buffer = ByteArray(size)
-            inputStream.read(buffer)
-            bInput = String(buffer)
-        } catch (e: IOException) {
-            e.printStackTrace()
+        if (budget == null){
+            budget = Budget()
+            try {
+                val inputStream: InputStream = activity?.applicationContext?.assets!!.open("budget.txt")
+                val size: Int = inputStream.available()
+                val buffer = ByteArray(size)
+                inputStream.read(buffer)
+                bInput = String(buffer)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            budget?.loadBudget(bInput)
         }
-        try {
-            val inputStream: InputStream =
-                activity?.applicationContext?.assets!!.open("TransactionSample.txt")
-            val size: Int = inputStream.available()
-            val buffer = ByteArray(size)
-            inputStream.read(buffer)
-            input = String(buffer)
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        mT?.loadTransactions2(input)
-        mT?.transactionLoop()
-        budget?.loadBudget(bInput)
-        val stringTotal = mT?.total.toString()
-        val percent = ((mT!!.total / budget!!.totalExpenses) * 100).toInt().toString()
-        val percent2 = ((mT!!.total / budget!!.expectedIncome) * 100).toInt().toString()
-        spentString = "$$stringTotal Spent"
-        percentString = "You've spent $percent% of your budget and $percent2% of your income."
     }
 
     override fun onCreateView(
@@ -126,6 +123,26 @@ class PieChartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setValues()
+    }
+
+    override fun onResume(){
+        super.onResume()
+        setValues()
+        createPieChart(piechart)
+        getMonthChartItems()
+    }
+
+    private fun setValues(){
+        val stringTotal = String.format("%.2f",mT?.total)
+        val percent = ((mT!!.total / budget!!.totalExpenses) * 100).toInt().toString()
+        val percent2 = ((mT!!.total / budget!!.expectedIncome) * 100).toInt().toString()
+        percentInt = ((mT!!.total / budget!!.totalExpenses) * 100).toInt()
+        spentString = "$$stringTotal Spent"
+        percentString = "You've spent $percent% of your budget and $percent2% of your income."
+
+        percent_budget.progress = (percentInt).toFloat()
+        percent_budget.progressText = ((percentInt).toString() + "%")
         totalSpent.text = (spentString)
         percentBudget.text = (percentString)
 
@@ -143,7 +160,6 @@ class PieChartFragment : Fragment() {
         //put functional code here for function calls, etc.
 
         budget_panel_button.setOnClickListener { findNavController().navigate(R.id.budgetFragment) }
-
     }
 
 

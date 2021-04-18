@@ -23,6 +23,8 @@ import java.io.IOException
 import java.io.InputStream
 
 var g: Goals? = null
+var goals: ArrayList<Goal> = arrayListOf()
+var goal: Goal? = null
 var gInput= ""
 var index: Int = -1
 
@@ -47,20 +49,19 @@ class GoalsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        g = Goals()
-
-        try{
-            val inputStream: InputStream = activity?.applicationContext?.assets!!.open("goals.txt")
-            val size: Int = inputStream.available()
-            val buffer = ByteArray(size)
-            inputStream.read(buffer)
-            gInput = String(buffer)
-        }catch (e: IOException){
-            e.printStackTrace()
+        if (g == null){
+            g = Goals()
+            try{
+                val inputStream: InputStream = activity?.applicationContext?.assets!!.open("goals.txt")
+                val size: Int = inputStream.available()
+                val buffer = ByteArray(size)
+                inputStream.read(buffer)
+                gInput = String(buffer)
+            }catch (e: IOException){
+                e.printStackTrace()
+            }
+            g?.loadGoals(gInput)
         }
-
-        g?.loadGoals(gInput)
-
     }
 
     override fun onCreateView(
@@ -76,11 +77,21 @@ class GoalsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //view is now created and can be accessed
         super.onViewCreated(view, savedInstanceState)
+        setValues()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setValues()
+    }
+
+    private fun setValues(){
         //here we will add the recycler view items
         goalsRecyclerView.apply {
             goalsRecyclerView.layoutManager = LinearLayoutManager(context)
             goalsRecyclerView.adapter = goalItemAdapter
         }
+        goals = g!!.goals
         //put functional code here for function calls, etc.
         getGoalItems()
 
@@ -99,34 +110,20 @@ class GoalsFragment : Fragment() {
 
         //create home menu items
         val goalItems = ArrayList<GoalItem>()
-        val item1 = GoalItem(
-             g!!.goals[0].title,
-            0,
-            g!!.goals[0].calculateDays().toString() + " Days Left",
-            g!!.goals[0].percent,
-            g!!.goals[0].percent.toString() + "% Complete"
-        )
-        val item2 = GoalItem(
-            g!!.goals[1].title,
-            1,
-            g!!.goals[1].calculateDays().toString() + " Days Left",
-            g!!.goals[1].percent,
-            g!!.goals[1].percent.toString() + "% Complete"
-        )
-        val item3 = GoalItem(
-            g!!.goals[2].title,
-            2,
-            g!!.goals[2].calculateDays().toString() + " Days Left",
-            g!!.goals[2].percent,
-            g!!.goals[2].percent.toString() + "% Complete"
-        )
+        val size = g!!.goals.size
 
+        for (i in 0 until size){
+            var goal = goals[i]
 
-        //add home menu items to an array list
-        goalItems.add(item1)
-        goalItems.add(item2)
-        goalItems.add(item3)
-
+            val item = GoalItem(
+                goal.title,
+                i,
+                goal.calculateDays().toString() + " Days Left",
+                goal.percent,
+                goal.percent
+            )
+            goalItems.add(item)
+        }
 
         //pass array list to displayItems to pass through Adapter
         displayItems = goalItems
@@ -149,14 +146,14 @@ class GoalAdapter(private val item: GoalItem) : Item() {
         //viewHolder.itemView.goalImageView.setImageDrawable(item.image)
         viewHolder.itemView.goalName.text = item.title
         viewHolder.itemView.daysLeft.text = item.days
-        viewHolder.itemView.percentComplete.text = item.percent
+        viewHolder.itemView.percentComplete.text = item.percent.toString()+ "% Complete"
+        viewHolder.itemView.percent_bar.progress = item.percent.toFloat()
     }
 
     override fun getLayout(): Int {
         return R.layout.goal_item
     }
-
 }
 
 
-data class GoalItem(var title: String, var id: Int, var days: String, var per: Int, var percent: String)
+data class GoalItem(var title: String, var id: Int, var days: String, var per: Int, var percent: Int)

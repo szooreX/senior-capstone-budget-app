@@ -5,6 +5,8 @@ import com.example.senior_capstone_budget_app.data.Categories;
 
 import java.util.Date;
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Transaction {
     private double amount;

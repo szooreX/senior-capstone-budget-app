@@ -276,6 +276,7 @@ class PieChartFragment : Fragment() {
 
     private fun createPieChart(pieChart: PieChart?) {
         // Set the percentage of language used
+        pieChart?.clearChart()
 
         personalPercentage.text = mT?.getCategoryPercents(5).toString();
         financialPercentage.text = mT?.getCategoryPercents(8).toString();

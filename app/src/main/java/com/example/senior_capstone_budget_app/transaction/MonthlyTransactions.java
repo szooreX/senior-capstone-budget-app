@@ -3,11 +3,17 @@ package com.example.senior_capstone_budget_app.transaction;
 import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.senior_capstone_budget_app.data.database.DBConnectorInterface;
+import com.example.senior_capstone_budget_app.data.database.MySQLDatabase;
+
 import java.sql.Timestamp;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.jar.JarOutputStream;
 
 
 public class MonthlyTransactions extends AppCompatActivity{
@@ -54,6 +60,7 @@ public class MonthlyTransactions extends AppCompatActivity{
     private ArrayList<String> history;
     private double[] categoryTotals;
     private int[] categoryPercents;
+    private DBConnectorInterface arvioDatabase;
 
     /**
      * MonthlyTransaction object constructor with no context passed
@@ -102,6 +109,7 @@ public class MonthlyTransactions extends AppCompatActivity{
         this.categoryPercents = new int[9];
         this.currentTransactions = new ArrayList<>();
         this.totals = new ArrayList<>();
+        this.arvioDatabase = new MySQLDatabase();
     }
 
     /**
@@ -234,6 +242,15 @@ public class MonthlyTransactions extends AppCompatActivity{
         totals.add(minus3Month);
         totals.add(minus4Month);
         totals.add(minus5Month);
+
+        //loadFromDatabase();
+    }
+
+    public void loadFromDatabase(){
+        Map<String, String> user = new HashMap<>();
+        user.put("UUID", "b356ab0b-69d5-4483-b855-af29a48e5148");
+
+        HashMap<String, Object> result = arvioDatabase.readObject(user, "transaction");
     }
 
     /**

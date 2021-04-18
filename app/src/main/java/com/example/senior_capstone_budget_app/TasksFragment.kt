@@ -72,6 +72,15 @@ class TasksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setValues()
+    }
+
+    override fun onResume(){
+        super.onResume()
+        setValues()
+    }
+
+    private fun setValues(){
         tasks_recycler_view.apply {
             tasks_recycler_view.layoutManager = LinearLayoutManager(context)
             tasks_recycler_view.adapter = taskItemAdapter
@@ -91,7 +100,7 @@ class TasksFragment : Fragment() {
     private fun getTaskItems() {
 
         val taskItems = ArrayList<TaskItem>()
-        val size = tasks!!.size
+        val size = tasks.size
 
         for (i in 0 until size){
             var task = tasks[i]
@@ -104,33 +113,11 @@ class TasksFragment : Fragment() {
             taskItems.add(item)
         }
 
-
-        //create items
-
-//        val item1 = TaskItem(
-//            tasks[0].title,
-//            0
-//        )
-//        val item2 = TaskItem(
-//            tasks[1].title,
-//            1
-//        )
-//        val item3 = TaskItem(
-//            tasks[2].title,
-//            2
-//        )
-        //add home menu items to an array list
-
         //pass array list to displayItems to pass through Adapter
         displayItems = taskItems
     }
     private fun taskItemAction(item: com.xwray.groupie.Item<com.xwray.groupie.GroupieViewHolder>) {
         //handle click action
-        println("Testing")
-//        taskIndex = taskItemAdapter.getAdapterPosition(item)
-//        println(tasks[taskIndex].isCompleted)
-//        tasks[taskIndex].isCompleted = true
-//        println(tasks[taskIndex].isCompleted)
     }
 
     companion object {
@@ -162,16 +149,18 @@ class TaskAdapter(private val item: TaskItem) : Item() {
         viewHolder.itemView.task_name.text = item.title
         if (item.completed) viewHolder.itemView.checkBox.isChecked = true
         viewHolder.itemView.checkBox.setOnClickListener(View.OnClickListener {
-            println("before " + tasks[position].isCompleted)
             tasks[position].isCompleted = !tasks[position].isCompleted
-            println("after " + tasks[position].isCompleted)
+            goal?.calculatePercent()
+        })
+        viewHolder.itemView.task_delete.setOnClickListener(View.OnClickListener {
+            goal?.removeTask(position)
+            viewHolder.itemView.visibility = View.GONE
         })
     }
 
     override fun getLayout(): Int {
         return R.layout.task_item
     }
-
 }
 
 data class TaskItem(var title: String, var id: Int, var completed: Boolean)

@@ -23,7 +23,7 @@ import java.io.IOException
 import java.io.InputStream
 
 var g: Goals? = null
-var goals: Array<Goal> = emptyArray()
+var goals: ArrayList<Goal> = arrayListOf()
 var goal: Goal? = null
 var gInput= ""
 var index: Int = -1
@@ -49,20 +49,19 @@ class GoalsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        g = Goals()
-
-        try{
-            val inputStream: InputStream = activity?.applicationContext?.assets!!.open("goals.txt")
-            val size: Int = inputStream.available()
-            val buffer = ByteArray(size)
-            inputStream.read(buffer)
-            gInput = String(buffer)
-        }catch (e: IOException){
-            e.printStackTrace()
+        if (g == null){
+            g = Goals()
+            try{
+                val inputStream: InputStream = activity?.applicationContext?.assets!!.open("goals.txt")
+                val size: Int = inputStream.available()
+                val buffer = ByteArray(size)
+                inputStream.read(buffer)
+                gInput = String(buffer)
+            }catch (e: IOException){
+                e.printStackTrace()
+            }
+            g?.loadGoals(gInput)
         }
-
-        g?.loadGoals(gInput)
-
     }
 
     override fun onCreateView(
@@ -70,7 +69,7 @@ class GoalsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         //items to add with the view, view does not exist at this point
-        goals = g!!.goals
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_goals, container, false)
     }
@@ -78,11 +77,21 @@ class GoalsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //view is now created and can be accessed
         super.onViewCreated(view, savedInstanceState)
+        setValues()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setValues()
+    }
+
+    private fun setValues(){
         //here we will add the recycler view items
         goalsRecyclerView.apply {
             goalsRecyclerView.layoutManager = LinearLayoutManager(context)
             goalsRecyclerView.adapter = goalItemAdapter
         }
+        goals = g!!.goals
         //put functional code here for function calls, etc.
         getGoalItems()
 
@@ -115,30 +124,6 @@ class GoalsFragment : Fragment() {
             )
             goalItems.add(item)
         }
-//        val item1 = GoalItem(
-//
-//        )
-//        val item2 = GoalItem(
-//            g!!.goals[1].title,
-//            1,
-//            g!!.goals[1].calculateDays().toString() + " Days Left",
-//            g!!.goals[1].percent,
-//            g!!.goals[1].percent.toString() + "% Complete"
-//        )
-//        val item3 = GoalItem(
-//            g!!.goals[2].title,
-//            2,
-//            g!!.goals[2].calculateDays().toString() + " Days Left",
-//            g!!.goals[2].percent,
-//            g!!.goals[2].percent.toString() + "% Complete"
-//        )
-
-
-        //add home menu items to an array list
-//        goalItems.add(item1)
-//        goalItems.add(item2)
-//        goalItems.add(item3)
-
 
         //pass array list to displayItems to pass through Adapter
         displayItems = goalItems
@@ -168,7 +153,6 @@ class GoalAdapter(private val item: GoalItem) : Item() {
     override fun getLayout(): Int {
         return R.layout.goal_item
     }
-
 }
 
 

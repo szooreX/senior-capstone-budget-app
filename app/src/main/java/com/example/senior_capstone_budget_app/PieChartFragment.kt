@@ -114,7 +114,7 @@ class PieChartFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //DashboardActivity().mT?.loadTransactions2()
+        //DashboardActivity().T?.loadTransactions2()
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pie_chart, container, false)
@@ -156,6 +156,8 @@ class PieChartFragment : Fragment() {
             )
             month_chart_container.adapter = monthChartAdapter
         }
+
+        //println(mT.toString())
 
         //put functional code here for function calls, etc.
 
@@ -276,6 +278,7 @@ class PieChartFragment : Fragment() {
 
     private fun createPieChart(pieChart: PieChart?) {
         // Set the percentage of language used
+        pieChart?.clearChart()
 
         personalPercentage.text = mT?.getCategoryPercents(5).toString();
         financialPercentage.text = mT?.getCategoryPercents(8).toString();

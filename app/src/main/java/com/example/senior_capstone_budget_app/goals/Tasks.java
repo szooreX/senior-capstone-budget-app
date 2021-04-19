@@ -63,6 +63,15 @@ public class Tasks {
         return true;
     }
 
+    @Override
+    public String toString() {
+        int comp = -1;
+        if(completed){
+            comp = 1;
+        }
+        return title + "," + comp;
+    }
+
     //====================================Getters====================================//
     public int getTaskId() {return TaskId;}
     public String getTitle() {return title;}

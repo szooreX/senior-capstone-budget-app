@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.task_item.view.checkBox
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+private val taskItemAdapter = GroupAdapter<GroupieViewHolder>()
 
 /**
  * A simple [Fragment] subclass.
@@ -34,7 +35,6 @@ class TasksFragment : Fragment() {
     private var prompt : TextView? = null
 
     //______________Variables For Recycler View____________________
-    private val taskItemAdapter = GroupAdapter<GroupieViewHolder>()
 
     //here we are adding items to the recycler view using the adapter we created to use images as buttons in a list
     private var displayItems: ArrayList<TaskItem> = ArrayList()
@@ -97,8 +97,7 @@ class TasksFragment : Fragment() {
         }
     }
 
-    private fun getTaskItems() {
-
+    fun getTaskItems() {
         val taskItems = ArrayList<TaskItem>()
         val size = tasks.size
 
@@ -118,6 +117,9 @@ class TasksFragment : Fragment() {
     }
     private fun taskItemAction(item: com.xwray.groupie.Item<com.xwray.groupie.GroupieViewHolder>) {
         //handle click action
+    }
+    fun getSize():Int{
+        return displayItems.size
     }
 
     companion object {
@@ -154,7 +156,9 @@ class TaskAdapter(private val item: TaskItem) : Item() {
         })
         viewHolder.itemView.task_delete.setOnClickListener(View.OnClickListener {
             goal?.removeTask(position)
-            viewHolder.itemView.visibility = View.GONE
+            TasksFragment().getTaskItems()
+            taskItemAdapter.notifyItemRemoved(position)
+            taskItemAdapter.notifyItemRangeChanged(position, TasksFragment().getSize())
         })
     }
 

@@ -118,17 +118,18 @@ public class MySQLDatabase implements DBConnectorInterface {
         String condition = "";
         // Iterate over map.
         for (Map.Entry<String, String> entry : _keyValuePair.entrySet()) {
-            condition += " `" + entry.getKey() + "` = \"" + entry.getValue() + "\" AND";
+            condition += entry.getKey() + " = '" + entry.getValue();
         }
         if (_deleted) {
             // Then we'll ignore the active=1 condition and just shed off the last AND
             condition = condition.substring(0, condition.length() - 3);
         } else {
             // We'll add the condition that the object must be active.
-            condition += " `active` = 1";
+            //condition += " `active` = 1";
         }
         // Combine the query with the condition.
         query = query + condition;
+        System.out.println(query);
         // Initialize a object to store the results.
         HashMap<String, Object> returnData = new HashMap();
         ResultSet results = this.runQuery(query);

@@ -5,6 +5,8 @@ import com.example.senior_capstone_budget_app.data.Categories;
 
 import java.util.Date;
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Transaction {
     private double amount;
@@ -46,13 +48,7 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "Transaction{" +
-                "amount=" + amount +
-                ", paymentTo='" + paymentTo + '\'' +
-                ", paymentDate=" + paymentDate +
-                ", paymentTimestamp=" + paymentTimestamp +
-                ", category=" + category +
-                '}';
+        return amount + "," + paymentTo + ","  + paymentTimestamp.getTime() + "," + category.getVal();
     }
 
     //For in app transaction generation

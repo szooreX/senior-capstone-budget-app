@@ -5,25 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.senior_capstone_budget_app.budget.Budget
-import com.example.senior_capstone_budget_app.transaction.MonthlyTransactions
+import com.example.senior_capstone_budget_app.data.database.DataFactory
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.fragment_transactions.*
-import kotlinx.android.synthetic.main.fragment_transactions.transactionRecyclerView
 import kotlinx.android.synthetic.main.fragment_transactions.view.*
 import kotlinx.android.synthetic.main.transaction_item.view.*
-import java.io.IOException
-import java.io.InputStream
 
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-
+private val transactionItemAdapter = GroupAdapter<GroupieViewHolder>()
 
 /**
  * A simple [Fragment] subclass.
@@ -36,7 +35,6 @@ class TransactionsFragment : Fragment() {
     private var param2: String? = null
 
     //______________Variables For Recycler View____________________
-    private val transactionItemAdapter = GroupAdapter<GroupieViewHolder>()
 
     //here we are adding items to the recycler view using the adapter we created to use images as buttons in a list
     private var displayItems: ArrayList<TransactionItem> = ArrayList()
@@ -73,6 +71,11 @@ class TransactionsFragment : Fragment() {
         setValues()
     }
 
+    override fun onResume(){
+        super.onResume()
+        setValues()
+    }
+
     private fun setValues(){
         transactionRecyclerView.apply {
             transactionRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -82,7 +85,6 @@ class TransactionsFragment : Fragment() {
         getTransactionItems()
 
         transactionItemAdapter.setOnItemClickListener { item, _ ->
-
             accountItemAction(item)
 //            when ((item as accountAdapter).itemID) {
 //                0 -> {
@@ -95,7 +97,7 @@ class TransactionsFragment : Fragment() {
         }
     }
 
-    private fun getTransactionItems() {
+    fun getTransactionItems() {
         //create home menu items
         val transactionItems = ArrayList<TransactionItem>()
 
@@ -120,6 +122,9 @@ class TransactionsFragment : Fragment() {
 
     }
 
+    fun getSize():Int{
+        return displayItems.size
+    }
 }
 
 class TransactionAdapter(private val item: TransactionItem) : Item() {
@@ -132,7 +137,9 @@ class TransactionAdapter(private val item: TransactionItem) : Item() {
 
         viewHolder.itemView.delete_transaction_btn.setOnClickListener(View.OnClickListener {
             mT?.removeTransaction(position)
-            viewHolder.itemView.visibility = View.GONE
+            TransactionsFragment().getTransactionItems()
+            transactionItemAdapter.notifyItemRemoved(position)
+            transactionItemAdapter.notifyItemRangeChanged(position,TransactionsFragment().getSize())
         })
     }
 

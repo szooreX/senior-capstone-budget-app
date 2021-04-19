@@ -3,11 +3,18 @@ package com.example.senior_capstone_budget_app.transaction;
 import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.senior_capstone_budget_app.data.database.DBConnectorInterface;
+import com.example.senior_capstone_budget_app.data.database.DataStoreAdapter;
+import com.example.senior_capstone_budget_app.data.database.MySQLDatabase;
+
 import java.sql.Timestamp;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.jar.JarOutputStream;
 
 
 public class MonthlyTransactions extends AppCompatActivity{
@@ -42,6 +49,7 @@ public class MonthlyTransactions extends AppCompatActivity{
     private Timestamp timestampMinus5;
 
     private ArrayList<Transaction> currentTransactions;
+    private ArrayList<Transaction> allTransactions;
 
     private double total = 0;
     private double minus1Month = 0;
@@ -54,6 +62,7 @@ public class MonthlyTransactions extends AppCompatActivity{
     private ArrayList<String> history;
     private double[] categoryTotals;
     private int[] categoryPercents;
+    private DataStoreAdapter arvioDatabase;
 
     /**
      * MonthlyTransaction object constructor with no context passed
@@ -102,6 +111,8 @@ public class MonthlyTransactions extends AppCompatActivity{
         this.categoryPercents = new int[9];
         this.currentTransactions = new ArrayList<>();
         this.totals = new ArrayList<>();
+        this.allTransactions = new ArrayList<>();
+        this.arvioDatabase = new DataStoreAdapter();
     }
 
     /**
@@ -196,7 +207,7 @@ public class MonthlyTransactions extends AppCompatActivity{
     public void loadTransactions2(String input){
         String[] split = input.split("\n");
         int currentCounter = 0;
-
+        ArrayList<Transaction> oldTransactions = new ArrayList<>();
 
         for (String s: split){
             s = s.replaceAll("[^\\x00-\\x7F]", "");
@@ -214,26 +225,42 @@ public class MonthlyTransactions extends AppCompatActivity{
             }
             if(timestampMinus1.compareTo(time)<=0 && currentTimestamp.compareTo(time)>0){
                 minus1Month += -1 * amount;
+                oldTransactions.add(new Transaction(amount, t[1], time, cat));
             }
             if(timestampMinus2.compareTo(time)<=0 &&  timestampMinus1.compareTo(time)>0){
                 minus2Month += -1 * amount;
+                oldTransactions.add(new Transaction(amount, t[1], time, cat));
             }
             if(timestampMinus3.compareTo(time)<=0 &&  timestampMinus2.compareTo(time)>0){
                 minus3Month += -1 * amount;
+                oldTransactions.add(new Transaction(amount, t[1], time, cat));
             }
             if(timestampMinus4.compareTo(time)<=0 &&  timestampMinus3.compareTo(time)>0){
                 minus4Month += -1 * amount;
+                oldTransactions.add(new Transaction(amount, t[1], time, cat));
             }
             if(timestampMinus5.compareTo(time)<=0 &&  timestampMinus4.compareTo(time)>0){
                 minus5Month += -1 * amount;
+                oldTransactions.add(new Transaction(amount, t[1], time, cat));
             }
         }
+        allTransactions.addAll(currentTransactions);
+        allTransactions.addAll(oldTransactions);
+
         totals.add(total);
         totals.add(minus1Month);
         totals.add(minus2Month);
         totals.add(minus3Month);
         totals.add(minus4Month);
         totals.add(minus5Month);
+
+        //loadFromDatabase();
+    }
+
+    public void loadFromDatabase(){
+        Map<String, String> user = new HashMap<>();
+        user.put("UUID", "b356ab0b-69d5-4483-b855-af29a48e5148");
+
     }
 
     /**
@@ -410,8 +437,8 @@ public class MonthlyTransactions extends AppCompatActivity{
             }
             totals.set(5,minus5Month);
         }
-
         categorizeTransaction(trans);
+        allTransactions.add(trans);
     }
 
     /**
@@ -423,6 +450,7 @@ public class MonthlyTransactions extends AppCompatActivity{
         double a = t.getAmount();
         int cat = t.getCategory().getVal();
         currentTransactions.remove(index);
+        allTransactions.remove(index);
         if (a <= 0 ){
             total -= -1 * a;
             categoryTotals[cat] -= -1 * a;
@@ -431,6 +459,17 @@ public class MonthlyTransactions extends AppCompatActivity{
             categoryTotals[cat] -= a;
         }
         calculatePercents();
+    }
+
+    @Override
+    public String toString() {
+        String transactions = "";
+
+        for (Transaction t: allTransactions){
+            transactions = transactions + t.toString() + "\n";
+        }
+
+        return transactions;
     }
 
     private void calculatePercents(){

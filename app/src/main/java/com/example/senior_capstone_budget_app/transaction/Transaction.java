@@ -48,13 +48,7 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "Transaction{" +
-                "amount=" + amount +
-                ", paymentTo='" + paymentTo + '\'' +
-                ", paymentDate=" + paymentDate +
-                ", paymentTimestamp=" + paymentTimestamp +
-                ", category=" + category +
-                '}';
+        return amount + "," + paymentTo + ","  + paymentTimestamp.getTime() + "," + category.getVal();
     }
 
     //For in app transaction generation

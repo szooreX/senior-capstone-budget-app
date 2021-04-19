@@ -157,6 +157,8 @@ class PieChartFragment : Fragment() {
             month_chart_container.adapter = monthChartAdapter
         }
 
+        //println(mT.toString())
+
         //put functional code here for function calls, etc.
 
         budget_panel_button.setOnClickListener { findNavController().navigate(R.id.budgetFragment) }

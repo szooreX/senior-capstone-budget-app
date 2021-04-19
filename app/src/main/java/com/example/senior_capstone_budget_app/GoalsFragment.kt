@@ -130,6 +130,7 @@ class GoalsFragment : Fragment() {
     }
     fun addGoal(goal : GoalItem) {
         displayItems.add(goal)
+        getGoalItems()
     }
 
     private fun goalItemAction(item: com.xwray.groupie.Item<com.xwray.groupie.GroupieViewHolder>) {
@@ -137,6 +138,7 @@ class GoalsFragment : Fragment() {
         index = goalItemAdapter.getAdapterPosition(item)
         findNavController().navigate(R.id.goalItemViewFragment)
     }
+
 }
 
 class GoalAdapter(private val item: GoalItem) : Item() {

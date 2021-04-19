@@ -446,12 +446,9 @@ public class MonthlyTransactions extends AppCompatActivity{
      * @param index the  integer index of the transaction to be removed
      */
     public void removeTransaction(int index){
-        System.out.println(currentTransactions.size());
         Transaction t = currentTransactions.get(index);
         double a = t.getAmount();
         int cat = t.getCategory().getVal();
-        System.out.println(currentTransactions.get(index).toString());
-        System.out.println(allTransactions.get(index).toString());
         currentTransactions.remove(index);
         allTransactions.remove(index);
         if (a <= 0 ){

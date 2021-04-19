@@ -53,7 +53,7 @@ private var dashboardActivity : DashboardActivity? = null
         setValues()
     }
 
-    private fun setValues(){
+    fun setValues(){
         var days: String = goal?.calculateDays().toString()
         days_left_goal_item_view.text = "You Have $days Days Left To Complete Your Goal On Time!"
         goal_item_progress_bar.progress = goal?.percent!!.toFloat()

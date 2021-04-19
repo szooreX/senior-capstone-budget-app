@@ -114,7 +114,7 @@ class PieChartFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //DashboardActivity().mT?.loadTransactions2()
+        //DashboardActivity().T?.loadTransactions2()
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pie_chart, container, false)

@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.senior_capstone_budget_app.data.database.DataFactory
 import com.xwray.groupie.GroupAdapter
@@ -20,7 +23,6 @@ import kotlinx.android.synthetic.main.transaction_item.view.*
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 private val transactionItemAdapter = GroupAdapter<GroupieViewHolder>()
-//private var displayItems: ArrayList<TransactionItem> = ArrayList()
 
 /**
  * A simple [Fragment] subclass.
@@ -69,6 +71,11 @@ class TransactionsFragment : Fragment() {
         setValues()
     }
 
+    override fun onResume(){
+        super.onResume()
+        setValues()
+    }
+
     private fun setValues(){
         transactionRecyclerView.apply {
             transactionRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -78,7 +85,6 @@ class TransactionsFragment : Fragment() {
         getTransactionItems()
 
         transactionItemAdapter.setOnItemClickListener { item, _ ->
-
             accountItemAction(item)
 //            when ((item as accountAdapter).itemID) {
 //                0 -> {
@@ -91,7 +97,7 @@ class TransactionsFragment : Fragment() {
         }
     }
 
-    private fun getTransactionItems() {
+    fun getTransactionItems() {
         //create home menu items
         val transactionItems = ArrayList<TransactionItem>()
 
@@ -116,6 +122,9 @@ class TransactionsFragment : Fragment() {
 
     }
 
+    fun getSize():Int{
+        return displayItems.size
+    }
 }
 
 class TransactionAdapter(private val item: TransactionItem) : Item() {
@@ -128,9 +137,9 @@ class TransactionAdapter(private val item: TransactionItem) : Item() {
 
         viewHolder.itemView.delete_transaction_btn.setOnClickListener(View.OnClickListener {
             mT?.removeTransaction(position)
-            //displayItems.remove(position)
+            TransactionsFragment().getTransactionItems()
             transactionItemAdapter.notifyItemRemoved(position)
-            //transactionItemAdapter.notifyItemRangeChanged(position, displayItems)
+            transactionItemAdapter.notifyItemRangeChanged(position,TransactionsFragment().getSize())
         })
     }
 

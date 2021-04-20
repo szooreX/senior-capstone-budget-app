@@ -397,9 +397,9 @@ class MonthChartAdapter(private val item: MonthChartItem) :
 
 
         chart.description.isEnabled = true
-        chart.description.text = "Spent                      Budget Limit"
+        chart.description.text = "Budget Limit                     Spent"
         chart.description.textSize = 15.0F
-        chart.description.setPosition(750F, 30F)
+        chart.description.setPosition(685F, 30F)
         chart.setDrawGridBackground(false)
         chart.setPinchZoom(false);
         chart.isClickable = false

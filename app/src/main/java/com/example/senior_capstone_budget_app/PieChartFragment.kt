@@ -2,6 +2,8 @@ package com.example.senior_capstone_budget_app
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Paint
+import android.icu.text.DecimalFormat
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater

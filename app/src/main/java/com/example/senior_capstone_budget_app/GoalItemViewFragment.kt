@@ -63,9 +63,6 @@ private var dashboardActivity : DashboardActivity? = null
             // dashboardActivity?.getTimePicker()
             dashboardActivity?.launchTimePicker()
         }
-        add_task_button_goal_item_view.setOnClickListener {
-            //opens add task fragment
-            findNavController().navigate(R.id.addTaskFragment)
-        }
+
     }
 }

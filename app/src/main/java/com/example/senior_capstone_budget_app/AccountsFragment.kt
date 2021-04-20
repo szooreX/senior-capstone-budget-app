@@ -1,5 +1,7 @@
 package com.example.senior_capstone_budget_app
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,7 @@ import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.senior_capstone_budget_app.data.paypalAPI.PayPalTransactionAPI
 import com.xwray.groupie.GroupAdapter
@@ -98,9 +101,16 @@ class AccountsFragment : Fragment() {
             getAccountItems(newBalance)
         }
 
+        add_account_btn.setOnClickListener {
+
+            findNavController().navigate(R.id.chooseAccountFragment)
+
+        }
+
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         model.liveData.observe(viewLifecycleOwner, nameObserver)
     }
+
 
 
     //prevent network on main thread error using view model below this class, AccountsFragmentViewModel

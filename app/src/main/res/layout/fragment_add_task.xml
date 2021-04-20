@@ -3,48 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/Background_Color"
-    android:padding="20dp"
+    android:layout_height="wrap_content"
+    android:background="#CBD2D5"
     tools:context=".AddTaskFragment">
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
+        android:layout_height="match_parent"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/add_task_edit_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="15dp">
+            android:layout_gravity="center"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/snap_time_picker_shape_background_white"
+            android:ems="10"
+            android:fontFamily="@font/abeezee"
+            android:hint="Task"
+            android:inputType="textPersonName"
+            android:padding="4dp"
+            android:textColor="@color/black" />
 
-            <EditText
-                android:id="@+id/add_task_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:ems="10"
-                android:hint="Task"
-                android:inputType="textPersonName" />
-
-            <Button
-                android:id="@+id/add_task_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="15dp"
-                android:background="@color/ARVIO_THEME_COLOR"
-                android:padding="15dp"
-                android:text="Add Task"
-                android:textColor="#FFFFFF" />
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
+        <Button
+            android:id="@+id/add_task_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="4dp"
+            android:fontFamily="@font/abeezee"
+            android:padding="2dp"
+            android:text="+ Add Task"
+            android:textColor="#393939" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -61,7 +61,7 @@
                         app:rcBackgroundPadding="2dp"
                         app:rcMax="100"
                         app:rcProgress="50"
-                        app:rcProgressColor="#4D8558"
+                        app:rcProgressColor="#008577"
                         app:rcRadius="10dp"
                         app:rcSecondaryProgress="60"
                         app:rcTextProgress="50%"
@@ -127,16 +127,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-                    <Button
-                        android:id="@+id/add_task_button_goal_item_view"
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="+ ADD TASK"
-                        android:textColor="#000000"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                    <fragment
+                        android:id="@+id/fragment4"
+                        android:name="com.example.senior_capstone_budget_app.AddTaskFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
                 </LinearLayout>
 
 

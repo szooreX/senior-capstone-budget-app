@@ -69,7 +69,7 @@ public class Tasks {
         if(completed){
             comp = 1;
         }
-        return title + "," + comp;
+        return title + "|" + comp;
     }
 
     //====================================Getters====================================//

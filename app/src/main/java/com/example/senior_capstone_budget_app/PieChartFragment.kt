@@ -2,7 +2,6 @@ package com.example.senior_capstone_budget_app
 
 import android.content.Intent
 import android.graphics.Color
-import android.icu.text.DecimalFormat
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,12 +17,15 @@ import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.Legend.LegendForm
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.components.YAxis.YAxisLabelPosition
-import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_pie_chart.*
 import kotlinx.android.synthetic.main.month_chart_item.view.*
-import kotlinx.android.synthetic.main.transaction_item.*
 import org.eazegraph.lib.charts.PieChart
 import org.eazegraph.lib.models.PieModel
 import java.io.IOException
@@ -129,12 +131,10 @@ class PieChartFragment : Fragment() {
     override fun onResume(){
         super.onResume()
         setValues()
-        createPieChart(piechart)
-        getMonthChartItems()
     }
 
     private fun setValues(){
-        val stringTotal = String.format("%.2f",mT?.total)
+        val stringTotal = String.format("%.2f", mT?.total)
         val percent = ((mT!!.total / budget!!.totalExpenses) * 100).toInt().toString()
         val percent2 = ((mT!!.total / budget!!.expectedIncome) * 100).toInt().toString()
         percentInt = ((mT!!.total / budget!!.totalExpenses) * 100).toInt()
@@ -177,7 +177,7 @@ class PieChartFragment : Fragment() {
 //
 //        }
 
-        values.add(BarEntry(1F, 0F)) //formatting with this for now..
+        //values.add(BarEntry(1F, 0F)) //formatting with this for now..
 
 
         //only change these ----------------
@@ -186,7 +186,7 @@ class PieChartFragment : Fragment() {
 
         //----------------------------------
 
-        values.add(BarEntry(9F, 0F)) //formatting with this for now..
+        //values.add(BarEntry(9F, 0F)) //formatting with this for now..
 
 
         //api data array
@@ -212,11 +212,18 @@ class PieChartFragment : Fragment() {
 
         //add entries to dataset
         var barDataSet = BarDataSet(chartEntries, "Budget Tracking")
+        //barDataSet.setColors(intArrayOf(Color.RED, Color.GREEN, Color.GRAY, Color.BLACK, Color.BLUE))
 
-        barDataSet.color = Color.parseColor("#6AAAFA")
+        barDataSet.valueTextSize = 15f
+        //barDataSet.color = Color.parseColor("#6AAAFA")
+        var barColors = arrayListOf<Int>()
+        barColors.add(Color.parseColor("#6AAAFA"))
+        barColors.add(Color.parseColor("#00cc99"))
+
+        barDataSet.colors = barColors
 
         var barData = BarData(barDataSet)
-        barData.barWidth = 3F
+        barData.barWidth = 5F
 
         return barData
     }
@@ -228,27 +235,27 @@ class PieChartFragment : Fragment() {
 
         //form each full chart into an item to pass into each slot in recycler view
         val item1 = MonthChartItem(
-            mT!!.getHistory(0),
+            mT!!.getHistory(0) + " Spending vs Current Budget",
             0, makeNewChart(0)
         )
         val item2 = MonthChartItem(
-            mT!!.getHistory(1),
+            mT!!.getHistory(1) + " Spending vs Current Budget",
             1, makeNewChart(1)
         )
         val item3 = MonthChartItem(
-            mT!!.getHistory(2),
+            mT!!.getHistory(2) + " Spending vs Current Budget",
             2, makeNewChart(2)
         )
         val item4 = MonthChartItem(
-            mT!!.getHistory(3),
+            mT!!.getHistory(3) + " Spending vs Current Budget",
             3, makeNewChart(3)
         )
         val item5 = MonthChartItem(
-            mT!!.getHistory(4),
+            mT!!.getHistory(4) + " Spending vs Current Budget",
             4, makeNewChart(4)
         )
         val item6 = MonthChartItem(
-            mT!!.getHistory(5),
+            mT!!.getHistory(5) + " Spending vs Current Budget",
             5, makeNewChart(5)
         )
 //        val item4 = MonthChartItem(
@@ -389,11 +396,14 @@ class MonthChartAdapter(private val item: MonthChartItem) :
         //this this a function to add item properties to the recycler view
         var chart = viewHolder.itemView.chart_view
 
+        val legend: Legend = chart.getLegend()
+        legend.isEnabled = false
+
         chart.setDrawBarShadow(false);
         chart.setDrawValueAboveBar(true);
+        chart.extraBottomOffset = 5f
 
         chart.data = item.barData // this forms the actual BarChart
-
 
         chart.description.isEnabled = false
         chart.setDrawGridBackground(false)
@@ -404,12 +414,20 @@ class MonthChartAdapter(private val item: MonthChartItem) :
         xAxis.position = XAxisPosition.BOTTOM
         xAxis.setDrawGridLines(false)
         xAxis.granularity = 1f // only intervals of 1 day
-        xAxis.labelCount = 7
+        xAxis.labelCount = 11
+        xAxis.textSize = 15f
+
+        val labels = arrayOf(
+             "","","","Budget","","","","Amount Spent","","", ""
+        )
+        xAxis.valueFormatter = IndexAxisValueFormatter(labels)
 
         val leftAxis = chart.axisLeft
 
         leftAxis.setLabelCount(8, false)
-
+        leftAxis.setDrawGridLines(false)
+        leftAxis.setDrawAxisLine(false)
+        leftAxis.setDrawLabels(false)
         leftAxis.setPosition(YAxisLabelPosition.OUTSIDE_CHART)
         leftAxis.spaceTop = 15f
         leftAxis.axisMinimum = 0f // this replaces setStartAtZero(true)
@@ -417,12 +435,13 @@ class MonthChartAdapter(private val item: MonthChartItem) :
 
         val rightAxis = chart.axisRight
         rightAxis.setDrawGridLines(false)
-
+        rightAxis.setDrawAxisLine(false)
+        rightAxis.setDrawLabels(false)
+        rightAxis.setDrawGridLines(false)
         rightAxis.setLabelCount(8, false)
 
         rightAxis.spaceTop = 15f
         rightAxis.axisMinimum = 0f // this replaces setStartAtZero(true)
-
 
         val l = chart.legend
         l.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM

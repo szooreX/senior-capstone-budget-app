@@ -150,6 +150,7 @@ class TaskAdapter(private val item: TaskItem) : Item() {
         //viewHolder.itemView.goalImageView.setImageDrawable(item.image)
         viewHolder.itemView.task_name.text = item.title
         if (item.completed) viewHolder.itemView.checkBox.isChecked = true
+        if (!item.completed) viewHolder.itemView.checkBox.isChecked = false
         viewHolder.itemView.checkBox.setOnClickListener(View.OnClickListener {
             tasks[position].isCompleted = !tasks[position].isCompleted
             goal?.calculatePercent()

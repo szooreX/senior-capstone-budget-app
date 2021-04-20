@@ -7,8 +7,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
-import kotlinx.coroutines.scheduling.Task;
-
 public class Goals {
     private ArrayList<Goal> goals;
 
@@ -52,6 +50,25 @@ public class Goals {
 
     public void removeGoal(int index){
         goals.remove(index);
+    }
+
+    @Override
+    public String toString() {
+        String retString = "";
+        for (int i = 0; i < goals.size(); i++){
+            int id = i+1;
+            Goal g = goals.get(i);
+            String tasks = "";
+            for (Tasks t: g.getGoalTasks()){
+                tasks = tasks + t.toString() + ",";
+            }
+            if (tasks != ""){
+                tasks = tasks.substring(0, tasks.length()-1);
+            }
+            String strGoal = id + "," + g.toString() + "~" + tasks + "\n";
+            retString = retString + strGoal;
+        }
+        return retString;
     }
 
     //====================================Getters====================================//

@@ -171,6 +171,7 @@
                     android:id="@+id/month_chart_container"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layoutDirection="rtl"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:layout_marginBottom="8dp"

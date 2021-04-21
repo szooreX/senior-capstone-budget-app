@@ -84,6 +84,11 @@ public class Goal {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return title + "," + description + "," + deadline.getTime();
+    }
+
     //====================================Getters====================================//
     public int getGoalId() {return goalId;}
     public String getTitle() {return title;}

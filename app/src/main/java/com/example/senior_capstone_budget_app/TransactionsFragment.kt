@@ -95,6 +95,7 @@ class TransactionsFragment : Fragment() {
 //                }
 //            }
         }
+        println(mT.toString())
     }
 
     fun getTransactionItems() {

@@ -92,6 +92,7 @@ class GoalsFragment : Fragment() {
             goalsRecyclerView.adapter = goalItemAdapter
         }
         goals = g!!.goals
+        println(g.toString())
         //put functional code here for function calls, etc.
         getGoalItems()
 
@@ -128,6 +129,7 @@ class GoalsFragment : Fragment() {
         //pass array list to displayItems to pass through Adapter
         displayItems = goalItems
     }
+
     fun addGoal(goal : GoalItem) {
         displayItems.add(goal)
         getGoalItems()
@@ -138,7 +140,6 @@ class GoalsFragment : Fragment() {
         index = goalItemAdapter.getAdapterPosition(item)
         findNavController().navigate(R.id.goalItemViewFragment)
     }
-
 }
 
 class GoalAdapter(private val item: GoalItem) : Item() {

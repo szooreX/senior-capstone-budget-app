@@ -112,6 +112,9 @@ public class MonthlyTransactions extends AppCompatActivity{
         this.categoryPercents = new int[9];
         this.currentTransactions = new ArrayList<>();
         this.totals = new ArrayList<>();
+        for (int i = 0; i < 6; i++){
+            totals.add(0.0);
+        }
         this.allTransactions = new ArrayList<>();
         this.arvioDatabase = new DataStoreAdapter();
     }
@@ -248,12 +251,12 @@ public class MonthlyTransactions extends AppCompatActivity{
         allTransactions.addAll(currentTransactions);
         allTransactions.addAll(oldTransactions);
 
-        totals.add(total);
-        totals.add(minus1Month);
-        totals.add(minus2Month);
-        totals.add(minus3Month);
-        totals.add(minus4Month);
-        totals.add(minus5Month);
+        totals.add(0,total);
+        totals.add(1,minus1Month);
+        totals.add(2,minus2Month);
+        totals.add(3,minus3Month);
+        totals.add(4,minus4Month);
+        totals.add(5,minus5Month);
 
         calculateAvg();
 

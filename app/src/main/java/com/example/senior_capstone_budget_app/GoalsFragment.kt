@@ -22,12 +22,14 @@ import kotlinx.android.synthetic.main.goal_item.view.*
 import kotlinx.android.synthetic.main.transaction_item.view.*
 import java.io.IOException
 import java.io.InputStream
+import java.lang.Exception
 
 var g: Goals? = null
 var goals: ArrayList<Goal> = arrayListOf()
 var goal: Goal? = null
 var gInput= ""
 var index: Int = -1
+private var goalsExist = false
 
 class GoalsFragment : Fragment() {
 
@@ -50,6 +52,8 @@ class GoalsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+        goalsExist = checkExists("goals")
         if (g == null && loadFromAssets){
             g = Goals()
             g?.setContext(activity?.applicationContext)
@@ -64,13 +68,16 @@ class GoalsFragment : Fragment() {
             }
             g?.loadGoals(gInput)
         }
-        if (g == null && !loadFromAssets){
+        if (g == null && !loadFromAssets && goalsExist){
             g = Goals()
             g?.setContext(activity?.applicationContext)
             gInput = g!!.readGoals(DashboardActivity().user)
             g?.loadGoals(gInput)
         }
-        g?.saveGoals(DashboardActivity().user)
+        if (g == null && !loadFromAssets && !goalsExist){
+            g = Goals()
+            g?.setContext(activity?.applicationContext)
+        }
     }
 
     override fun onCreateView(
@@ -101,6 +108,7 @@ class GoalsFragment : Fragment() {
             goalsRecyclerView.adapter = goalItemAdapter
         }
         goals = g!!.goals
+
         //put functional code here for function calls, etc.
         getGoalItems()
 
@@ -147,6 +155,12 @@ class GoalsFragment : Fragment() {
         //handle goal click action
         index = goalItemAdapter.getAdapterPosition(item)
         findNavController().navigate(R.id.goalItemViewFragment)
+    }
+
+    private fun checkExists(str: String) : Boolean{
+        val filename = DashboardActivity().user + str
+        var file = activity?.applicationContext?.getFileStreamPath(filename)
+        return file!!.exists()
     }
 }
 

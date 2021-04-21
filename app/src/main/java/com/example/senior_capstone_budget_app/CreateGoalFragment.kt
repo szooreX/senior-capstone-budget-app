@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.example.senior_capstone_budget_app.goals.Goal
+import com.example.senior_capstone_budget_app.goals.Tasks
 import kotlinx.android.synthetic.main.fragment_create_goal.*
 import java.sql.Timestamp
 import java.util.*
@@ -18,6 +20,8 @@ import java.util.*
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+val newGoal = Goal()
+var newGoalTasks: ArrayList<Tasks> = newGoal.goalTasks
 
 /**
  * A simple [Fragment] subclass.
@@ -56,11 +60,10 @@ class CreateGoalFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        save_goal_button.setOnClickListener {
+        NewGoalTasksFragment().getNewGoalTaskItems()
 
+        save_goal_button.setOnClickListener {
             Toast.makeText(context, "Goal '${goal_name_edit_text.text}' Has Been Saved", Toast.LENGTH_SHORT).show()
-            goalItem = GoalItem("title", 1, "1", 1, 40)
-            goalsFragment?.addGoal(goalItem)
             addGoal()
             findNavController().navigate(R.id.goalsFragment)
         }
@@ -72,10 +75,11 @@ class CreateGoalFragment : Fragment() {
     }
 
     private fun addGoal(){
-        goalTitle = goal_name_edit_text.text.toString()
-        goalDescription = goal_description.text.toString()
+        newGoal.title = goal_name_edit_text.text.toString()
+        newGoal.description = goal_description.text.toString()
+        newGoal.deadline = Date(cal.timeInMillis)
 
-        g?.addGoal(goalTitle, goalDescription, Timestamp(cal.timeInMillis))
+        g?.goals?.add(newGoal)
     }
 
     private fun hideKeyboard() {

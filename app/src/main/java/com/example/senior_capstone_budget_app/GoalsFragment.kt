@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.senior_capstone_budget_app.goals.Goal
 import com.example.senior_capstone_budget_app.goals.Goals
+import com.example.senior_capstone_budget_app.goals.Tasks
 import com.example.senior_capstone_budget_app.transaction.MonthlyTransactions
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder

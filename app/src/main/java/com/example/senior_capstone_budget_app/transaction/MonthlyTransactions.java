@@ -458,6 +458,7 @@ public class MonthlyTransactions extends AppCompatActivity{
             total -= a;
             categoryTotals[cat] -= a;
         }
+        totals.set(0, total);
         calculatePercents();
     }
 

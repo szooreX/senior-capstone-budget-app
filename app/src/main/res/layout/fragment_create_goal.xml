@@ -189,13 +189,13 @@
 
                     <fragment
                         android:id="@+id/fragment"
-                        android:name="com.example.senior_capstone_budget_app.TasksFragment"
+                        android:name="com.example.senior_capstone_budget_app.NewGoalTasksFragment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <fragment
                         android:id="@+id/fragment4"
-                        android:name="com.example.senior_capstone_budget_app.AddTaskFragment"
+                        android:name="com.example.senior_capstone_budget_app.AddTaskNewGoalFragment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 

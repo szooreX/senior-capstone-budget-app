@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="5dp"
-    tools:context=".TasksFragment">
+    tools:context=".NewGoalTasksFragment">
+
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/tasks_recycler_view"
+            android:id="@+id/new_goal_tasks_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout_conversion_absoluteHeight="715dp"

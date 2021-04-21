@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
+import kotlinx.android.synthetic.main.fragment_new_goal_tasks.*
 import kotlinx.android.synthetic.main.fragment_tasks.*
 import kotlinx.android.synthetic.main.task_item.view.*
 import kotlinx.android.synthetic.main.task_item.view.checkBox
@@ -19,27 +20,28 @@ import kotlinx.android.synthetic.main.task_item.view.checkBox
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-val taskItemAdapter = GroupAdapter<GroupieViewHolder>()
+val newGoaltaskItemAdapter = GroupAdapter<GroupieViewHolder>()
 
 /**
  * A simple [Fragment] subclass.
  * Use the [TasksFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class TasksFragment : Fragment() {
+class NewGoalTasksFragment : Fragment() {
 
     private var prompt : TextView? = null
 
     //______________Variables For Recycler View____________________
 
     //here we are adding items to the recycler view using the adapter we created to use images as buttons in a list
-    private var displayItems: ArrayList<TaskItem> = ArrayList()
-        set(value) {
-            taskItemAdapter.clear()
+    private var displayItems: ArrayList<NewGoalTaskItem> = ArrayList()
 
-            for (sectionItem: TaskItem in value) {
-                val task = TaskAdapter(sectionItem)
-                taskItemAdapter.add(task)
+        set(value) {
+            newGoaltaskItemAdapter.clear()
+
+            for (sectionItem: NewGoalTaskItem in value) {
+                val task = NewGoalTaskAdapter(sectionItem)
+                newGoaltaskItemAdapter.add(task)
             }
             field = value
         }
@@ -63,7 +65,7 @@ class TasksFragment : Fragment() {
     ): View? {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tasks, container, false)
+        return inflater.inflate(R.layout.fragment_new_goal_tasks, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -77,42 +79,35 @@ class TasksFragment : Fragment() {
     }
 
     private fun setValues(){
-        tasks_recycler_view.apply {
-            tasks_recycler_view.layoutManager = LinearLayoutManager(context)
-            tasks_recycler_view.adapter = taskItemAdapter
+        new_goal_tasks_recycler_view.apply {
+            new_goal_tasks_recycler_view.layoutManager = LinearLayoutManager(context)
+            new_goal_tasks_recycler_view.adapter = newGoaltaskItemAdapter
         }
         //put functional code here for function calls, etc.
-        getTaskItems()
+        getNewGoalTaskItems()
 
-        taskItemAdapter.setOnItemClickListener { item, _ ->
-            taskItemAction(item)
-        }
-
-        if (taskItemAdapter.itemCount == 0) {
+        if (newGoaltaskItemAdapter.itemCount == 0) {
             prompt?.visibility = View.VISIBLE
         }
     }
 
-    fun getTaskItems() {
-        val taskItems = ArrayList<TaskItem>()
-        val size = tasks.size
+    fun getNewGoalTaskItems() {
+        val newGoalTaskItems = ArrayList<NewGoalTaskItem>()
+        val size = newGoalTasks.size
 
         for (i in 0 until size){
-            var task = tasks[i]
+            var task = newGoalTasks[i]
 
-            val item = TaskItem(
+            val item = NewGoalTaskItem(
                 task.title,
                 i,
                 task.isCompleted
             )
-            taskItems.add(item)
+            newGoalTaskItems.add(item)
         }
 
         //pass array list to displayItems to pass through Adapter
-        displayItems = taskItems
-    }
-    private fun taskItemAction(item: com.xwray.groupie.Item<com.xwray.groupie.GroupieViewHolder>) {
-        //handle click action
+        displayItems = newGoalTaskItems
     }
     fun getSize():Int{
         return displayItems.size
@@ -139,7 +134,7 @@ class TasksFragment : Fragment() {
     }
 }
 
-class TaskAdapter(private val item: TaskItem) : Item() {
+class NewGoalTaskAdapter(private val item: NewGoalTaskItem) : Item() {
     val itemID = item.id
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         //this this a function to add item properties to the recycler view, in this case I just want the image
@@ -152,16 +147,16 @@ class TaskAdapter(private val item: TaskItem) : Item() {
             goal?.calculatePercent()
         })
         viewHolder.itemView.task_delete.setOnClickListener(View.OnClickListener {
-            goal?.removeTask(position)
-            TasksFragment().getTaskItems()
-            taskItemAdapter.notifyItemRemoved(position)
-            taskItemAdapter.notifyItemRangeChanged(position, TasksFragment().getSize())
+            newGoal?.removeTask(position)
+            NewGoalTasksFragment().getNewGoalTaskItems()
+            newGoaltaskItemAdapter.notifyItemRemoved(position)
+            newGoaltaskItemAdapter.notifyItemRangeChanged(position, TasksFragment().getSize())
         })
     }
 
     override fun getLayout(): Int {
-        return R.layout.task_item
+        return R.layout.new_goal_task_item
     }
 }
 
-data class TaskItem(var title: String, var id: Int, var completed: Boolean)
+data class NewGoalTaskItem(var title: String, var id: Int, var completed: Boolean)

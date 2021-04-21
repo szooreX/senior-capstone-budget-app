@@ -24,6 +24,7 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.utils.Utils
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_pie_chart.*
@@ -112,6 +113,7 @@ class PieChartFragment : Fragment() {
             }
             budget?.loadBudget(bInput)
         }
+        Utils.init(context)
     }
 
     override fun onCreateView(
@@ -220,12 +222,13 @@ class PieChartFragment : Fragment() {
         //barDataSet.color = Color.parseColor("#6AAAFA")
         var barColors = arrayListOf<Int>()
         barColors.add(Color.parseColor("#6AAAFA"))
-        barColors.add(Color.parseColor("#00cc99"))
+        barColors.add(Color.parseColor("#008577"))
 
         barDataSet.colors = barColors
 
         var barData = BarData(barDataSet)
         barData.barWidth = 5F
+        barData.isHighlightEnabled = false
 
         return barData
     }
@@ -411,6 +414,7 @@ class MonthChartAdapter(private val item: MonthChartItem) :
         chart.setDrawGridBackground(false)
         chart.setPinchZoom(false);
         chart.isClickable = false
+        chart.isDoubleTapToZoomEnabled = false
 
         val xAxis = chart.xAxis
         xAxis.position = XAxisPosition.BOTTOM
@@ -420,7 +424,7 @@ class MonthChartAdapter(private val item: MonthChartItem) :
         xAxis.textSize = 15f
 
         val labels = arrayOf(
-             "","","","Budget","","","","Amount Spent","","", ""
+             "","","","Budget","","","","Spent","","", ""
         )
         xAxis.valueFormatter = IndexAxisValueFormatter(labels)
 
@@ -455,9 +459,8 @@ class MonthChartAdapter(private val item: MonthChartItem) :
         l.textSize = 11f
         l.xEntrySpace = 4f
 
-
         viewHolder.itemView.month_chart_name.text = item.month_name
-
+        chart.invalidate()
     }
 
     override fun getLayout(): Int {

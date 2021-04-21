@@ -54,6 +54,11 @@ public class Budget {
         for(int k = 0; k < b.length; k++){
             limits[k] = Double.parseDouble(b[k]);
         }
+        calculateTotal();
+    }
+
+    public void calculateTotal(){
+        totalExpenses = 0;
         for (Double d: limits){
             totalExpenses += d;
         }

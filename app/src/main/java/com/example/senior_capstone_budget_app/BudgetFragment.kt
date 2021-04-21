@@ -1,13 +1,17 @@
 package com.example.senior_capstone_budget_app
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_budget.*
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,18 +63,24 @@ class BudgetFragment : Fragment() {
         household_budget_edit_text.setText(budget!!.limits[4].toString())
         rent_budget_edit_text.setText(budget!!.limits[1].toString())
         medical_budget_edit_text.setText(budget!!.limits[6].toString())
-        uncategorized_budget_edit_text.setText(budget!!.limits[8].toString())
+        uncategorized_budget_edit_text.setText(budget!!.limits[0].toString())
         total_expenses.setText(budget?.totalExpenses.toString())
 
+        savings_budget_edit_text.addTextChangedListener(textWatcher)
+        personal_bugdet_edit_text.addTextChangedListener(textWatcher)
+        utilities_budget_edit_text.addTextChangedListener(textWatcher)
+        household_budget_edit_text.addTextChangedListener(textWatcher)
+        rent_budget_edit_text.addTextChangedListener(textWatcher)
+        medical_budget_edit_text.addTextChangedListener(textWatcher)
+        uncategorized_budget_edit_text.addTextChangedListener(textWatcher)
 
         set_budget_button.setOnClickListener {
             //on click actions here
+            saveBudget()
             Toast.makeText(context, "Budget Successfully Saved", Toast.LENGTH_SHORT).show()
             
             // navigate back to dashboard
             findNavController().navigate(R.id.pieChartFragment)
-
-
         }
 
         additional_income_switch.setOnCheckedChangeListener { _, isChecked ->
@@ -81,11 +91,38 @@ class BudgetFragment : Fragment() {
             } else {
                 additional_income_edit_text.visibility = View.GONE
                 additional_income_amount_prompt.visibility = View.GONE
-
-
             }
-
         }
+    }
+
+    private val textWatcher = object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+        }
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            if (!TextUtils.isEmpty(savings_budget_edit_text.text.toString())
+                || !TextUtils.isEmpty(personal_bugdet_edit_text.text.toString())
+                || !TextUtils.isEmpty(utilities_budget_edit_text.text.toString())
+                || !TextUtils.isEmpty(household_budget_edit_text.text.toString())
+                || !TextUtils.isEmpty(rent_budget_edit_text.text.toString())
+                || !TextUtils.isEmpty(medical_budget_edit_text.text.toString())
+                || !TextUtils.isEmpty(uncategorized_budget_edit_text.text.toString())){
+
+                saveBudget()
+                total_expenses.setText(budget?.totalExpenses.toString())
+            } else {
+                total_expenses.text = ""
+            }
+        }
+    }
+
+    private fun saveBudget(){
+        var b: DoubleArray = doubleArrayOf(uncategorized_budget_edit_text.text.toString().toDouble(), rent_budget_edit_text.text.toString().toDouble(), utilities_budget_edit_text.text.toString().toDouble(), 0.0,
+            household_budget_edit_text.text.toString().toDouble(), personal_bugdet_edit_text.text.toString().toDouble(), medical_budget_edit_text.text.toString().toDouble(), 0.0, savings_budget_edit_text.text.toString().toDouble())
+
+        budget?.limits = b
+        budget?.calculateTotal()
     }
 
     companion object {

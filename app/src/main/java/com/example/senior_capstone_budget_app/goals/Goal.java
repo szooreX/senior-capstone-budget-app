@@ -18,8 +18,15 @@ public class Goal {
     private int completion = 0;
     private int percent;
 
-    public Goal(int goalId) {
-        this.goalId = generateID();
+    public Goal() {
+        this.goalId = -1;
+        this.title = "";
+        this.description = "";
+        this.deadline = null;
+        this.goalTasks = new ArrayList<Tasks>();
+        this.reminders = null;
+        this.recurring = false;
+        this.percent = 0;
     }
 
     public Goal(int goalId, String title, String description, Date deadline, ArrayList<Tasks> goalTasks, Date[] reminders, boolean recurring) {

@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.completed_task_item.view.*
 import kotlinx.android.synthetic.main.fragment_add_task.*
 import kotlinx.android.synthetic.main.fragment_tasks.*
 import kotlinx.android.synthetic.main.goal_item_view_fragment.*
+import java.lang.NullPointerException
 
 
 var tasks: ArrayList<Tasks> = arrayListOf()
@@ -35,6 +36,7 @@ private var dashboardActivity : DashboardActivity? = null
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         goal = g?.getGoal(index)
         tasks = goal!!.goalTasks
 

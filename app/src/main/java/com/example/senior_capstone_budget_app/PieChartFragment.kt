@@ -49,7 +49,7 @@ var percentInt = 0
 private var spentString = ""
 private var percentString = ""
 private var avgPercentString = ""
-var loadFromAssets = false;
+var loadFromAssets = true;
 private var transactionsExist = false
 private var budgetExists = false
 

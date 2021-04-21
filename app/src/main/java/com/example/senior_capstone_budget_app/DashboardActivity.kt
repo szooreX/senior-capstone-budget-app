@@ -14,7 +14,7 @@ import java.io.InputStream
 class DashboardActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
-    val user = "Steve."
+    val user = "Steve.Arvio."
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

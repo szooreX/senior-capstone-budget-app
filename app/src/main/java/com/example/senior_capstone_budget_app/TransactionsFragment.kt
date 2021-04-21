@@ -85,14 +85,6 @@ class TransactionsFragment : Fragment() {
 
         transactionItemAdapter.setOnItemClickListener { item, _ ->
             accountItemAction(item)
-//            when ((item as accountAdapter).itemID) {
-//                0 -> {
-//                    item1Action()
-//                }
-//                1 -> {
-//                    item2Action()
-//                }
-//            }
         }
     }
 

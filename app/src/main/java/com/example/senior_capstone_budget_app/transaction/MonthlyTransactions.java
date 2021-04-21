@@ -17,19 +17,6 @@ import java.util.Date;
 
 
 public class MonthlyTransactions extends AppCompatActivity{
-    //Example transaction set for uses when testing the class without context passing issues
-    String[] temp = new String[]{"-100.00,Amazon,1617249600000,0",
-            "-60.42,Harris Teeter,1617249600000,4",
-            "-7.82,McDonald's,1617336000000,4",
-            "-25.68,Shell,1617336000000,3",
-            "-450.00,Keystone,1617595200000,1",
-            "-45.97,Amazon,1618286400000,5",
-            "-200.00,USAA,1618459200000,8",
-            "-34.76,Harris Teeter,1618459200000,4",
-            "-100.00,IRS,1618718400000,7",
-            "-12.32,Walgreens,1618977600000,6",
-            "-73.45,Duke Power,1619496000000,2"};
-
     String[] monthNames = {"January", "February",
             "March", "April", "May", "June", "July",
             "August", "September", "October", "November",
@@ -120,48 +107,6 @@ public class MonthlyTransactions extends AppCompatActivity{
     }
 
     /**
-     * Monthly Transaction Object constructor for use if context is passed
-     * @param c Android application context
-     */
-    public MonthlyTransactions(Context c) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-
-        currentMonth = cal.getTime();
-        currentTimestamp = new Timestamp(cal.getTimeInMillis());
-
-        cal.add(Calendar.MONTH, 1);
-
-        nextMonth = cal.getTime();
-        nextTimestamp = new Timestamp(cal.getTimeInMillis());
-
-        cal.add(Calendar.MONTH, -2);
-        timestampMinus1 = new Timestamp(cal.getTimeInMillis());
-
-        cal.add(Calendar.MONTH, -1);
-        timestampMinus2 = new Timestamp(cal.getTimeInMillis());
-
-        cal.add(Calendar.MONTH, -1);
-        timestampMinus3 = new Timestamp(cal.getTimeInMillis());
-
-        cal.add(Calendar.MONTH, -1);
-        timestampMinus4 = new Timestamp(cal.getTimeInMillis());
-
-        cal.add(Calendar.MONTH, -1);
-        timestampMinus5 = new Timestamp(cal.getTimeInMillis());
-
-        this.context = c;
-        this.categoryTotals = new double[9];
-        this.categoryPercents = new int[9];
-        this.currentTransactions = new ArrayList<>();
-        this.totals = new ArrayList<>();
-    }
-
-    /**
      * Creates a MonthlyTransactions object for use when populating the transactions history view
      * @param date The start date of the month we want history for
      */
@@ -180,28 +125,6 @@ public class MonthlyTransactions extends AppCompatActivity{
         this.categoryPercents = new int[9];
         this.currentTransactions = new ArrayList<>();
     }
-
-    /**
-     * !!! Modify for database when ready
-     * For reading from internal array
-     * Deprecated
-     */
-    public void loadTransactions(){
-        int counter = 0;
-        for (String s: temp){
-            String[] t = s.split(",");
-            double amount = Double.parseDouble(t[0]);
-            long l = Long.parseLong(t[2]);
-            Timestamp time = new Timestamp(l);
-            int cat = Integer.parseInt(t[3]);
-
-            if(currentTimestamp.compareTo(time)<= 0 && nextTimestamp.compareTo(time)>0){
-                currentTransactions.add(counter, new Transaction(amount, t[1], time, cat));
-                counter ++;
-            }
-        }
-    }
-
 
     /**
      * For use when reading from a file/database
@@ -224,27 +147,27 @@ public class MonthlyTransactions extends AppCompatActivity{
             int cat = Integer.parseInt(t[3]);
             if(currentTimestamp.compareTo(time)<= 0 && nextTimestamp.compareTo(time)>0){
                 currentTransactions.add(currentCounter, new Transaction(amount, t[1], time, cat));
-                total += -1 * amount;
+                total += amount;
                 currentCounter ++;
             }
             if(timestampMinus1.compareTo(time)<=0 && currentTimestamp.compareTo(time)>0){
-                minus1Month += -1 * amount;
+                minus1Month += amount;
                 oldTransactions.add(new Transaction(amount, t[1], time, cat));
             }
             if(timestampMinus2.compareTo(time)<=0 &&  timestampMinus1.compareTo(time)>0){
-                minus2Month += -1 * amount;
+                minus2Month += amount;
                 oldTransactions.add(new Transaction(amount, t[1], time, cat));
             }
             if(timestampMinus3.compareTo(time)<=0 &&  timestampMinus2.compareTo(time)>0){
-                minus3Month += -1 * amount;
+                minus3Month += amount;
                 oldTransactions.add(new Transaction(amount, t[1], time, cat));
             }
             if(timestampMinus4.compareTo(time)<=0 &&  timestampMinus3.compareTo(time)>0){
-                minus4Month += -1 * amount;
+                minus4Month += amount;
                 oldTransactions.add(new Transaction(amount, t[1], time, cat));
             }
             if(timestampMinus5.compareTo(time)<=0 &&  timestampMinus4.compareTo(time)>0){
-                minus5Month += -1 * amount;
+                minus5Month += amount;
                 oldTransactions.add(new Transaction(amount, t[1], time, cat));
             }
         }
@@ -287,7 +210,7 @@ public class MonthlyTransactions extends AppCompatActivity{
         double ending;
 
         for (Transaction t : currentTransactions){
-            double a = -1.0 * t.getAmount();
+            double a = t.getAmount();
             total += a;
             switch (t.getCategory()) {
                 case UNCATEGORIZED:
@@ -336,12 +259,8 @@ public class MonthlyTransactions extends AppCompatActivity{
         double ending;
         double a = 0.0;
 
-        if (t.getAmount() <= 0 ){
-            a = -1.0 * t.getAmount();
+        a = t.getAmount();
 
-        }else{
-            a = t.getAmount();
-        }
 
         switch (t.getCategory()) {
             case UNCATEGORIZED:
@@ -393,62 +312,33 @@ public class MonthlyTransactions extends AppCompatActivity{
 
         if(currentTimestamp.compareTo(t)<= 0 && nextTimestamp.compareTo(t)>0){
             currentTransactions.add(trans);
-            if (d <= 0 ){
-                total += -1 * d;
-
-            }else{
-                total += d;
-            }
+            total += d;
             totals.set(0,total);
         }
         if(timestampMinus1.compareTo(t)<=0 && currentTimestamp.compareTo(t)>0){
             minus1Month = totals.get(1);
-            if (d <= 0 ){
-                minus1Month += -1 * d;
-
-            }else{
-                minus1Month += d;
-            }
+            minus1Month += d;
             totals.set(1,minus1Month);
         }
         if(timestampMinus2.compareTo(t)<=0 &&  timestampMinus1.compareTo(t)>0){
             minus2Month = totals.get(2);
-            if (d <= 0 ){
-                minus2Month += -1 * d;
-
-            }else{
-                minus2Month += d;
-            }
+            minus2Month += d;
             totals.set(2,minus2Month);
         }
         if(timestampMinus3.compareTo(t)<=0 &&  timestampMinus2.compareTo(t)>0){
             minus3Month = totals.get(3);
-            if (d <= 0 ){
-                minus3Month += -1 * d;
-
-            }else{
-                minus3Month += d;
-            }
+            minus3Month += d;
             totals.set(3,minus3Month);
         }
         if(timestampMinus4.compareTo(t)<=0 &&  timestampMinus3.compareTo(t)>0){
             minus4Month = totals.get(4);
-            if (d <= 0 ){
-                minus4Month += -1 * d;
+            minus4Month += d;
 
-            }else{
-                minus4Month += d;
-            }
             totals.set(4,minus4Month);
         }
         if(timestampMinus5.compareTo(t)<=0 &&  timestampMinus4.compareTo(t)>0){
             minus5Month = totals.get(5);
-            if (d <= 0 ){
-                minus5Month += -1 * d;
-
-            }else{
-                minus5Month += d;
-            }
+            minus5Month += d;
             totals.set(5,minus5Month);
         }
         categorizeTransaction(trans);
@@ -465,13 +355,10 @@ public class MonthlyTransactions extends AppCompatActivity{
         int cat = t.getCategory().getVal();
         currentTransactions.remove(index);
         allTransactions.remove(index);
-        if (a <= 0 ){
-            total -= -1 * a;
-            categoryTotals[cat] -= -1 * a;
-        }else{
-            total -= a;
-            categoryTotals[cat] -= a;
-        }
+
+        total -= a;
+        categoryTotals[cat] -= a;
+
         totals.set(0, total);
         calculatePercents();
     }

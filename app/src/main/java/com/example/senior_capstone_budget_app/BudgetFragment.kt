@@ -53,6 +53,11 @@ class BudgetFragment : Fragment() {
 
         expected_work_income_edit_text.setText(budget?.expectedIncome.toString())
         additional_income_edit_text.setText(budget?.additionalIncome.toString())
+        if (budget!!.additionalIncome > 0.0){
+            additional_income_switch.isChecked = true
+            additional_income_edit_text.visibility = View.VISIBLE
+            additional_income_amount_prompt.visibility = View.VISIBLE
+        }
         var totalIncome = 0.0
         totalIncome = budget!!.expectedIncome + budget!!.additionalIncome
         total_income.setText(totalIncome.toString())
@@ -76,7 +81,7 @@ class BudgetFragment : Fragment() {
 
         set_budget_button.setOnClickListener {
             //on click actions here
-            saveBudget()
+            editBudget()
             Toast.makeText(context, "Budget Successfully Saved", Toast.LENGTH_SHORT).show()
             
             // navigate back to dashboard
@@ -91,6 +96,8 @@ class BudgetFragment : Fragment() {
             } else {
                 additional_income_edit_text.visibility = View.GONE
                 additional_income_amount_prompt.visibility = View.GONE
+                budget?.additionalIncome = 0.0
+                additional_income_edit_text.setText(budget?.additionalIncome.toString())
             }
         }
     }
@@ -109,7 +116,7 @@ class BudgetFragment : Fragment() {
                 || !TextUtils.isEmpty(medical_budget_edit_text.text.toString())
                 || !TextUtils.isEmpty(uncategorized_budget_edit_text.text.toString())){
 
-                saveBudget()
+                editBudget()
                 total_expenses.setText(budget?.totalExpenses.toString())
             } else {
                 total_expenses.text = ""
@@ -117,12 +124,21 @@ class BudgetFragment : Fragment() {
         }
     }
 
-    private fun saveBudget(){
+    private fun editBudget(){
         var b: DoubleArray = doubleArrayOf(uncategorized_budget_edit_text.text.toString().toDouble(), rent_budget_edit_text.text.toString().toDouble(), utilities_budget_edit_text.text.toString().toDouble(), 0.0,
             household_budget_edit_text.text.toString().toDouble(), personal_bugdet_edit_text.text.toString().toDouble(), medical_budget_edit_text.text.toString().toDouble(), 0.0, savings_budget_edit_text.text.toString().toDouble())
 
         budget?.limits = b
         budget?.calculateTotal()
+
+        budget?.expectedIncome = expected_work_income_edit_text.text.toString().toDouble()
+        budget?.additionalIncome = additional_income_edit_text.text.toString().toDouble()
+
+        println(budget?.toString())
+    }
+
+    private fun saveBudget(){
+
     }
 
     companion object {

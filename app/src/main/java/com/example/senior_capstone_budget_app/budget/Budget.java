@@ -25,6 +25,10 @@ public class Budget {
     public Budget() {
         Calendar cal = Calendar.getInstance();
         this.month = cal.MONTH;
+        this.expectedIncome = 0.0;
+        this.additionalIncome = 0.0;
+        this.totalExpenses = 0.0;
+        this.percentTotal = 0;
     }
 
     public Budget(int month, double expectedIncome, double additionalIncome, double[] limits, double totalExpenses) {
@@ -70,6 +74,17 @@ public class Budget {
             lim += d;
         }
         percentTotal = (int)((lim/total)*100);
+    }
+
+    @Override
+    public String toString() {
+        String retVal = "";
+        retVal = retVal + expectedIncome + "\n" + additionalIncome + "\n";
+        for (double d: limits){
+            retVal = retVal + d + ",";
+        }
+        retVal = retVal.substring(0, retVal.length()-1);
+        return retVal;
     }
 
     //====================================Getters====================================//

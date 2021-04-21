@@ -1,13 +1,21 @@
 package com.example.senior_capstone_budget_app.goals;
 
+import android.content.Context;
+
 import com.example.senior_capstone_budget_app.trackers.Tracker;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Goals {
+    private Context context;
     private ArrayList<Goal> goals;
 
     public Goals() {
@@ -52,6 +60,38 @@ public class Goals {
         goals.remove(index);
     }
 
+    public void saveGoals(String user){
+        String filename = user + "goals";
+        String data = this.toString();
+
+        FileOutputStream fos;
+        try {
+            fos = context.openFileOutput(filename, Context.MODE_PRIVATE);
+            fos.write(data.getBytes());
+            fos.close();
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public String readGoals(String user){
+        String filename = user + "goals";
+        StringBuffer stringBuffer = new StringBuffer();
+        try {
+            BufferedReader inputReader = new BufferedReader((new InputStreamReader(
+                    context.openFileInput(filename))));
+            String inputString;
+            while ((inputString = inputReader.readLine()) != null) {
+                stringBuffer.append(inputString + "\n");
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return stringBuffer.toString();
+    }
+
     @Override
     public String toString() {
         String retString = "";
@@ -76,6 +116,7 @@ public class Goals {
     public Goal getGoal(int index) {return goals.get(index);}
 
     //====================================Setters====================================//
+    public void setContext(Context context){this.context = context;}
     public void setGoals(ArrayList<Goal> goals) {this.goals = goals;}
     public void setGoal(Goal g, int index) {this.goals.set(index, g);}
 }

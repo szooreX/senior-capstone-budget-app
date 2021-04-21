@@ -82,6 +82,7 @@ class BudgetFragment : Fragment() {
         set_budget_button.setOnClickListener {
             //on click actions here
             editBudget()
+            budget?.saveBudget(DashboardActivity().user)
             Toast.makeText(context, "Budget Successfully Saved", Toast.LENGTH_SHORT).show()
             
             // navigate back to dashboard
@@ -135,10 +136,6 @@ class BudgetFragment : Fragment() {
         budget?.additionalIncome = additional_income_edit_text.text.toString().toDouble()
 
         println(budget?.toString())
-    }
-
-    private fun saveBudget(){
-
     }
 
     companion object {

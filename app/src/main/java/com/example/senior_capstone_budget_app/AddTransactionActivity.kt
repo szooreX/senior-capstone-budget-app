@@ -148,6 +148,7 @@ class AddTransactionActivity : AppCompatActivity() {
         }
 
         mT?.addTransaction(transactionAmount.toDouble(), transactionPayee, Timestamp(cal.timeInMillis), transCategoryId)
+        mT?.saveTransactions(DashboardActivity().user)
     }
 
     override fun onBackPressed() {

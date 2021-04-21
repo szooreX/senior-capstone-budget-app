@@ -3,18 +3,17 @@ package com.example.senior_capstone_budget_app.transaction;
 import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.senior_capstone_budget_app.data.database.DBConnectorInterface;
 import com.example.senior_capstone_budget_app.data.database.DataStoreAdapter;
-import com.example.senior_capstone_budget_app.data.database.MySQLDatabase;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Timestamp;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.jar.JarOutputStream;
 
 
 public class MonthlyTransactions extends AppCompatActivity{
@@ -57,6 +56,8 @@ public class MonthlyTransactions extends AppCompatActivity{
     private double minus3Month = 0;
     private double minus4Month = 0;
     private double minus5Month = 0;
+    private double monthlyAvg = 0;
+    private int percentOfAvg = 0;
 
     private ArrayList<Double> totals;
     private ArrayList<String> history;
@@ -254,14 +255,24 @@ public class MonthlyTransactions extends AppCompatActivity{
         totals.add(minus4Month);
         totals.add(minus5Month);
 
+        calculateAvg();
+
         //loadFromDatabase();
     }
 
-    public void loadFromDatabase(){
-        Map<String, String> user = new HashMap<>();
-        user.put("UUID", "b356ab0b-69d5-4483-b855-af29a48e5148");
+    private void calculateAvg() {
+        double totalSpending = 0;
+        int count = 0;
 
+        for (double d: totals){
+            totalSpending += d;
+            if (d != 0){
+                count++;
+            }
+        }
+        monthlyAvg = totalSpending/count;
     }
+
 
     /**
      * Loop trough the transaction list to calculate the total spent, total spent per category,
@@ -462,6 +473,46 @@ public class MonthlyTransactions extends AppCompatActivity{
         calculatePercents();
     }
 
+    public void saveTransactions(String user){
+        String filename = user + "transactions";
+        String data = this.toString();
+
+        FileOutputStream fos;
+        try {
+            fos = context.openFileOutput(filename, Context.MODE_PRIVATE);
+            fos.write(data.getBytes());
+            fos.close();
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public String readTransactions(String user){
+        String filename = user + "transactions";
+        StringBuffer stringBuffer = new StringBuffer();
+        try {
+            BufferedReader inputReader = new BufferedReader((new InputStreamReader(
+                    context.openFileInput(filename))));
+            String inputString;
+            while ((inputString = inputReader.readLine()) != null) {
+                stringBuffer.append(inputString + "\n");
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return stringBuffer.toString();
+    }
+
+    private void calculatePercents(){
+        for (int k = 0; k < 9; k++){
+            double catTotal = categoryTotals[k];
+            categoryPercents[k] = (int) ((catTotal/total) * 100);
+        }
+        percentOfAvg = (int) ((total/monthlyAvg)*100);
+    }
+
     @Override
     public String toString() {
         String transactions = "";
@@ -471,13 +522,6 @@ public class MonthlyTransactions extends AppCompatActivity{
         }
 
         return transactions;
-    }
-
-    private void calculatePercents(){
-        for (int k = 0; k < 9; k++){
-            double catTotal = categoryTotals[k];
-            categoryPercents[k] = (int) ((catTotal/total) * 100);
-        }
     }
 
     //====================================Getters====================================//
@@ -492,8 +536,10 @@ public class MonthlyTransactions extends AppCompatActivity{
     public int getCategoryPercents(int index) {return categoryPercents[index];}
     public int getLength(){return currentTransactions.size();}
     public String getHistory(int index) {return history.get(index);}
+    public int getPercentOfAvg() {return percentOfAvg;}
 
     //====================================Setters====================================//
+    public void setContext(Context context){this.context = context;}
     public void setCurrentMonth(Date currentMonth) {this.currentMonth = currentMonth;}
     public void setNextMonth(Date nextMonth) {this.nextMonth = nextMonth;}
     public void setCurrentTimestamp(Timestamp currentTimestamp) {this.currentTimestamp = currentTimestamp;}

@@ -50,8 +50,9 @@ class GoalsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (g == null){
+        if (g == null && loadFromAssets){
             g = Goals()
+            g?.setContext(activity?.applicationContext)
             try{
                 val inputStream: InputStream = activity?.applicationContext?.assets!!.open("goals.txt")
                 val size: Int = inputStream.available()
@@ -63,6 +64,13 @@ class GoalsFragment : Fragment() {
             }
             g?.loadGoals(gInput)
         }
+        if (g == null && !loadFromAssets){
+            g = Goals()
+            g?.setContext(activity?.applicationContext)
+            gInput = g!!.readGoals(DashboardActivity().user)
+            g?.loadGoals(gInput)
+        }
+        g?.saveGoals(DashboardActivity().user)
     }
 
     override fun onCreateView(

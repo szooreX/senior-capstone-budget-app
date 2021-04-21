@@ -9,7 +9,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.senior_capstone_budget_app.data.database.DataFactory
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
@@ -95,7 +94,6 @@ class TransactionsFragment : Fragment() {
 //                }
 //            }
         }
-        println(mT.toString())
     }
 
     fun getTransactionItems() {
@@ -141,6 +139,7 @@ class TransactionAdapter(private val item: TransactionItem) : Item() {
             TransactionsFragment().getTransactionItems()
             transactionItemAdapter.notifyItemRemoved(position)
             transactionItemAdapter.notifyItemRangeChanged(position,TransactionsFragment().getSize())
+            mT?.saveTransactions(DashboardActivity().user)
         })
     }
 

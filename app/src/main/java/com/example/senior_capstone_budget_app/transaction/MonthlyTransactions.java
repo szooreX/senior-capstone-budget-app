@@ -142,33 +142,33 @@ public class MonthlyTransactions extends AppCompatActivity{
             s = s.replaceAll("\\p{C}", "");
             String[] t = s.split(",");
             double amount = Double.parseDouble(t[0]);
-            long l = Long.parseLong(t[2]);
+            long l = Long.parseLong(t[3]);
             Timestamp time = new Timestamp(l);
-            int cat = Integer.parseInt(t[3]);
+            int cat = Integer.parseInt(t[4]);
             if(currentTimestamp.compareTo(time)<= 0 && nextTimestamp.compareTo(time)>0){
-                currentTransactions.add(currentCounter, new Transaction(amount, t[1], time, cat));
+                currentTransactions.add(currentCounter, new Transaction(amount, t[1], t[2],time, cat));
                 total += amount;
                 currentCounter ++;
             }
             if(timestampMinus1.compareTo(time)<=0 && currentTimestamp.compareTo(time)>0){
                 minus1Month += amount;
-                oldTransactions.add(new Transaction(amount, t[1], time, cat));
+                oldTransactions.add(new Transaction(amount, t[1], t[2],time, cat));
             }
             if(timestampMinus2.compareTo(time)<=0 &&  timestampMinus1.compareTo(time)>0){
                 minus2Month += amount;
-                oldTransactions.add(new Transaction(amount, t[1], time, cat));
+                oldTransactions.add(new Transaction(amount, t[1], t[2],time, cat));
             }
             if(timestampMinus3.compareTo(time)<=0 &&  timestampMinus2.compareTo(time)>0){
                 minus3Month += amount;
-                oldTransactions.add(new Transaction(amount, t[1], time, cat));
+                oldTransactions.add(new Transaction(amount, t[1], t[2],time, cat));
             }
             if(timestampMinus4.compareTo(time)<=0 &&  timestampMinus3.compareTo(time)>0){
                 minus4Month += amount;
-                oldTransactions.add(new Transaction(amount, t[1], time, cat));
+                oldTransactions.add(new Transaction(amount, t[1], t[2],time, cat));
             }
             if(timestampMinus5.compareTo(time)<=0 &&  timestampMinus4.compareTo(time)>0){
                 minus5Month += amount;
-                oldTransactions.add(new Transaction(amount, t[1], time, cat));
+                oldTransactions.add(new Transaction(amount, t[1], t[2],time, cat));
             }
         }
         allTransactions.addAll(currentTransactions);
@@ -307,8 +307,8 @@ public class MonthlyTransactions extends AppCompatActivity{
      * Add a single transaction to transactions list
      * @param t the transaction object to be added
      */
-    public void addTransaction(double d, String payee, Timestamp t, int c){
-        Transaction trans = new Transaction(d, payee, t, c);
+    public void addTransaction(double d, String payee, String details, Timestamp t, int c){
+        Transaction trans = new Transaction(d, payee, details, t, c);
 
         if(currentTimestamp.compareTo(t)<= 0 && nextTimestamp.compareTo(t)>0){
             currentTransactions.add(trans);

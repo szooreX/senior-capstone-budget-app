@@ -56,10 +56,12 @@ private var dashboardActivity : DashboardActivity? = null
     }
 
     fun setValues(){
+        goal_name.text = goal?.title
         var days: String = goal?.calculateDays().toString()
         days_left_goal_item_view.text = "You Have $days Days Left To Complete Your Goal On Time!"
         goal_item_progress_bar.progress = goal?.percent!!.toFloat()
         goal_item_progress_bar.progressText = goal?.percent.toString()+"%"
+        goal_item_view_description.text = goal?.description
 
         timepickerbutton.setOnClickListener {
             // dashboardActivity?.getTimePicker()

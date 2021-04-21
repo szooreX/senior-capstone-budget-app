@@ -107,10 +107,7 @@ class PieChartFragment : Fragment() {
             mT?.transactionLoop()
             mT?.saveTransactions(DashboardActivity().user)
         }
-
-        budgetExists = checkExists("budget")
         if (mT == null && !loadFromAssets && transactionsExist){
-            println("pass")
             mT = MonthlyTransactions()
             mT?.setContext(activity?.applicationContext)
             input = mT!!.readTransactions(DashboardActivity().user)
@@ -121,6 +118,8 @@ class PieChartFragment : Fragment() {
             mT = MonthlyTransactions()
             mT?.setContext(activity?.applicationContext)
         }
+
+        budgetExists = checkExists("budget")
         if (budget == null && loadFromAssets){
             budget = Budget()
             budget?.setContext(activity?.applicationContext)

@@ -137,7 +137,8 @@ class GoalsFragment : Fragment() {
                 i,
                 goal.calculateDays().toString() + " Days Left",
                 goal.percent,
-                goal.percent
+                goal.percent,
+                goal.description
             )
             goalItems.add(item)
         }
@@ -173,6 +174,7 @@ class GoalAdapter(private val item: GoalItem) : Item() {
         viewHolder.itemView.daysLeft.text = item.days
         viewHolder.itemView.percentComplete.text = item.percent.toString()+ "% Complete"
         viewHolder.itemView.percent_bar.progress = item.percent.toFloat()
+        viewHolder.itemView.goal_description.text = item.description
     }
 
     override fun getLayout(): Int {
@@ -181,4 +183,4 @@ class GoalAdapter(private val item: GoalItem) : Item() {
 }
 
 
-data class GoalItem(var title: String, var id: Int, var days: String, var per: Int, var percent: Int)
+data class GoalItem(var title: String, var id: Int, var days: String, var per: Int, var percent: Int, var description: String)

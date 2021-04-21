@@ -11,14 +11,16 @@ import java.util.Map;
 public class Transaction {
     private double amount;
     private String paymentTo;
+    private String details;
     private Date paymentDate;
     private Timestamp paymentTimestamp;
     private Categories category;
 
     //For payment generation from database
-    public Transaction(double amount, String paymentTo, Timestamp paymentDate, int c) {
+    public Transaction(double amount, String paymentTo, String details, Timestamp paymentDate, int c) {
         this.amount = amount;
         this.paymentTo = paymentTo;
+        this.details = details;
         this.paymentTimestamp = paymentDate;
         this.paymentDate = new Date(paymentTimestamp.getTime());
         switch (c){
@@ -48,13 +50,14 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return amount + "," + paymentTo + ","  + paymentTimestamp.getTime() + "," + category.getVal();
+        return amount + "," + paymentTo + ","  + details + "," + paymentTimestamp.getTime() + "," + category.getVal();
     }
 
     //For in app transaction generation
-    public Transaction(double amount, String paymentTo, Timestamp paymentDate, Categories category) {
+    public Transaction(double amount, String paymentTo, String details, Timestamp paymentDate, Categories category) {
         this.amount = amount;
         this.paymentTo = paymentTo;
+        this.details = details;
         this.paymentDate = paymentDate;
         this.category = category;
         this.paymentTimestamp = new Timestamp(paymentDate.getTime());
@@ -63,6 +66,7 @@ public class Transaction {
     //====================================Getters====================================//
     public double getAmount() {return amount;}
     public String getPaymentTo() {return paymentTo;}
+    public String getDetails() {return details;}
     public Date getPaymentDate() {return paymentDate;}
     public Timestamp getPaymentTimestamp() {return paymentTimestamp;}
     public Categories getCategory() {return category;}
@@ -70,6 +74,7 @@ public class Transaction {
     //====================================Setters====================================//
     public void setAmount(double amount) {this.amount = amount;}
     public void setPaymentTo(String paymentTo) {this.paymentTo = paymentTo;}
+    public void setDetails(String details) {this.details = details;}
     //For use by the user in app
     public void setPaymentDate(Date paymentDate) {
         this.paymentDate = paymentDate;

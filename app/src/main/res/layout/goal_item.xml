@@ -32,22 +32,45 @@
                 android:orientation="vertical"
                 android:padding="15dp">
 
-                <TextView
-                    android:id="@+id/goalName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|start"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginLeft="4dp"
-                    android:background="#00101010"
-                    android:fontFamily="@font/anaheim"
-                    android:gravity="center|start"
-                    android:padding="3dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textColor="#0B0B0B"
-                    android:textSize="18sp"
-                    android:textStyle="normal|bold"
-                    tools:text="Goal" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|start"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:background="#00101010"
+                        android:fontFamily="@font/anaheim"
+                        android:gravity="center|start"
+                        android:padding="3dp"
+                        android:text="Goal:"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="#008577"
+                        android:textSize="18sp"
+                        android:textStyle="normal|bold" />
+
+                    <TextView
+                        android:id="@+id/goalName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|start"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:background="#00101010"
+                        android:fontFamily="@font/anaheim"
+                        android:gravity="center|start"
+                        android:padding="3dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="#0B0B0B"
+                        android:textSize="18sp"
+                        android:textStyle="normal|bold"
+                        tools:text="Goal Name" />
+
+                </LinearLayout>
 
 
                 <TextView
@@ -67,10 +90,31 @@
                     android:textSize="12sp"
                     android:textStyle="normal|bold"
                     tools:text="___ Days Left" />
+
+                <TextView
+                    android:id="@+id/goal_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center|start"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="1"
+                    android:background="#00101010"
+                    android:fontFamily="@font/anaheim"
+                    android:gravity="center|start"
+                    android:paddingStart="3dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="3dp"
+                    android:paddingBottom="3dp"
+                    android:text="Pellentesque nec nam aliquam sem. Non blandit massa enim nec dui nunc mattis enim ut. Lacus vel facilisis volutpat est velit egestas dui id ornare. Cras pulvinar mattis nunc sed blandit libero volutpat sed. Felis eget velit aliquet."
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    android:textStyle="normal|bold" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|end"
                 android:gravity="center|end"

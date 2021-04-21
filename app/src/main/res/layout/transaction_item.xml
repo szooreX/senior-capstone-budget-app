@@ -6,89 +6,119 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="#FFFFFF"
-        android:fadingEdge="none"
-        android:gravity="center"
-        android:padding="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/transactionName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="30dp"
-            android:background="#00101010"
-            android:fontFamily="@font/anaheim"
-            android:gravity="center|start|center_horizontal|center_vertical"
-            android:padding="3dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:text="Transaction" />
+        android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center|end"
-            android:orientation="horizontal">
+            android:background="#FFFFFF"
+            android:fadingEdge="none"
+            android:gravity="center"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="10dp">
 
             <TextView
+                android:id="@+id/transactionName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="30dp"
+                android:layout_gravity="start"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="30dp"
                 android:background="#00101010"
                 android:fontFamily="@font/anaheim"
+                android:gravity="center|start|center_horizontal|center_vertical"
                 android:padding="3dp"
-                android:text="$"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="#333333"
+                android:textColor="#000000"
                 android:textSize="18sp"
-                android:textStyle="normal|bold" />
+                android:textStyle="bold"
+                tools:text="Transaction" />
 
-            <TextView
-                android:id="@+id/transactionAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginEnd="100dp"
-                android:background="#00101010"
-                android:fontFamily="@font/anaheim"
-                android:gravity="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="#333333"
-                android:textSize="20sp"
-                android:textStyle="normal|bold"
-                tools:text="amount" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|end"
+                android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/delete_transaction_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center|end"
-                android:layout_marginEnd="4dp"
-                android:background="#FFFFFF"
-                app:srcCompat="@drawable/ic_delete_svgrepo_com" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:background="#00101010"
+                    android:fontFamily="@font/anaheim"
+                    android:padding="3dp"
+                    android:text="$"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="#333333"
+                    android:textSize="18sp"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:id="@+id/transactionAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="100dp"
+                    android:background="#00101010"
+                    android:fontFamily="@font/anaheim"
+                    android:gravity="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="#333333"
+                    android:textSize="20sp"
+                    android:textStyle="normal|bold"
+                    tools:text="amount" />
+
+                <ImageButton
+                    android:id="@+id/delete_transaction_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center|end"
+                    android:layout_marginEnd="4dp"
+                    android:background="#FFFFFF"
+                    app:srcCompat="@drawable/ic_delete_svgrepo_com" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/expand_button"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="18dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="18dp"
+            android:paddingBottom="2dp"
+            android:text="Expand Description"
+            android:textColor="#008577"
+            android:textSize="10sp" />
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        <TextView
+            android:id="@+id/transaction_description_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/Background_Color"
+            android:paddingStart="18dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="18dp"
+            android:paddingBottom="8dp"
+            android:text="Description Here"
+            android:textColor="#000000"
+            android:textSize="10sp"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

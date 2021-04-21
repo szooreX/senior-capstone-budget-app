@@ -1,33 +1,30 @@
 package com.example.senior_capstone_budget_app.login
 
-
 import android.content.Intent
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
 import android.os.Bundle
-import android.util.Log
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import android.view.inputmethod.EditorInfo
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import com.example.senior_capstone_budget_app.DashboardActivity
+
+
 import com.example.senior_capstone_budget_app.R
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
-import kotlinx.android.synthetic.main.fragment_login.*
-
-var userEmail = " "
-
+import com.example.senior_capstone_budget_app.DashboardActivity
 
 class LoginFragment : Fragment() {
 
     private lateinit var loginViewModel: LoginViewModel
-    lateinit var mGoogleSignInClient: GoogleSignInClient
-    private val RCSIGNIN = 9001
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,55 +41,84 @@ class LoginFragment : Fragment() {
 
         var navController = findNavController()
 
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.server_client_id))
-            .requestEmail()
-            .build()
+        val usernameEditText = view.findViewById<EditText>(R.id.username)
+        val loginButton = view.findViewById<Button>(R.id.sign_in_button)
+        val loadingProgressBar = view.findViewById<ProgressBar>(R.id.loading)
 
-        mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+        loginViewModel.loginFormState.observe(viewLifecycleOwner,
+            Observer { loginFormState ->
+                if (loginFormState == null) {
+                    return@Observer
+                }
+                loginButton.isEnabled = loginFormState.isDataValid
+                loginFormState.usernameError?.let {
+                    usernameEditText.error = getString(it)
+                }
+            })
 
-        sign_in_button.setOnClickListener{
-            signIn()
-        }
+        loginViewModel.loginResult.observe(viewLifecycleOwner,
+            Observer { loginResult ->
+                loginResult ?: return@Observer
+                loadingProgressBar.visibility = View.GONE
+                loginResult.error?.let {
+                    showLoginFailed(it)
+                }
+                loginResult.success?.let {
+                    updateUiWithUser(it)
+                }
+            })
 
-    }
-
-    private fun signIn() {
-        val signInIntent = mGoogleSignInClient.signInIntent
-        startActivityForResult(
-            signInIntent, RCSIGNIN
-        )
-
-
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RCSIGNIN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                handleSignInResult(task)
-            } catch (e: ApiException) {
-                Log.e(
-                    "onAct:failed code=", e.statusCode.toString()
-                )
+        val afterTextChangedListener = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+                // ignore
             }
 
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                // ignore
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                loginViewModel.loginDataChanged(
+                    usernameEditText.text.toString()
+                )
+            }
         }
-    }
+        usernameEditText.addTextChangedListener(afterTextChangedListener)
+        usernameEditText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                loginViewModel.login(
+                    usernameEditText.text.toString()
+                )
+            }
+            false
+        }
 
-    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-        try {
-            var intent = Intent(activity, DashboardActivity::class.java)
-            startActivity(intent)
-
-        } catch (e: ApiException) {
-            // Sign in was unsuccessful
-            Log.e(
-                "Login:failed code=", e.statusCode.toString()
+        loginButton.setOnClickListener {
+            loadingProgressBar.visibility = View.VISIBLE
+            var result = loginViewModel.login(
+                usernameEditText.text.toString()
             )
-        }
 
+            var intent = Intent(activity, DashboardActivity::class.java)
+            when {
+                (result == 0) ->
+                    //success
+                    startActivity(intent)
+                /*(result == 1) ->*/
+                //failed
+            }
+        }
     }
 
+    private fun updateUiWithUser(model: LoggedInUserView) {
+        val welcome = getString(R.string.welcome) + model.username
+        // TODO : initiate successful logged in experience
+        val appContext = context?.applicationContext ?: return
+        Toast.makeText(appContext, welcome, Toast.LENGTH_LONG).show()
+    }
+
+    private fun showLoginFailed(@StringRes errorString: Int) {
+        val appContext = context?.applicationContext ?: return
+        Toast.makeText(appContext, errorString, Toast.LENGTH_LONG).show()
+    }
 }

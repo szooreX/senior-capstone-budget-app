@@ -1,11 +1,17 @@
 package com.example.senior_capstone_budget_app.budget;
 
+import android.content.Context;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
 import com.example.senior_capstone_budget_app.transaction.Transaction;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.Month;
@@ -13,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Budget {
+    private Context context;
     private int month;
     private double expectedIncome;
     private double additionalIncome;
@@ -25,6 +32,10 @@ public class Budget {
     public Budget() {
         Calendar cal = Calendar.getInstance();
         this.month = cal.MONTH;
+        this.expectedIncome = 0.0;
+        this.additionalIncome = 0.0;
+        this.totalExpenses = 0.0;
+        this.percentTotal = 0;
     }
 
     public Budget(int month, double expectedIncome, double additionalIncome, double[] limits, double totalExpenses) {
@@ -72,6 +83,49 @@ public class Budget {
         percentTotal = (int)((lim/total)*100);
     }
 
+    public void saveBudget(String user){
+        String filename = user + "budget";
+        String data = this.toString();
+
+        FileOutputStream fos;
+        try {
+            fos = context.openFileOutput(filename, Context.MODE_PRIVATE);
+            fos.write(data.getBytes());
+            fos.close();
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public String readBudget(String user){
+        String filename = user + "budget";
+        StringBuffer stringBuffer = new StringBuffer();
+        try {
+            BufferedReader inputReader = new BufferedReader((new InputStreamReader(
+                    context.openFileInput(filename))));
+            String inputString;
+            while ((inputString = inputReader.readLine()) != null) {
+                stringBuffer.append(inputString + "\n");
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return stringBuffer.toString();
+    }
+
+    @Override
+    public String toString() {
+        String retVal = "";
+        retVal = retVal + expectedIncome + "\n" + additionalIncome + "\n";
+        for (double d: limits){
+            retVal = retVal + d + ",";
+        }
+        retVal = retVal.substring(0, retVal.length()-1);
+        return retVal;
+    }
+
     //====================================Getters====================================//
     public int getMonth() {return month;}
     public double getExpectedIncome() {return expectedIncome;}
@@ -84,6 +138,7 @@ public class Budget {
     public int getCategoryPercent(int index) {return categoryPercents[index];}
 
     //====================================Setters====================================//
+    public void setContext(Context context){this.context = context;}
     public void setMonth(int month) {this.month = month;}
     public void setExpectedIncome(double expectedIncome) {this.expectedIncome = expectedIncome;}
     public void setAdditionalIncome(double additionalIncome) {this.additionalIncome = additionalIncome;}

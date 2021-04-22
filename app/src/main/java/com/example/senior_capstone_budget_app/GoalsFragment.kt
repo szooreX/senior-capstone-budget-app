@@ -22,12 +22,14 @@ import kotlinx.android.synthetic.main.goal_item.view.*
 import kotlinx.android.synthetic.main.transaction_item.view.*
 import java.io.IOException
 import java.io.InputStream
+import java.lang.Exception
 
 var g: Goals? = null
 var goals: ArrayList<Goal> = arrayListOf()
 var goal: Goal? = null
 var gInput= ""
 var index: Int = -1
+private var goalsExist = false
 
 class GoalsFragment : Fragment() {
 
@@ -50,8 +52,11 @@ class GoalsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (g == null){
+
+        goalsExist = checkExists("goals")
+        if (g == null && loadFromAssets){
             g = Goals()
+            g?.setContext(activity?.applicationContext)
             try{
                 val inputStream: InputStream = activity?.applicationContext?.assets!!.open("goals.txt")
                 val size: Int = inputStream.available()
@@ -62,6 +67,16 @@ class GoalsFragment : Fragment() {
                 e.printStackTrace()
             }
             g?.loadGoals(gInput)
+        }
+        if (g == null && !loadFromAssets && goalsExist){
+            g = Goals()
+            g?.setContext(activity?.applicationContext)
+            gInput = g!!.readGoals(DashboardActivity().user)
+            g?.loadGoals(gInput)
+        }
+        if (g == null && !loadFromAssets && !goalsExist){
+            g = Goals()
+            g?.setContext(activity?.applicationContext)
         }
     }
 
@@ -93,7 +108,7 @@ class GoalsFragment : Fragment() {
             goalsRecyclerView.adapter = goalItemAdapter
         }
         goals = g!!.goals
-        println(g.toString())
+
         //put functional code here for function calls, etc.
         getGoalItems()
 
@@ -122,7 +137,8 @@ class GoalsFragment : Fragment() {
                 i,
                 goal.calculateDays().toString() + " Days Left",
                 goal.percent,
-                goal.percent
+                goal.percent,
+                goal.description
             )
             goalItems.add(item)
         }
@@ -141,6 +157,12 @@ class GoalsFragment : Fragment() {
         index = goalItemAdapter.getAdapterPosition(item)
         findNavController().navigate(R.id.goalItemViewFragment)
     }
+
+    private fun checkExists(str: String) : Boolean{
+        val filename = DashboardActivity().user + str
+        var file = activity?.applicationContext?.getFileStreamPath(filename)
+        return file!!.exists()
+    }
 }
 
 class GoalAdapter(private val item: GoalItem) : Item() {
@@ -152,6 +174,7 @@ class GoalAdapter(private val item: GoalItem) : Item() {
         viewHolder.itemView.daysLeft.text = item.days
         viewHolder.itemView.percentComplete.text = item.percent.toString()+ "% Complete"
         viewHolder.itemView.percent_bar.progress = item.percent.toFloat()
+        viewHolder.itemView.goal_description.text = item.description
     }
 
     override fun getLayout(): Int {
@@ -160,4 +183,4 @@ class GoalAdapter(private val item: GoalItem) : Item() {
 }
 
 
-data class GoalItem(var title: String, var id: Int, var days: String, var per: Int, var percent: Int)
+data class GoalItem(var title: String, var id: Int, var days: String, var per: Int, var percent: Int, var description: String)

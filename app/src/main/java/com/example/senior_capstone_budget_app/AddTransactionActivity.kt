@@ -27,6 +27,7 @@ class AddTransactionActivity : AppCompatActivity() {
     private var popupTitle = ""
     private var transactionAmount = ""
     private var transactionPayee = ""
+    private var transactionDet = ""
     private var transactionDate = ""
     private var transactionCategory = ""
     private var popupButton = ""
@@ -132,6 +133,7 @@ class AddTransactionActivity : AppCompatActivity() {
     private fun addTransaction(){
         transactionAmount = transaction_amount_edit_text.text.toString()
         transactionPayee = transaction_to_edit_text.text.toString()
+        transactionDet = transaction_description.text.toString()
         val details: String = transaction_description_edit_text.text.toString()
         transactionCategory = spinner.selectedItemPosition.toString()
         val transCategoryPos = transactionCategory.toInt()
@@ -147,7 +149,8 @@ class AddTransactionActivity : AppCompatActivity() {
             6 -> transCategoryId = 0
         }
 
-        mT?.addTransaction(transactionAmount.toDouble(), transactionPayee, Timestamp(cal.timeInMillis), transCategoryId)
+        mT?.addTransaction(transactionAmount.toDouble(), transactionPayee, transactionDet, Timestamp(cal.timeInMillis), transCategoryId)
+        mT?.saveTransactions(DashboardActivity().user)
     }
 
     override fun onBackPressed() {

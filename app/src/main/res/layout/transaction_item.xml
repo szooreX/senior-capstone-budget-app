@@ -96,7 +96,7 @@
             android:paddingTop="2dp"
             android:paddingEnd="18dp"
             android:paddingBottom="2dp"
-            android:text="Expand Description"
+            android:text="Expand Details"
             android:textColor="#008577"
             android:textSize="10sp" />
 

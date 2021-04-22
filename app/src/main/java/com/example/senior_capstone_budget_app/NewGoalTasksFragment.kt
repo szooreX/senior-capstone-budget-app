@@ -140,12 +140,8 @@ class NewGoalTaskAdapter(private val item: NewGoalTaskItem) : Item() {
         //this this a function to add item properties to the recycler view, in this case I just want the image
         //viewHolder.itemView.goalImageView.setImageDrawable(item.image)
         viewHolder.itemView.task_name.text = item.title
-        if (item.completed) viewHolder.itemView.checkBox.isChecked = true
-        if (!item.completed) viewHolder.itemView.checkBox.isChecked = false
-        viewHolder.itemView.checkBox.setOnClickListener(View.OnClickListener {
-            tasks[position].isCompleted = !tasks[position].isCompleted
-            goal?.calculatePercent()
-        })
+        viewHolder.itemView.checkBox.visibility = View.INVISIBLE
+
         viewHolder.itemView.task_delete.setOnClickListener(View.OnClickListener {
             newGoal?.removeTask(position)
             NewGoalTasksFragment().getNewGoalTaskItems()

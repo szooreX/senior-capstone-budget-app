@@ -156,6 +156,7 @@ class TaskAdapter(private val item: TaskItem) : Item() {
             TasksFragment().getTaskItems()
             taskItemAdapter.notifyItemRemoved(position)
             taskItemAdapter.notifyItemRangeChanged(position, TasksFragment().getSize())
+            g?.saveGoals(DashboardActivity().user)
         })
     }
 

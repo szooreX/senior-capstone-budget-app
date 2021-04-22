@@ -54,7 +54,6 @@ class AddTaskNewGoalFragment : Fragment() {
     }
 
     private fun addTask(){
-        println("test")
         val s = newGoal.goalTasks.size
         taskTitle = add_task_new_goal_edit_text.text.toString()
         newGoal?.addTask(taskTitle)

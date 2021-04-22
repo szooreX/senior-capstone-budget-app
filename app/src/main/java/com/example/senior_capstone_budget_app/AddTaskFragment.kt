@@ -53,6 +53,7 @@ class AddTaskFragment : Fragment() {
 
             //navigate back to goalitemviewfragment
             addTask()
+            g?.saveGoals(DashboardActivity().user)
             findNavController().navigate(R.id.goalItemViewFragment)
         }
 

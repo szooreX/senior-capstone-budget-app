@@ -9,12 +9,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.senior_capstone_budget_app.data.database.DataFactory
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.fragment_transactions.*
 import kotlinx.android.synthetic.main.fragment_transactions.view.*
+import kotlinx.android.synthetic.main.goal_item_view_fragment.*
 import kotlinx.android.synthetic.main.transaction_item.view.*
 
 
@@ -84,18 +84,6 @@ class TransactionsFragment : Fragment() {
         //put functional code here for function calls, etc.
         getTransactionItems()
 
-        transactionItemAdapter.setOnItemClickListener { item, _ ->
-            accountItemAction(item)
-//            when ((item as accountAdapter).itemID) {
-//                0 -> {
-//                    item1Action()
-//                }
-//                1 -> {
-//                    item2Action()
-//                }
-//            }
-        }
-        println(mT.toString())
     }
 
     fun getTransactionItems() {
@@ -109,7 +97,8 @@ class TransactionsFragment : Fragment() {
 
             val item = TransactionItem(
                 trans!!.paymentTo,
-                i, trans!!.amount
+                i, trans!!.amount,
+                trans!!.details
             )
             transactionItems.add(item)
         }
@@ -118,10 +107,6 @@ class TransactionsFragment : Fragment() {
         displayItems = transactionItems
     }
 
-    private fun accountItemAction(item: com.xwray.groupie.Item<com.xwray.groupie.GroupieViewHolder>) {
-        //handle item click action
-
-    }
 
     fun getSize():Int{
         return displayItems.size
@@ -130,17 +115,30 @@ class TransactionsFragment : Fragment() {
 
 class TransactionAdapter(private val item: TransactionItem) : Item() {
     private var itemID = item.id
+    private var expanded = false
     private var itemBalance = item.amount.toString()
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         //this this a function to add item properties to the recycler view
         viewHolder.itemView.transactionName.text = item.title
         viewHolder.itemView.transactionAmount.text = itemBalance
+        //viewHolder.itemView.***.text = item.description
+        viewHolder.itemView.expand_button.setOnClickListener(View.OnClickListener {
+            if (!expanded){
+                viewHolder.itemView.expand_button.text = "Collapse Details"
+                expanded = true
+            }else{
+                viewHolder.itemView.expand_button.text = "Expand Details"
+                expanded = false
+            }
+
+        })
 
         viewHolder.itemView.delete_transaction_btn.setOnClickListener(View.OnClickListener {
             mT?.removeTransaction(position)
             TransactionsFragment().getTransactionItems()
             transactionItemAdapter.notifyItemRemoved(position)
             transactionItemAdapter.notifyItemRangeChanged(position,TransactionsFragment().getSize())
+            mT?.saveTransactions(DashboardActivity().user)
         })
     }
 
@@ -149,6 +147,6 @@ class TransactionAdapter(private val item: TransactionItem) : Item() {
     }
 }
 
-data class TransactionItem(var title: String, var id: Int, var amount: Double) {
+data class TransactionItem(var title: String, var id: Int, var amount: Double, var description: String) {
 
 }

@@ -31,6 +31,7 @@ import kotlinx.android.synthetic.main.fragment_pie_chart.*
 import kotlinx.android.synthetic.main.month_chart_item.view.*
 import org.eazegraph.lib.charts.PieChart
 import org.eazegraph.lib.models.PieModel
+import java.io.File
 import java.io.IOException
 import java.io.InputStream
 
@@ -47,6 +48,10 @@ var bInput = ""
 var percentInt = 0
 private var spentString = ""
 private var percentString = ""
+private var avgPercentString = ""
+var loadFromAssets = true;
+private var transactionsExist = false
+private var budgetExists = false
 
 /**
  * A simple [Fragment] subclass.
@@ -84,8 +89,10 @@ class PieChartFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
-        if (mT == null){
+        transactionsExist = checkExists("transactions")
+        if (mT == null && loadFromAssets){
             mT = MonthlyTransactions()
+            mT?.setContext(activity?.applicationContext)
             try {
                 val inputStream: InputStream =
                     activity?.applicationContext?.assets!!.open("TransactionSample.txt")
@@ -98,10 +105,24 @@ class PieChartFragment : Fragment() {
             }
             mT?.loadTransactions2(input)
             mT?.transactionLoop()
+            mT?.saveTransactions(DashboardActivity().user)
+        }
+        if (mT == null && !loadFromAssets && transactionsExist){
+            mT = MonthlyTransactions()
+            mT?.setContext(activity?.applicationContext)
+            input = mT!!.readTransactions(DashboardActivity().user)
+            mT?.loadTransactions2(input)
+            mT?.transactionLoop()
+        }
+        if (mT == null && !loadFromAssets && !transactionsExist){
+            mT = MonthlyTransactions()
+            mT?.setContext(activity?.applicationContext)
         }
 
-        if (budget == null){
+        budgetExists = checkExists("budget")
+        if (budget == null && loadFromAssets){
             budget = Budget()
+            budget?.setContext(activity?.applicationContext)
             try {
                 val inputStream: InputStream = activity?.applicationContext?.assets!!.open("budget.txt")
                 val size: Int = inputStream.available()
@@ -112,6 +133,17 @@ class PieChartFragment : Fragment() {
                 e.printStackTrace()
             }
             budget?.loadBudget(bInput)
+            budget?.saveBudget(DashboardActivity().user)
+        }
+        if (budget == null && !loadFromAssets && budgetExists){
+            budget = Budget()
+            budget?.setContext(activity?.applicationContext)
+            bInput = budget!!.readBudget(DashboardActivity().user)
+            budget?.loadBudget(bInput)
+        }
+        if (budget == null && !loadFromAssets && !budgetExists){
+            budget = Budget()
+            budget?.setContext(activity?.applicationContext)
         }
         Utils.init(context)
     }
@@ -141,17 +173,22 @@ class PieChartFragment : Fragment() {
         val stringTotal = String.format("%.2f", mT?.total)
         val percent = ((mT!!.total / budget!!.totalExpenses) * 100).toInt().toString()
         val percent2 = ((mT!!.total / budget!!.expectedIncome) * 100).toInt().toString()
+        val avg = mT!!.percentOfAvg.toString()
         percentInt = ((mT!!.total / budget!!.totalExpenses) * 100).toInt()
         spentString = "$$stringTotal Spent"
         percentString = "You've spent $percent% of your budget and $percent2% of your income."
+        avgPercentString = "You've spent $avg% of your monthly average so far."
 
         percent_budget.progress = (percentInt).toFloat()
         percent_budget.progressText = ((percentInt).toString() + "%")
         totalSpent.text = (spentString)
         percentBudget.text = (percentString)
+        percent_monthly_avg.text = (avgPercentString)
 
         createPieChart(piechart)
-        getMonthChartItems()
+        if (transactionsExist){
+            getMonthChartItems()
+        }
 
         month_chart_container.apply {
             month_chart_container.layoutManager = LinearLayoutManager(
@@ -283,10 +320,11 @@ class PieChartFragment : Fragment() {
         displayItems = monthChartItems
     }
 
-    private fun setSpendingLabels(string: String) {
-        totalSpent.text = (string)
+    private fun checkExists(str: String) : Boolean{
+        val filename = DashboardActivity().user + str
+        var file = activity?.applicationContext?.getFileStreamPath(filename)
+        return file!!.exists()
     }
-
 
     private fun createPieChart(pieChart: PieChart?) {
         // Set the percentage of language used
@@ -367,8 +405,6 @@ class PieChartFragment : Fragment() {
             startActivity(intent)
         }
         //To use the popup window, just pass the values for the Title, Text, Button text and Status Bar appearance.
-
-
     }
 
     companion object {

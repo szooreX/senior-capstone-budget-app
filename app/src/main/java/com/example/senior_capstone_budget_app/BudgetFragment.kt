@@ -71,6 +71,8 @@ class BudgetFragment : Fragment() {
         uncategorized_budget_edit_text.setText(budget!!.limits[0].toString())
         total_expenses.setText(budget?.totalExpenses.toString())
 
+        expected_work_income_edit_text.addTextChangedListener(textWatcher2)
+        additional_income_edit_text.addTextChangedListener(textWatcher2)
 
         savings_budget_edit_text.addTextChangedListener(textWatcher)
         personal_bugdet_edit_text.addTextChangedListener(textWatcher)
@@ -122,6 +124,26 @@ class BudgetFragment : Fragment() {
                 total_expenses.setText(budget?.totalExpenses.toString())
             } else {
                 total_expenses.text = ""
+            }
+        }
+    }
+
+    private val textWatcher2 = object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+        }
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            if (!TextUtils.isEmpty(expected_work_income_edit_text.text.toString())
+                || !TextUtils.isEmpty(personal_bugdet_edit_text.text.toString())
+                || !TextUtils.isEmpty(additional_income_edit_text.text.toString())){
+
+                editBudget()
+                var totalIncome = 0.0
+                totalIncome = budget!!.expectedIncome + budget!!.additionalIncome
+                total_income.text = totalIncome.toString()
+            } else {
+                total_income.text = ""
             }
         }
     }

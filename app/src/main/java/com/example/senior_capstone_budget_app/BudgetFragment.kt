@@ -71,6 +71,7 @@ class BudgetFragment : Fragment() {
         uncategorized_budget_edit_text.setText(budget!!.limits[0].toString())
         total_expenses.setText(budget?.totalExpenses.toString())
 
+
         savings_budget_edit_text.addTextChangedListener(textWatcher)
         personal_bugdet_edit_text.addTextChangedListener(textWatcher)
         utilities_budget_edit_text.addTextChangedListener(textWatcher)

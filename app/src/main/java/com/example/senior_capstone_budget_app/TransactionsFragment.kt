@@ -121,14 +121,16 @@ class TransactionAdapter(private val item: TransactionItem) : Item() {
         //this this a function to add item properties to the recycler view
         viewHolder.itemView.transactionName.text = item.title
         viewHolder.itemView.transactionAmount.text = itemBalance
-        //viewHolder.itemView.***.text = item.description
+        viewHolder.itemView.transaction_description_textView.text = item.description
         viewHolder.itemView.expand_button.setOnClickListener(View.OnClickListener {
             if (!expanded){
                 viewHolder.itemView.expand_button.text = "Collapse Details"
                 expanded = true
+                viewHolder.itemView.transaction_description_textView.visibility = View.VISIBLE
             }else{
                 viewHolder.itemView.expand_button.text = "Expand Details"
                 expanded = false
+                viewHolder.itemView.transaction_description_textView.visibility = View.GONE
             }
 
         })
